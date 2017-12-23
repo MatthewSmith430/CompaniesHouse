@@ -18,7 +18,9 @@ library(GGally)
 library(httr)
 library(jsonlite)
 
-#Install CompaniesHouse 
+#Install CompaniesHouse:
+#library(devtools)
+#devtools::install_github("MatthewSmith430/CompaniesHouse")
 library(CompaniesHouse)
 ```
 
