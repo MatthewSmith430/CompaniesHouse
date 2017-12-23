@@ -22,7 +22,7 @@ library(jsonlite)
 library(CompaniesHouse)
 ```
 
-##Authorisation Key
+## Authorisation Key
 To extract data from companies house (with the API), you will need to get an authorisation key.  
 
 The instructions on how to obtain your key can be found at:
@@ -63,10 +63,10 @@ The package can be used to create a set of networks.
 - Director network: a set of directors, where they are linked if they sit on the same company board.  
 - Company network: a set of companies, where they are linked if they share a director.  
 
-###Create Networks
+### Create Networks
 The follwoing functions create the various networks. Where a list of company numbers is required to create these networks.  
 
-####Interlocking Directorates Network
+#### Interlocking Directorates Network
 There are two ways to create the interlocking directorates network:  
 1.) From a list of company numbers  
 ```{r INTERLOCKS1,eval=FALSE}
@@ -77,31 +77,31 @@ INTERLOCKS<-InterlockNetwork(List.of.company.numbers,mkey)
 INTERLOCKS2<-make_interlock(DataFrame)
 ```
 
-####Company Network
+#### Company Network
 ```{r COMPnet,eval=FALSE}
 CompanyNET<-CompanyNetwork(List.of.company.numbers,mkey)
 ```
-####Director Network
+#### Director Network
 ```{r DIRnet,eval=FALSE}
 DirNET<-DirectorNetwork(List.of.company.numbers,mkey)
 ```
-###Network Analysis
+### Network Analysis
 The network(igraph object) is requried for these functions. These are calculated using the commands from the "Create Networks" section.  
 
-####Centrality
+#### Centrality
 For each network we can calculate a range of centrality measures. THe director and company networks are one-mode networks, so a wider range of centrality measures can be calculated. 
 ```{r CENT,eval=FALSE}
 INTERLOCKcent<-InterlockCentrality(INTERLOCKS)
 COMPANYcent<-CompanyCentrality(CompanyNET)
 DIRcent<-DirectorCentrality(DirNET)
 ```
-####Network properties
+#### Network properties
 We can calculate the properties of the director and company networks.
 ```{r PROP,eval=FALSE}
 COMPANYprop<-CompanyNetworkProperties(CompanyNET)
 DIRprop<-DirectorNetworkProperties(DirNET)
 ```
-###Plot Networks
+### Plot Networks
 The following function create plots of various networks. The TRUE/FALSE option indivates whether node labels should be included in the plots or not.  The network plots are created from a list of company numbers for a quick inspection of the networks. There are a number of other commands and packages that can be used to create high quality network visualsiations from the network objects in R.  
 
 ```{r pressure, eval=FALSE}
