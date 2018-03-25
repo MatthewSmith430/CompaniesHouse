@@ -37,7 +37,7 @@ InterlockNetworkPLOT<-function(coynoLIST,mkey,LABEL){
                    edge.color =  "grey50",arrow.size=0 )
   } else{
     GGally::ggnet2(INTERLOCKnet,
-                   node.size=6,node.color = "type",color.palette = "Set1",
+                   node.size=6,node.color = "DC",color.palette = "Set1",
                    color.legend = "Type",label = FALSE,
                    edge.color =  "grey50",arrow.size=0 )
   }

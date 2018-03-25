@@ -28,8 +28,8 @@ ExtractDirectorsData <- function(coyno,mkey) {
   DFdirOCCUPATION<-DFdir$items.occupation
   DFdirRESIDENCE<-DFdir$items.country_of_residence
   DFdirPOSTCODE<-DFdir$items.address.postal_code
-  DFdir$download<-format(Sys.time(), "%d/%m/%Y  %X")
-  DFdirDOWNLOADDATE<-DFdir$download
+  DFdirdownload<-format(Sys.time(), "%d/%m/%Y  %X")
+  DFdirDOWNLOADDATE<-DFdirdownload
 
   myDf <- data.frame(
     id = CheckNulls(coyno),
@@ -40,7 +40,8 @@ ExtractDirectorsData <- function(coyno,mkey) {
     role = CheckNulls(DFdirROLE),
     residence = CheckNulls(DFdirRESIDENCE),
     postcode = CheckNulls(DFdirPOSTCODE),
-    download.date<-CheckNulls(DFdirDOWNLOADDATE))
+    download.date=CheckNulls(DFdirDOWNLOADDATE)
+    )
 
   return(myDf)
 }

@@ -38,14 +38,14 @@ CompanyNetworkPLOT<-function(coynoLIST,mkey,LABEL){
 
   if (LABEL==TRUE){
     GGally::ggnet2(COMPnetwork,
-                   node.size=6,node.color = "#E41A1C",
-                   color.legend = "Type",label = TRUE,label.size = 2.5,
+                   node.size=6,node.color = "#E41A1C",#edge.size = "weight",
+                   label = TRUE,label.size = 2.5,
                    edge.color =  "grey50",arrow.size=0 )+
       ggplot2::guides(color = FALSE, size = FALSE)
   } else{
     GGally::ggnet2(COMPnetwork,
-                   node.size=6,node.color = "#E41A1C",
-                   color.legend = "Type",label = FALSE,
+                   node.size=6,node.color = "#E41A1C",#edge.size = "weight",
+                   label = FALSE,
                    edge.color =  "grey50",arrow.size=0 )+
       ggplot2::guides(color = FALSE, size = FALSE)
   }

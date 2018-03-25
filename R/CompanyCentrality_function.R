@@ -26,6 +26,7 @@ CompanyCentrality<-function(gs){
     TAB<-cbind(NAMES,Weighted.Degree,Binary.Degree,
                Betweenness,Closeness,Eigenvector)
     myDF<-as.data.frame(TAB)
+    myDF<-ITNr::round_df(myDF,digits=4)
     return(myDF)
   }
   else{
@@ -60,6 +61,7 @@ CompanyCentrality<-function(gs){
     TAB2<-rbind(TAB,mm)
     TAB2<-TAB2[order(TAB2[,1]),]
     myDF<-as.data.frame(TAB2)
+    myDF<-ITNr::round_df(myDF,digits=4)
     return(myDF)
   }
 }
