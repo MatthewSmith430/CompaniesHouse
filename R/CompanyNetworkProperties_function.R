@@ -47,7 +47,7 @@ CompanyNetworkProperties<-function(gs){
   )
   myDF<-t(myDF)
   colnames(myDF)<-"One-Mode Company Network"
-  myDF<-as.data.frame(myDF)
+  myDF<-as.data.frame(myDF,stringsAsFactors = FALSE)
   myDF<-ITNr::round_df(myDF,digits=4)
   return(myDF)
 }

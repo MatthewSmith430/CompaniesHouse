@@ -98,9 +98,9 @@ head(DirectorInformation)[1:3,]
     ## 2                              None  director   Denmark  EC4 0DY
     ## 3 Deputy Chairman Hsbc Asia Pacific  director Hong Kong EC4Y 0DY
     ##          download.date
-    ## 1 25/03/2018  16:10:55
-    ## 2 25/03/2018  16:10:55
-    ## 3 25/03/2018  16:10:55
+    ## 1 27/03/2018  13:13:43
+    ## 2 27/03/2018  13:13:43
+    ## 3 27/03/2018  13:13:43
 
 ``` r
 #To extract director data for a list of company numbers - say all 
@@ -218,10 +218,10 @@ head(COMPANYcent)[1:3,]
     ## 00041424 00041424                   3                 2           0
     ## 00307529 00307529                   2                 2           0
     ## 00413828 00413828                  30                 8           0
-    ##                   Closeness        Eigenvector
-    ## 00041424 0.0263157894736842 0.0458439972408844
-    ## 00307529            0.03125 0.0182867941241636
-    ## 00413828 0.0344827586206897   0.66432441192865
+    ##          Closeness Eigenvector
+    ## 00041424    0.0263      0.0458
+    ## 00307529    0.0312      0.0183
+    ## 00413828    0.0345      0.6643
 
 ``` r
 DIRcent<-DirectorCentrality(DirNET)
@@ -233,14 +233,14 @@ head(DIRcent)[1:3,]
     ## ALLEN, Nicholas Graham       ALLEN, Nicholas Graham                  36
     ## ALLGROVE, Jeffrey William ALLGROVE, Jeffrey William                  43
     ## ALLISON, James Brian           ALLISON, James Brian                  20
-    ##                           Binary.Degree.All      Betweenness
-    ## ALLEN, Nicholas Graham                   29 21.4444444444444
-    ## ALLGROVE, Jeffrey William                39 68.5333333333333
-    ## ALLISON, James Brian                     20                0
-    ##                                     Closeness       Eigenvector
-    ## ALLEN, Nicholas Graham    0.00325732899022801 0.282891445499302
-    ## ALLGROVE, Jeffrey William 0.00340136054421769  0.36940300331036
-    ## ALLISON, James Brian      0.00285714285714286 0.183702623970845
+    ##                           Binary.Degree.All Betweenness Closeness
+    ## ALLEN, Nicholas Graham                   29     21.4444    0.0033
+    ## ALLGROVE, Jeffrey William                39     68.5333    0.0034
+    ## ALLISON, James Brian                     20      0.0000    0.0029
+    ##                           Eigenvector
+    ## ALLEN, Nicholas Graham         0.2829
+    ## ALLGROVE, Jeffrey William      0.3694
+    ## ALLISON, James Brian           0.1837
 
 #### Network properties
 
@@ -252,6 +252,7 @@ head(COMPANYprop)
 ```
 
 
+    ##                       One-Mode Company Network
     ## id                    One-Mode Company network
     ## Size                                        13
     ## Density                              0.5128205
@@ -275,27 +276,49 @@ head(DIRprop)
 
 ### Plot Networks
 
-The following function create plots of various networks. The TRUE/FALSE option indivates whether node labels should be included in the plots or not. The network plots are created from a list of company numbers for a quick inspection of the networks. There are a number of other commands and packages that can be used to create high quality network visualsiations from the network objects in R.
+The following function create plots of various networks. The TRUE/FALSE option indivates whether node labels should be included in the plots or not. The network plots are created from a list of company numbers for a quick inspection of the networks. There are a number of other commands and packages that can be used to create high quality network visualsiations from the network objects in R. You can also specify the node size - with the default being size 6. In the following examples we use the default.
 
 ``` r
 #Interlocking Directorates Plot
-InterlockNetworkPLOT(as.character(CompanySearchList$company.number),mkey,FALSE)
+InterlockNetworkPLOT(as.character(CompanySearchList$company.number),mkey,FALSE,NodeSize = 6)
 ```
-
 
 ![](README_files/figure-markdown_github/ploti-1.png)
 
 ``` r
 #Directors Plot
-DirectorNetworkPLOT(as.character(CompanySearchList$company.number),mkey,FALSE)
+DirectorNetworkPLOT(as.character(CompanySearchList$company.number),mkey,FALSE,NodeSize = 6)
 ```
+
 
 ![](README_files/figure-markdown_github/plotd-1.png)
 
 ``` r
 #Company Plot
-CompanyNetworkPLOT(as.character(CompanySearchList$company.number,mkey,FALSE)
+CompanyNetworkPLOT(as.character(CompanySearchList$company.number),mkey,FALSE,NodeSize = 6)
 ```
 
 
 ![](README_files/figure-markdown_github/plotc-1.png)
+
+You can also create grid plots - showing a plot of all three networks on a single grid using the `cowplot` library. In the example below we plot the networks in a grid, setting node size to degree centrality.
+
+``` r
+##Load cowplot library
+library(cowplot)
+
+##Create plot objects with node size based on centrality
+interlock.plot<-InterlockNetworkPLOT(as.character(CompanySearchList$company.number),
+                                     mkey,FALSE,NodeSize = "CENTRALITY")
+director.plot<-DirectorNetworkPLOT(as.character(CompanySearchList$company.number),
+                                   mkey,FALSE,NodeSize = "CENTRALITY")
+company.plot<-CompanyNetworkPLOT(as.character(CompanySearchList$company.number), 
+                                 mkey,FALSE,NodeSize = "CENTRALITY")
+
+##Plot as a grid
+plot_grid(interlock.plot,director.plot,company.plot,
+          labels=c("Interlocks","Directors","Companies"))
+```
+
+
+![](README_files/figure-markdown_github/COWplot-1.png)

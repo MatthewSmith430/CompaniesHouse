@@ -1,7 +1,7 @@
 Package: CompaniesHouse
 Type: Package
 Title: Extract & Process Companies House Data in R
-Version: 0.1.0
+Version: 0.2.0
 Author: Matthew Smith
 Maintainer: Matthew Smith <matthew.smith@anthro.ox.ac.uk>
 Description: This package extracts firm information from Companies House (using the API). The package also provides tools to analyse this data, with a focus on creating interlocking directorates networks from the data.

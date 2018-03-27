@@ -4,9 +4,10 @@
 #' @param coynoLIST list of company numbers
 #' @param mkey Authorisation key
 #' @param LABEL Node Label - TRUE/FALSE
+#' @param NodeSize Node Size - default is 6, place number or CENTRALITY (weighted centrality)
 #' @export
 #' @return One-Mode Company Network - igraph object
-CompanyNetworkPLOT<-function(coynoLIST,mkey,LABEL){
+CompanyNetworkPLOT<-function(coynoLIST,mkey,LABEL,NodeSize){
   DATA<-list()
   for (i in 1:length(coynoLIST)){
     DATA[[i]]<-ExtractDirectorsData(coynoLIST[i],mkey)
@@ -35,16 +36,25 @@ CompanyNetworkPLOT<-function(coynoLIST,mkey,LABEL){
 
   COMPnetwork<-intergraph::asNetwork(COMPANYnet)
 
+  if (NodeSize=="CENTRALITY"){
+    NAMElist<-network::get.vertex.attribute(COMPnetwork,"vertex.names")
+    NAMElist<-as.data.frame(NAMElist,stringAsFactors=FALSE)
+    colnames(NAMElist)<-"NAME"
+    COMPANYcent<-CompanyCentrality(COMPANYnet)
+    CC<-COMPANYcent
+    NS<-CC[ order(match(CC$NAMES, NAMElist$NAME)), ]
+    NodeSize<-NS$Weighted.Degree.All
+  }else{NodeSize<-NodeSize}
 
   if (LABEL==TRUE){
     GGally::ggnet2(COMPnetwork,
-                   node.size=6,node.color = "#E41A1C",#edge.size = "weight",
+                   node.size=NodeSize,node.color = "#E41A1C",#edge.size = "weight",
                    label = TRUE,label.size = 2.5,
                    edge.color =  "grey50",arrow.size=0 )+
       ggplot2::guides(color = FALSE, size = FALSE)
   } else{
     GGally::ggnet2(COMPnetwork,
-                   node.size=6,node.color = "#E41A1C",#edge.size = "weight",
+                   node.size=NodeSize,node.color = "#E41A1C",#edge.size = "weight",
                    label = FALSE,
                    edge.color =  "grey50",arrow.size=0 )+
       ggplot2::guides(color = FALSE, size = FALSE)

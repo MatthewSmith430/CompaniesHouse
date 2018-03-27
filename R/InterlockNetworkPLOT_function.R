@@ -4,9 +4,10 @@
 #' @param coynoLIST list of company numbers
 #' @param mkey Authorisation key
 #' @param LABEL Node Label - TRUE/FALSE
+#' @param NodeSize Node Size - default is 6, place number or CENTRALITY (degree centrality)
 #' @export
 #' @return Two-Mode Interlocking Directorates Network - igraph object
-InterlockNetworkPLOT<-function(coynoLIST,mkey,LABEL){
+InterlockNetworkPLOT<-function(coynoLIST,mkey,LABEL,NodeSize){
   DATA<-list()
   for (i in 1:length(coynoLIST)){
     DATA[[i]]<-ExtractDirectorsData(coynoLIST[i],mkey)
@@ -30,16 +31,30 @@ InterlockNetworkPLOT<-function(coynoLIST,mkey,LABEL){
   igraph::V(INTERLOCK)$DC<-as.vector(DC)
 
   INTERLOCKnet<-intergraph::asNetwork(INTERLOCK)
+
+  if (NodeSize=="CENTRALITY"){
+    NAMElist<-network::get.vertex.attribute(INTERLOCKnet,"vertex.names")
+    NAMElist<-as.data.frame(NAMElist,stringAsFactors=FALSE)
+    colnames(NAMElist)<-"NAME"
+    INTERcent<-InterlockCentrality(INTERLOCK)
+    CC<-INTERcent
+    NS<-CC[ order(match(CC$NAMES, NAMElist$NAME)), ]
+    NodeSize<-NS$Degree.Centrality
+  }else{NodeSize<-NodeSize}
+
   if (LABEL==TRUE){
     GGally::ggnet2(INTERLOCKnet,
-                   node.size=6,node.color = DC,color.palette = "Set1",
+                   node.size=NodeSize,node.color = DC,color.palette = "Set1",
                    color.legend = "Type",label = TRUE,label.size = 2.5,
-                   edge.color =  "grey50",arrow.size=0 )
+                   edge.color =  "grey50",arrow.size=0 )+
+      ggplot2::guides(size = FALSE)
+
   } else{
     GGally::ggnet2(INTERLOCKnet,
-                   node.size=6,node.color = "DC",color.palette = "Set1",
+                   node.size=NodeSize,node.color = "DC",color.palette = "Set1",
                    color.legend = "Type",label = FALSE,
-                   edge.color =  "grey50",arrow.size=0 )
+                   edge.color =  "grey50",arrow.size=0 )+
+      ggplot2::guides(size = FALSE)
   }
 
 }
