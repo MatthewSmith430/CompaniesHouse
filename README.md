@@ -54,7 +54,6 @@ CompanySearchList<-CompanySearch("unilever",mkey)
 head(CompanySearchList)[1:3,]
 ```
 
-
     ##   id.search.term                  company.name company.number
     ## 1       unilever                  UNILEVER PLC       00041424
     ## 2       unilever       UNILEVER BCS UK LIMITED       09521994
@@ -88,7 +87,6 @@ DirectorInformation<-ExtractDirectorsData("00041424", mkey)
 head(DirectorInformation)[1:3,]
 ```
 
-
     ##         id                 directors start.date end.date
     ## 1 00041424            SOTAMAA, Ritva 2018-01-01     <NA>
     ## 2 00041424 ANDERSEN, Nils Smedegaard 2015-04-30     <NA>
@@ -98,9 +96,9 @@ head(DirectorInformation)[1:3,]
     ## 2                              None  director   Denmark  EC4 0DY
     ## 3 Deputy Chairman Hsbc Asia Pacific  director Hong Kong EC4Y 0DY
     ##          download.date
-    ## 1 27/03/2018  13:13:43
-    ## 2 27/03/2018  13:13:43
-    ## 3 27/03/2018  13:13:43
+    ## 1 29/03/2018  15:59:59
+    ## 2 29/03/2018  15:59:59
+    ## 3 29/03/2018  15:59:59
 
 ``` r
 #To extract director data for a list of company numbers - say all 
@@ -122,7 +120,6 @@ CompanySIC<-CompanySIC("00041424", mkey)
 
 CompanySIC
 ```
-
 
     ## [1] 70100
     ## Levels: 70100
@@ -202,7 +199,6 @@ INTERLOCKcent<-InterlockCentrality(INTERLOCKS1)
 head(INTERLOCKcent)[1:3,]
 ```
 
-
     ##             NAMES Degree.Centrality
     ## 00041424 00041424                34
     ## 09521994 09521994                12
@@ -212,7 +208,6 @@ head(INTERLOCKcent)[1:3,]
 COMPANYcent<-CompanyCentrality(CompanyNET)
 head(COMPANYcent)[1:3,]
 ```
-
 
     ##             NAMES Weighted.Degree.All Binary.Degree.All Betweenness
     ## 00041424 00041424                   3                 2           0
@@ -227,7 +222,6 @@ head(COMPANYcent)[1:3,]
 DIRcent<-DirectorCentrality(DirNET)
 head(DIRcent)[1:3,]
 ```
-
 
     ##                                               NAMES Weighted.Degree.All
     ## ALLEN, Nicholas Graham       ALLEN, Nicholas Graham                  36
@@ -251,7 +245,6 @@ COMPANYprop<-CompanyNetworkProperties(CompanyNET)
 head(COMPANYprop)
 ```
 
-
     ##                       One-Mode Company Network
     ## id                    One-Mode Company network
     ## Size                                        13
@@ -264,7 +257,6 @@ head(COMPANYprop)
 DIRprop<-DirectorNetworkProperties(DirNET)
 head(DIRprop)
 ```
-
 
     ##                       One-Mode Director Network
     ## Size                                   151.0000
@@ -290,14 +282,12 @@ InterlockNetworkPLOT(as.character(CompanySearchList$company.number),mkey,FALSE,N
 DirectorNetworkPLOT(as.character(CompanySearchList$company.number),mkey,FALSE,NodeSize = 6)
 ```
 
-
 ![](README_files/figure-markdown_github/plotd-1.png)
 
 ``` r
 #Company Plot
 CompanyNetworkPLOT(as.character(CompanySearchList$company.number),mkey,FALSE,NodeSize = 6)
 ```
-
 
 ![](README_files/figure-markdown_github/plotc-1.png)
 
@@ -322,3 +312,93 @@ plot_grid(interlock.plot,director.plot,company.plot,
 
 
 ![](README_files/figure-markdown_github/COWplot-1.png)
+
+Additional useful functions
+===========================
+
+Gender Information
+------------------
+
+If your research require to examine the gender of directors, and how patterns of interlocking directorates differ for males and female, you will need additional information, as companies house does not provide gender information. However, there are a number of R packages that estimate the likelihood that a individual is male or female based on their first names. Although this is restricted to english first names, it still remains a useful tool to proxy gender information.
+The available packages include `gender` and `genderizeR`. In the following example, we make use of the `genderizeR` package. We extract the gender information for all actors in the example unilever director network, and then plot this network with the gender information.
+
+``` r
+##Load the relevant packages
+library(igraph)
+library(magrittr)
+library(intergraph)
+library(network)
+library(GGally)
+library(genderizeR)
+
+##Create name dataframe from director network
+directornames<-V(DirNET)$name%>%as.data.frame(.,stringsAsFactors=FALSE)
+colnames(directornames)<-"Names"
+
+##Split the names into first and last names
+names.split <- strsplit(unlist(directornames$Names), ",")
+name.last <- sapply(names.split, function(x) x[1])
+name.first <- sapply(names.split, function(x)
+  # this deals with empty name slots in your original list, returning NA
+  if(length(x) == 0) {
+    NA
+    } else if (x[length(x)] %in% c("Jr.", "Jr", "Sr.", "Sr",
+                                 "Dr", " Dr", " Baron","Dr.", " Dr.",
+                                 "Professor", " Professor")) {
+    gsub("[[:punct:]]", "", x[length(x) - 1])
+    
+  } else {
+    x[length(x)]
+  })
+
+##Create new names dataframe
+nameDF<-data.frame(id=1:length(name.first),
+                   name.first=name.first,
+                   name.last=name.last)
+
+nameDF$name.first<-as.character(nameDF$name.first)
+nameDF$name.first<-trimws(nameDF$name.first)
+nameDF$name.last<-as.character(nameDF$name.last)
+
+##Extract first word of first name vectors (as this can also include middle/multiple names etc)
+##This will be used as matching key later.
+name1<-gsub(" .*", '', nameDF$name.first)
+nameDF<-cbind(nameDF,name1)
+nameDF$name1<-as.character(nameDF$name1)%>%tolower()
+  
+##Implement genderizeR
+xPrepared = textPrepare(nameDF$name.first)
+givenNames = findGivenNames(xPrepared, progress = FALSE) %>% as.data.frame(.,stringsAsFactors=FALSE)
+
+##From this create a gender-name key
+nameKEY<-givenNames
+nameKEY$probability<-NULL
+nameKEY$count<-NULL
+colnames(nameKEY)<-c("name1","gender")
+
+##Merge this will the director name dataframe
+nameDF <- merge(nameDF, nameKEY, by = "name1",all.x = TRUE) 
+nameDF$name1<-NULL
+nameDF[is.na(nameDF)]<-"na"
+
+##Add these as igraph network atributes
+V(DirNET)$gender<-nameDF$gender
+numericgender<-as.factor(nameDF$gender)%>%as.numeric() #Add numeric attribute
+V(DirNET)$gendernumeric<-numericgender
+
+##plot director network with gender information
+DIRnetwork<-asNetwork(DirNET)
+
+ggnet2(DIRnetwork,color.palette="Set1",
+       node.size=4,color.legend = "Gender",
+       node.color = get.vertex.attribute(DIRnetwork,"gender"),
+       label = FALSE,edge.color =  "grey50",arrow.size=0)
+
+####NOTE
+##THis can implemented for other languages (not just english names), 
+##if the following is implemented.
+Sys.setlocale("LC_ALL", "Polish") #Polish example
+##see the genderizeR documentation for further details
+```
+
+![](README_files/figure-markdown_github/gender2-1.png)
