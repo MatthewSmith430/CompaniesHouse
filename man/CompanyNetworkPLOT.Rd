@@ -4,7 +4,7 @@
 \alias{CompanyNetworkPLOT}
 \title{One-Mode Company Network}
 \usage{
-CompanyNetworkPLOT(coynoLIST, mkey, LABEL)
+CompanyNetworkPLOT(coynoLIST, mkey, LABEL, NodeSize)
 }
 \arguments{
 \item{coynoLIST}{list of company numbers}
@@ -12,6 +12,8 @@ CompanyNetworkPLOT(coynoLIST, mkey, LABEL)
 \item{mkey}{Authorisation key}
 
 \item{LABEL}{Node Label - TRUE/FALSE}
+
+\item{NodeSize}{Node Size - default is 6, place number or CENTRALITY (weighted centrality)}
 }
 \value{
 One-Mode Company Network - igraph object

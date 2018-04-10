@@ -4,7 +4,7 @@
 \alias{DirectorNetworkPLOT}
 \title{One-Mode Directors Network}
 \usage{
-DirectorNetworkPLOT(coynoLIST, mkey, LABEL)
+DirectorNetworkPLOT(coynoLIST, mkey, LABEL, NodeSize = 6)
 }
 \arguments{
 \item{coynoLIST}{list of company numbers}
@@ -12,6 +12,8 @@ DirectorNetworkPLOT(coynoLIST, mkey, LABEL)
 \item{mkey}{Authorisation key}
 
 \item{LABEL}{Node Label - TRUE/FALSE}
+
+\item{NodeSize}{Node Size - default is 6, place number or CENTRALITY (weighted centrality)}
 }
 \value{
 One-Mode Director Network - igraph object

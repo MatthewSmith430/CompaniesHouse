@@ -7,7 +7,8 @@ Maintainer: Matthew Smith <matthew.smith@anthro.ox.ac.uk>
 Description: This package extracts firm information from Companies House (using the API). The package also provides tools to analyse this data, with a focus on creating interlocking directorates networks from the data.
 License: GPL-3
 Encoding: UTF-8
-Imports: igraph,dplyr,plyr,ggplot2,GGally,httr,jsonlite,intergraph,sna,tnet
+Imports: igraph,dplyr,plyr,ggplot2,ITNr,
+         GGally,httr,jsonlite,intergraph,sna,network,tnet
 LazyData: true
 RoxygenNote: 6.0.1
 Suggests: knitr,

@@ -4,7 +4,7 @@
 \alias{InterlockNetworkPLOT}
 \title{Interlocking Directorates Network}
 \usage{
-InterlockNetworkPLOT(coynoLIST, mkey, LABEL)
+InterlockNetworkPLOT(coynoLIST, mkey, LABEL, NodeSize)
 }
 \arguments{
 \item{coynoLIST}{list of company numbers}
@@ -12,6 +12,8 @@ InterlockNetworkPLOT(coynoLIST, mkey, LABEL)
 \item{mkey}{Authorisation key}
 
 \item{LABEL}{Node Label - TRUE/FALSE}
+
+\item{NodeSize}{Node Size - default is 6, place number or CENTRALITY (degree centrality)}
 }
 \value{
 Two-Mode Interlocking Directorates Network - igraph object
