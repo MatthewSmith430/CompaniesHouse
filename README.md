@@ -187,6 +187,7 @@ NA
 </tr>
 </tfoot>
 </table>
+
 Extract Directors Data
 ----------------------
 
@@ -201,6 +202,7 @@ This function extract director information for a company numbers. Where it gives
 DirectorInformation<-ExtractDirectorsData("00041424", mkey)
 
 ```
+
 <table class="table table-striped table-hover table-condensed table-responsive" style="font-size: 8px; margin-left: auto; margin-right: auto;">
 <thead>
 <tr>
@@ -335,6 +337,7 @@ EC4Y 0DY
 </tr>
 </tfoot>
 </table>
+
 ``` r
 #To extract director data for a list of company numbers - say all 
 #firms associated with the Unilever search term we use:
@@ -494,9 +497,11 @@ FC024822
 </tr>
 </tfoot>
 </table>
+
 ``` r
 COMPANYcent<-CompanyCentrality(CompanyNET)
 ```
+
 <table class="table table-striped table-hover table-condensed table-responsive" style="margin-left: auto; margin-right: auto;">
 <thead>
 <tr>
@@ -606,6 +611,7 @@ FC024822
 </tr>
 </tfoot>
 </table>
+
 ``` r
 DIRcent<-DirectorCentrality(DirNET)
 ```
@@ -719,6 +725,7 @@ CHA, Laura May Lung
 </tr>
 </tfoot>
 </table>
+
 #### Network properties
 
 We can calculate the properties of the director and company networks.
@@ -972,6 +979,7 @@ Clustering.Weighted
 </tr>
 </tfoot>
 </table>
+
 ### Plot Networks
 
 The following function create plots of various networks. The TRUE/FALSE option indicates whether node labels should be included in the plots or not. The network plots are created from a list of company numbers for a quick inspection of the networks. There are a number of other commands and packages that can be used to create high quality network visualsiations from the network objects in R. You can also specify the node size - in the following examples we use size 6.
