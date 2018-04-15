@@ -855,9 +855,11 @@ Clustering.Weighted
 </tr>
 </tfoot>
 </table>
+
 ``` r
 DIRprop<-DirectorNetworkProperties(DirNET)
 ```
+
 <table class="table table-striped table-hover table-condensed table-responsive" style="margin-left: auto; margin-right: auto;">
 <thead>
 <tr>
