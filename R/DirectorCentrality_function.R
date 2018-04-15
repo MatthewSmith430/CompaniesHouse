@@ -27,8 +27,8 @@ DirectorCentrality<-function(gs){
                Betweenness,Closeness,Eigenvector)
     myDF<-as.data.frame(TAB,stringsAsFactors = FALSE)
     myDF$NAMES<-as.character(myDF$NAMES)
-    myDF$Weighted.Degree.All<-as.numeric(myDF$Weighted.Degree.All)
-    myDF$Binary.Degree.All<-as.numeric(myDF$Binary.Degree.All)
+    myDF$Weighted.Degree<-as.numeric(myDF$Weighted.Degree)
+    myDF$Binary.Degree<-as.numeric(myDF$Binary.Degree)
     myDF$Betweenness<-as.numeric(myDF$Betweenness)
     myDF$Closeness<-as.numeric(myDF$Closeness)
     myDF$Eigenvector<-as.numeric(myDF$Eigenvector)
@@ -68,12 +68,13 @@ DirectorCentrality<-function(gs){
     TAB2<-TAB2[order(TAB2[,1]),]
     myDF<-as.data.frame(TAB2,stringsAsFactors = FALSE)
     myDF$NAMES<-as.character(myDF$NAMES)
-    myDF$Weighted.Degree.All<-as.numeric(myDF$Weighted.Degree.All)
-    myDF$Binary.Degree.All<-as.numeric(myDF$Binary.Degree.All)
+    myDF$Weighted.Degree<-as.numeric(myDF$Weighted.Degree)
+    myDF$Binary.Degree<-as.numeric(myDF$Binary.Degree)
     myDF$Betweenness<-as.numeric(myDF$Betweenness)
     myDF$Closeness<-as.numeric(myDF$Closeness)
     myDF$Eigenvector<-as.numeric(myDF$Eigenvector)
     myDF<-ITNr::round_df(myDF,digits=4)
+    rownames(myDF)<-1:length(myDF$NAMES)
     return(myDF)
   }
 }

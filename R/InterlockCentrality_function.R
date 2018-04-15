@@ -13,5 +13,6 @@ InterlockCentrality<-function(gs){
     myDF$NAMES<-as.character(myDF$NAMES)
     myDF$Degree.Centrality<-as.numeric(myDF$Degree.Centrality)
     return(myDF)
+    rownames(myDF)<-1:length(myDF$NAMES)
 }
 

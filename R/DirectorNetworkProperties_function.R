@@ -48,6 +48,12 @@ DirectorNetworkProperties<-function(gs){
   colnames(myDF)<-"One-Mode Director Network"
   myDF<-as.data.frame(myDF,stringsAsFactors=FALSE)
   myDF<-ITNr::round_df(myDF,digits=4)
+  rownames(myDF)<-c("Size", "Density", "Diameter", "Average.path.lenth",
+                    "Average.node.stregnth","Average.Degree",
+                    "Betweenness.Centralisation","Closeness.Centralisation",
+                    "Eigenvector.Centralisation", "Degree.Centralisation",
+                    "Clustering.coefficent.transitivity",
+                    "Clustering.Weighted")
   return(myDF)
 }
 

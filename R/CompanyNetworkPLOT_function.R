@@ -43,7 +43,7 @@ CompanyNetworkPLOT<-function(coynoLIST,mkey,LABEL,NodeSize){
     COMPANYcent<-CompanyCentrality(COMPANYnet)
     CC<-COMPANYcent
     NS<-CC[ order(match(CC$NAMES, NAMElist$NAME)), ]
-    NodeSize<-NS$Weighted.Degree.All
+    NodeSize<-NS$Weighted.Degree
   }else{NodeSize<-NodeSize}
 
   if (LABEL==TRUE){

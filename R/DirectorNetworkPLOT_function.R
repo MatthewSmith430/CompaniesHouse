@@ -44,7 +44,7 @@ DirectorNetworkPLOT<-function(coynoLIST,mkey,LABEL,NodeSize=6){
     DIRcent<-DirectorCentrality(DIRECTORnet)
     CC<-DIRcent
     NS<-CC[ order(match(CC$NAMES, NAMElist$NAME)), ]
-    NodeSize<-NS$Weighted.Degree.All
+    NodeSize<-NS$Weighted.Degree
   }else{NodeSize<-NodeSize}
 
   if (LABEL==TRUE){

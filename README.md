@@ -3,14 +3,14 @@ Companies House
 
 This is an R package aimed at helping in extracting data from companies house: <https://www.gov.uk/government/organisations/companies-house>
 
-It particular, it provides a way to search for companies and extract a set of componay numbers. These company numbers can then be used to identify company directors.
+It particular, it provides a way to search for companies and extract a set of company numbers. These company numbers can then be used to identify company directors.
 
-This package also provides functions which allow you to build a network of interlocking directors, that is a network of individuals and the companies, linked by board membership. Other networks are also created - such as director networks, this is a set of indiviudals linked by sitting on (at least one of) the same company board of directors. Company networks - a set of companies linked by having (at least one of) the same directors sitting on the board.
+This package also provides functions which allow you to build a network of interlocking directors, that is a network of individuals and the companies, linked by board membership. Other networks are also created - such as director networks, this is a set of individuals linked by sitting on (at least one of) the same company board of directors. Company networks - a set of companies linked by having (at least one of) the same directors sitting on the board.
 
 Packages
 --------
 
-This package is requires a number of other packages, more specifically:
+This package requires a number of other packages, more specifically:
 
 ``` r
 library(igraph)
@@ -51,26 +51,142 @@ The following function allows you to search for companies in Companies House (us
 #Search for a "COMPANY SEARCH TERM"
 #In this example we use "unilever"
 CompanySearchList<-CompanySearch("unilever",mkey)
-head(CompanySearchList)[1:3,]
 ```
 
-    ##   id.search.term                  company.name company.number
-    ## 1       unilever                  UNILEVER PLC       00041424
-    ## 2       unilever       UNILEVER BCS UK LIMITED       09521994
-    ## 3       unilever UNILEVER BESTFOODS UK LIMITED       BR014135
-    ##   Date.of.Creation     company.type company.status
-    ## 1       1894-06-21              plc         active
-    ## 2       2015-04-01              ltd         active
-    ## 3       2009-10-01 uk-establishment         closed
-    ##                                                                     address
-    ## 1                               Port Sunlight, Wirral, Merseyside, CH62 4ZD
-    ## 2 Unilever House, 100 Victoria Embankment, London, United Kingdom, EC4Y 0DY
-    ## 3                     Unit 12 Mckinney Industrial Estate Co Antrim, Mallusk
-    ##          country postcode
-    ## 1           <NA> CH62 4ZD
-    ## 2 United Kingdom EC4Y 0DY
-    ## 3           <NA>     <NA>
-
+<table class="table table-striped table-hover table-condensed table-responsive" style="font-size: 8px; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+id.search.term
+</th>
+<th style="text-align:left;">
+company.name
+</th>
+<th style="text-align:left;">
+company.number
+</th>
+<th style="text-align:left;">
+Date.of.Creation
+</th>
+<th style="text-align:left;">
+company.type
+</th>
+<th style="text-align:left;">
+company.status
+</th>
+<th style="text-align:left;">
+address
+</th>
+<th style="text-align:left;">
+country
+</th>
+<th style="text-align:left;">
+postcode
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+unilever
+</td>
+<td style="text-align:left;">
+UNILEVER PLC
+</td>
+<td style="text-align:left;">
+00041424
+</td>
+<td style="text-align:left;">
+1894-06-21
+</td>
+<td style="text-align:left;">
+plc
+</td>
+<td style="text-align:left;">
+active
+</td>
+<td style="text-align:left;">
+Port Sunlight, Wirral, Merseyside, CH62 4ZD
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+CH62 4ZD
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+unilever
+</td>
+<td style="text-align:left;">
+UNILEVER BCS UK LIMITED
+</td>
+<td style="text-align:left;">
+09521994
+</td>
+<td style="text-align:left;">
+2015-04-01
+</td>
+<td style="text-align:left;">
+ltd
+</td>
+<td style="text-align:left;">
+active
+</td>
+<td style="text-align:left;">
+Unilever House, 100 Victoria Embankment, London, United Kingdom, EC4Y 0DY
+</td>
+<td style="text-align:left;">
+United Kingdom
+</td>
+<td style="text-align:left;">
+EC4Y 0DY
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+unilever
+</td>
+<td style="text-align:left;">
+UNILEVER BESTFOODS UK LIMITED
+</td>
+<td style="text-align:left;">
+BR014135
+</td>
+<td style="text-align:left;">
+2009-10-01
+</td>
+<td style="text-align:left;">
+uk-establishment
+</td>
+<td style="text-align:left;">
+closed
+</td>
+<td style="text-align:left;">
+Unit 12 Mckinney Industrial Estate Co Antrim, Mallusk
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+NA
+</td>
+</tr>
+</tbody>
+<tfoot>
+<tr>
+<td style="padding: 0; border: 0;" colspan="100%">
+<strong>Note: </strong>
+</td>
+</tr>
+<tr>
+<td style="padding: 0; border: 0;" colspan="100%">
+<sup></sup> Company search results (first three results )
+</td>
+</tr>
+</tfoot>
+</table>
 Extract Directors Data
 ----------------------
 
@@ -84,22 +200,141 @@ This function extract director information for a company numbers. Where it gives
 #for Unilvever Plc
 DirectorInformation<-ExtractDirectorsData("00041424", mkey)
 
-head(DirectorInformation)[1:3,]
 ```
-
-    ##         id                 directors start.date end.date
-    ## 1 00041424            SOTAMAA, Ritva 2018-01-01     <NA>
-    ## 2 00041424 ANDERSEN, Nils Smedegaard 2015-04-30     <NA>
-    ## 3 00041424       CHA, Laura May Lung 2013-05-15     <NA>
-    ##                          occupation      role residence postcode
-    ## 1                              <NA> secretary      <NA> EC4Y 0DY
-    ## 2                              None  director   Denmark  EC4 0DY
-    ## 3 Deputy Chairman Hsbc Asia Pacific  director Hong Kong EC4Y 0DY
-    ##          download.date
-    ## 1 29/03/2018  15:59:59
-    ## 2 29/03/2018  15:59:59
-    ## 3 29/03/2018  15:59:59
-
+<table class="table table-striped table-hover table-condensed table-responsive" style="font-size: 8px; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+id
+</th>
+<th style="text-align:left;">
+directors
+</th>
+<th style="text-align:left;">
+start.date
+</th>
+<th style="text-align:left;">
+end.date
+</th>
+<th style="text-align:left;">
+occupation
+</th>
+<th style="text-align:left;">
+role
+</th>
+<th style="text-align:left;">
+residence
+</th>
+<th style="text-align:left;">
+postcode
+</th>
+<th style="text-align:left;">
+download.date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+00041424
+</td>
+<td style="text-align:left;">
+SOTAMAA, Ritva
+</td>
+<td style="text-align:left;">
+2018-01-01
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+secretary
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+EC4Y 0DY
+</td>
+<td style="text-align:left;">
+15/04/2018 18:12:08
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+00041424
+</td>
+<td style="text-align:left;">
+ANDERSEN, Nils Smedegaard
+</td>
+<td style="text-align:left;">
+2015-04-30
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+None
+</td>
+<td style="text-align:left;">
+director
+</td>
+<td style="text-align:left;">
+Denmark
+</td>
+<td style="text-align:left;">
+EC4 0DY
+</td>
+<td style="text-align:left;">
+15/04/2018 18:12:08
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+00041424
+</td>
+<td style="text-align:left;">
+CHA, Laura May Lung
+</td>
+<td style="text-align:left;">
+2013-05-15
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+Deputy Chairman Hsbc Asia Pacific
+</td>
+<td style="text-align:left;">
+director
+</td>
+<td style="text-align:left;">
+Hong Kong
+</td>
+<td style="text-align:left;">
+EC4Y 0DY
+</td>
+<td style="text-align:left;">
+15/04/2018 18:12:08
+</td>
+</tr>
+</tbody>
+<tfoot>
+<tr>
+<td style="padding: 0; border: 0;" colspan="100%">
+<strong>Note: </strong>
+</td>
+</tr>
+<tr>
+<td style="padding: 0; border: 0;" colspan="100%">
+<sup></sup> Director information results (first three results )
+</td>
+</tr>
+</tfoot>
+</table>
 ``` r
 #To extract director data for a list of company numbers - say all 
 #firms associated with the Unilever search term we use:
@@ -121,8 +356,7 @@ CompanySIC<-CompanySIC("00041424", mkey)
 CompanySIC
 ```
 
-    ## [1] 70100
-    ## Levels: 70100
+    ## 70100
 
 ``` r
 #To extract director data for a list of company numbers 
@@ -141,11 +375,12 @@ The package can be used to create a set of networks.
 
 ### Create Networks
 
-The follwoing functions create the various networks. Where a list of company numbers is required to create these networks.
+The following functions create the various networks. Where a list of company numbers is required to create these networks.
 
 #### Interlocking Directorates Network
 
 There are two ways to create the interlocking directorates network:
+
 1.) From a list of company numbers
 
 ``` r
@@ -188,93 +423,563 @@ DirNET<-DirectorNetwork(as.character(CompanySearchList$company.number),mkey)
 
 ### Network Analysis
 
-The network(igraph object) is requried for these functions. These are calculated using the commands from the "Create Networks" section.
+The network (`igraph` object) is required for these functions. These are calculated using the commands from the "Create Networks" section.
 
 #### Centrality
 
-For each network we can calculate a range of centrality measures. THe director and company networks are one-mode networks, so a wider range of centrality measures can be calculated.
+For each network we can calculate a range of centrality measures. The director and company networks are one-mode networks, so a wider range of centrality measures can be calculated.
 
 ``` r
 INTERLOCKcent<-InterlockCentrality(INTERLOCKS1)
-head(INTERLOCKcent)[1:3,]
 ```
 
-    ##             NAMES Degree.Centrality
-    ## 00041424 00041424                34
-    ## 09521994 09521994                12
-    ## FC024822 FC024822                21
-
+<table class="table table-striped table-hover table-condensed table-responsive" style="margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+</th>
+<th style="text-align:left;">
+NAMES
+</th>
+<th style="text-align:right;">
+Degree.Centrality
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+00041424
+</td>
+<td style="text-align:left;">
+00041424
+</td>
+<td style="text-align:right;">
+34
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+09521994
+</td>
+<td style="text-align:left;">
+09521994
+</td>
+<td style="text-align:right;">
+12
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+FC024822
+</td>
+<td style="text-align:left;">
+FC024822
+</td>
+<td style="text-align:right;">
+21
+</td>
+</tr>
+</tbody>
+<tfoot>
+<tr>
+<td style="padding: 0; border: 0;" colspan="100%">
+<strong>Note: </strong>
+</td>
+</tr>
+<tr>
+<td style="padding: 0; border: 0;" colspan="100%">
+<sup></sup> Interlocking directorates centrality results (first three results)
+</td>
+</tr>
+</tfoot>
+</table>
 ``` r
 COMPANYcent<-CompanyCentrality(CompanyNET)
-head(COMPANYcent)[1:3,]
 ```
-
-    ##             NAMES Weighted.Degree.All Binary.Degree.All Betweenness
-    ## 00041424 00041424                   3                 2           0
-    ## 00307529 00307529                   2                 2           0
-    ## 00413828 00413828                  30                 8           0
-    ##          Closeness Eigenvector
-    ## 00041424    0.0263      0.0458
-    ## 00307529    0.0312      0.0183
-    ## 00413828    0.0345      0.6643
-
+<table class="table table-striped table-hover table-condensed table-responsive" style="margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+</th>
+<th style="text-align:left;">
+NAMES
+</th>
+<th style="text-align:right;">
+Weighted.Degree
+</th>
+<th style="text-align:right;">
+Binary.Degree
+</th>
+<th style="text-align:right;">
+Betweenness
+</th>
+<th style="text-align:right;">
+Closeness
+</th>
+<th style="text-align:right;">
+Eigenvector
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+00041424
+</td>
+<td style="text-align:left;">
+00041424
+</td>
+<td style="text-align:right;">
+3
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0.0204
+</td>
+<td style="text-align:right;">
+0.0298
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+09521994
+</td>
+<td style="text-align:left;">
+09521994
+</td>
+<td style="text-align:right;">
+25
+</td>
+<td style="text-align:right;">
+9
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0.0303
+</td>
+<td style="text-align:right;">
+0.2903
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+FC024822
+</td>
+<td style="text-align:left;">
+FC024822
+</td>
+<td style="text-align:right;">
+52
+</td>
+<td style="text-align:right;">
+10
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0.0233
+</td>
+<td style="text-align:right;">
+0.6925
+</td>
+</tr>
+</tbody>
+<tfoot>
+<tr>
+<td style="padding: 0; border: 0;" colspan="100%">
+<strong>Note: </strong>
+</td>
+</tr>
+<tr>
+<td style="padding: 0; border: 0;" colspan="100%">
+<sup></sup> Company-Company network centrality results (first three results)
+</td>
+</tr>
+</tfoot>
+</table>
 ``` r
 DIRcent<-DirectorCentrality(DirNET)
-head(DIRcent)[1:3,]
 ```
 
-    ##                                               NAMES Weighted.Degree.All
-    ## ALLEN, Nicholas Graham       ALLEN, Nicholas Graham                  36
-    ## ALLGROVE, Jeffrey William ALLGROVE, Jeffrey William                  43
-    ## ALLISON, James Brian           ALLISON, James Brian                  20
-    ##                           Binary.Degree.All Betweenness Closeness
-    ## ALLEN, Nicholas Graham                   29     21.4444    0.0033
-    ## ALLGROVE, Jeffrey William                39     68.5333    0.0034
-    ## ALLISON, James Brian                     20      0.0000    0.0029
-    ##                           Eigenvector
-    ## ALLEN, Nicholas Graham         0.2829
-    ## ALLGROVE, Jeffrey William      0.3694
-    ## ALLISON, James Brian           0.1837
-
+<table class="table table-striped table-hover table-condensed table-responsive" style="margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+</th>
+<th style="text-align:left;">
+NAMES
+</th>
+<th style="text-align:right;">
+Weighted.Degree
+</th>
+<th style="text-align:right;">
+Binary.Degree
+</th>
+<th style="text-align:right;">
+Betweenness
+</th>
+<th style="text-align:right;">
+Closeness
+</th>
+<th style="text-align:right;">
+Eigenvector
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+SOTAMAA, Ritva
+</td>
+<td style="text-align:left;">
+SOTAMAA, Ritva
+</td>
+<td style="text-align:right;">
+33
+</td>
+<td style="text-align:right;">
+33
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0.0026
+</td>
+<td style="text-align:right;">
+0.0104
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+ANDERSEN, Nils Smedegaard
+</td>
+<td style="text-align:left;">
+ANDERSEN, Nils Smedegaard
+</td>
+<td style="text-align:right;">
+33
+</td>
+<td style="text-align:right;">
+33
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0.0026
+</td>
+<td style="text-align:right;">
+0.0104
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+CHA, Laura May Lung
+</td>
+<td style="text-align:left;">
+CHA, Laura May Lung
+</td>
+<td style="text-align:right;">
+33
+</td>
+<td style="text-align:right;">
+33
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0.0026
+</td>
+<td style="text-align:right;">
+0.0104
+</td>
+</tr>
+</tbody>
+<tfoot>
+<tr>
+<td style="padding: 0; border: 0;" colspan="100%">
+<strong>Note: </strong>
+</td>
+</tr>
+<tr>
+<td style="padding: 0; border: 0;" colspan="100%">
+<sup></sup> Director-Director network centrality results (first three results)
+</td>
+</tr>
+</tfoot>
+</table>
 #### Network properties
 
 We can calculate the properties of the director and company networks.
 
 ``` r
 COMPANYprop<-CompanyNetworkProperties(CompanyNET)
-head(COMPANYprop)
 ```
 
-    ##                       One-Mode Company Network
-    ## id                    One-Mode Company network
-    ## Size                                        13
-    ## Density                              0.5128205
-    ## Diameter                                     5
-    ## Average.path.lenth                    1.409091
-    ## Average.node.stregnth                 22.33333
-
+<table class="table table-striped table-hover table-condensed table-responsive" style="margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+</th>
+<th style="text-align:right;">
+One-Mode Company Network
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Size
+</td>
+<td style="text-align:right;">
+14.0000
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Density
+</td>
+<td style="text-align:right;">
+0.6484
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Diameter
+</td>
+<td style="text-align:right;">
+8.0000
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Average.path.lenth
+</td>
+<td style="text-align:right;">
+1.3846
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Average.node.stregnth
+</td>
+<td style="text-align:right;">
+37.1429
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Average.Degree
+</td>
+<td style="text-align:right;">
+8.4286
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Betweenness.Centralisation
+</td>
+<td style="text-align:right;">
+0.1312
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Closeness.Centralisation
+</td>
+<td style="text-align:right;">
+0.2560
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Eigenvector.Centralisation
+</td>
+<td style="text-align:right;">
+0.2413
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Degree.Centralisation
+</td>
+<td style="text-align:right;">
+0.1978
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Clustering.coefficent.transitivity
+</td>
+<td style="text-align:right;">
+0.9058
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Clustering.Weighted
+</td>
+<td style="text-align:right;">
+0.9417
+</td>
+</tr>
+</tbody>
+<tfoot>
+<tr>
+<td style="padding: 0; border: 0;" colspan="100%">
+<strong>Note: </strong>
+</td>
+</tr>
+<tr>
+<td style="padding: 0; border: 0;" colspan="100%">
+<sup></sup> Company-Company network properties
+</td>
+</tr>
+</tfoot>
+</table>
 ``` r
 DIRprop<-DirectorNetworkProperties(DirNET)
-head(DIRprop)
 ```
-
-    ##                       One-Mode Director Network
-    ## Size                                   151.0000
-    ## Density                                  0.1890
-    ## Diameter                                 4.0000
-    ## Average.path.lenth                       2.1579
-    ## Average.node.stregnth                   31.2800
-    ## Average.Degree                          28.5333
-
+<table class="table table-striped table-hover table-condensed table-responsive" style="margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+</th>
+<th style="text-align:right;">
+One-Mode Director Network
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Size
+</td>
+<td style="text-align:right;">
+172.0000
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Density
+</td>
+<td style="text-align:right;">
+0.1858
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Diameter
+</td>
+<td style="text-align:right;">
+4.0000
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Average.path.lenth
+</td>
+<td style="text-align:right;">
+2.1098
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Average.node.stregnth
+</td>
+<td style="text-align:right;">
+37.8372
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Average.Degree
+</td>
+<td style="text-align:right;">
+31.7791
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Betweenness.Centralisation
+</td>
+<td style="text-align:right;">
+0.1162
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Closeness.Centralisation
+</td>
+<td style="text-align:right;">
+0.3209
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Eigenvector.Centralisation
+</td>
+<td style="text-align:right;">
+0.6792
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Degree.Centralisation
+</td>
+<td style="text-align:right;">
+0.3580
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Clustering.coefficent.transitivity
+</td>
+<td style="text-align:right;">
+0.7512
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Clustering.Weighted
+</td>
+<td style="text-align:right;">
+0.7511
+</td>
+</tr>
+</tbody>
+<tfoot>
+<tr>
+<td style="padding: 0; border: 0;" colspan="100%">
+<strong>Note: </strong>
+</td>
+</tr>
+<tr>
+<td style="padding: 0; border: 0;" colspan="100%">
+<sup></sup> Director-Director network properties
+</td>
+</tr>
+</tfoot>
+</table>
 ### Plot Networks
 
-The following function create plots of various networks. The TRUE/FALSE option indivates whether node labels should be included in the plots or not. The network plots are created from a list of company numbers for a quick inspection of the networks. There are a number of other commands and packages that can be used to create high quality network visualsiations from the network objects in R. You can also specify the node size - with the default being size 6. In the following examples we use the default.
+The following function create plots of various networks. The TRUE/FALSE option indicates whether node labels should be included in the plots or not. The network plots are created from a list of company numbers for a quick inspection of the networks. There are a number of other commands and packages that can be used to create high quality network visualsiations from the network objects in R. You can also specify the node size - in the following examples we use size 6.
 
 ``` r
 #Interlocking Directorates Plot
 InterlockNetworkPLOT(as.character(CompanySearchList$company.number),mkey,FALSE,NodeSize = 6)
 ```
-
 ![](README_files/figure-markdown_github/ploti-1.png)
 
 ``` r
@@ -310,7 +1015,6 @@ plot_grid(interlock.plot,director.plot,company.plot,
           labels=c("Interlocks","Directors","Companies"))
 ```
 
-
 ![](README_files/figure-markdown_github/COWplot-1.png)
 
 Additional useful functions
@@ -319,8 +1023,8 @@ Additional useful functions
 Gender Information
 ------------------
 
-If your research require to examine the gender of directors, and how patterns of interlocking directorates differ for males and female, you will need additional information, as companies house does not provide gender information. However, there are a number of R packages that estimate the likelihood that a individual is male or female based on their first names. Although this is restricted to english first names, it still remains a useful tool to proxy gender information.
-The available packages include `gender` and `genderizeR`. In the following example, we make use of the `genderizeR` package. We extract the gender information for all actors in the example unilever director network, and then plot this network with the gender information.
+If your research require to examine the gender of directors, and how patterns of interlocking directorates differ for males and female, you will need additional information, as companies house does not provide gender information. However, there are a number of R packages that estimate the likelihood that a individual is male or female based on their first names. Although this is restricted to English first names, it still remains a useful tool to proxy gender information.
+The available packages include `gender` and `genderize`. In the following example, we make use of the `genderize` package. We extract the gender information for all actors in the example Unilever director network, and then plot this network with the gender information.
 
 ``` r
 ##Load the relevant packages
@@ -395,10 +1099,9 @@ ggnet2(DIRnetwork,color.palette="Set1",
        label = FALSE,edge.color =  "grey50",arrow.size=0)
 
 ####NOTE
-##THis can implemented for other languages (not just english names), 
+##This can implemented for other languages (not just english names), 
 ##if the following is implemented.
-Sys.setlocale("LC_ALL", "Polish") #Polish example
+Sys.setlocale("LC_ALL", "Polish") #polish example
 ##see the genderizeR documentation for further details
 ```
-
 ![](README_files/figure-markdown_github/gender2-1.png)

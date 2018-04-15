@@ -31,7 +31,6 @@ CompanyNetworkProperties<-function(gs){
 
   CC<-igraph::transitivity(gs,"global")
   myDF<-data.frame(
-    id="One-Mode Company network",
     Size=size,
     Density=den,
     Diameter=DIA,
@@ -48,7 +47,14 @@ CompanyNetworkProperties<-function(gs){
   myDF<-t(myDF)
   colnames(myDF)<-"One-Mode Company Network"
   myDF<-as.data.frame(myDF,stringsAsFactors = FALSE)
+  myDF<-as.data.frame(sapply(myDF, as.numeric))
   myDF<-ITNr::round_df(myDF,digits=4)
+  rownames(myDF)<-c("Size", "Density", "Diameter", "Average.path.lenth",
+                    "Average.node.stregnth","Average.Degree",
+                    "Betweenness.Centralisation","Closeness.Centralisation",
+                    "Eigenvector.Centralisation", "Degree.Centralisation",
+                    "Clustering.coefficent.transitivity",
+                    "Clustering.Weighted")
   return(myDF)
 }
 
