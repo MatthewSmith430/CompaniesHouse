@@ -38,7 +38,7 @@
 <li>
   <a href="index.html">
     <span class="fa fa-home fa-lg"></span>
-
+     
   </a>
 </li>
 <li>
@@ -53,10 +53,10 @@
 </div>
 <!--/.navbar -->
 
-
+      
       </header><div class="row">
   <div class="contents col-md-9">
-
+    
 <div id="companies-house" class="section level1">
 <div class="page-header"><h1 class="hasAnchor">
 <a href="#companies-house" class="anchor"></a>Companies House</h1></div>
@@ -413,13 +413,13 @@ MultilpleSIC&lt;-<span class="kw">mapply</span>(CompanySIC,<span class="kw">as.c
 <p>1.) From a list of company numbers</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">INTERLOCKS1&lt;-<span class="kw"><a href="reference/InterlockNetwork.html">InterlockNetwork</a></span>(List.of.company.numbers,mkey)
 
-##Example for all company numbers associated with the
+##Example for all company numbers associated with the 
 ##Unilever search term:
 INTERLOCKS1&lt;-<span class="kw"><a href="reference/InterlockNetwork.html">InterlockNetwork</a></span>(<span class="kw">as.character</span>(CompanySearchList$company.number),mkey)</code></pre></div>
 <p>2.) From a data frame produced using the ExtractDirectorsData function. This dataframe can be edited manually to use company names (or perhaps another id system) in the network.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">INTERLOCKS2&lt;-<span class="kw"><a href="reference/make_interlock.html">make_interlock</a></span>(DataFrame)
 
-##Example for all company numbers associated with the
+##Example for all company numbers associated with the 
 ##Unilever search term - the dataframe created with ExtractDirectorsData
 INTERLOCKS2&lt;-<span class="kw"><a href="reference/make_interlock.html">make_interlock</a></span>(MultilpleDirectorInfo)</code></pre></div>
 </div>
@@ -428,7 +428,7 @@ INTERLOCKS2&lt;-<span class="kw"><a href="reference/make_interlock.html">make_in
 <a href="#company-network" class="anchor"></a>Company Network</h4>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">CompanyNET&lt;-<span class="kw"><a href="reference/CompanyNetwork.html">CompanyNetwork</a></span>(List.of.company.numbers,mkey)
 
-##Example for all company numbers associated with the
+##Example for all company numbers associated with the 
 ##Unilever search term:
 CompanyNET&lt;-<span class="kw"><a href="reference/CompanyNetwork.html">CompanyNetwork</a></span>(<span class="kw">as.character</span>(CompanySearchList$company.number),mkey)</code></pre></div>
 </div>
@@ -437,7 +437,7 @@ CompanyNET&lt;-<span class="kw"><a href="reference/CompanyNetwork.html">CompanyN
 <a href="#director-network" class="anchor"></a>Director Network</h4>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">DirNET&lt;-<span class="kw"><a href="reference/DirectorNetwork.html">DirectorNetwork</a></span>(List.of.company.numbers,mkey)
 
-##Example for all company numbers associated with the
+##Example for all company numbers associated with the 
 ##Unilever search term:
 DirNET&lt;-<span class="kw"><a href="reference/DirectorNetwork.html">DirectorNetwork</a></span>(<span class="kw">as.character</span>(CompanySearchList$company.number),mkey)</code></pre></div>
 </div>
@@ -979,13 +979,13 @@ Clustering.Weighted
 <p>The following function create plots of various networks. The TRUE/FALSE option indicates whether node labels should be included in the plots or not. The network plots are created from a list of company numbers for a quick inspection of the networks. There are a number of other commands and packages that can be used to create high quality network visualsiations from the network objects in R. You can also specify the node size - in the following examples we use size 6.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#Interlocking Directorates Plot</span>
 <span class="kw"><a href="reference/InterlockNetworkPLOT.html">InterlockNetworkPLOT</a></span>(<span class="kw">as.character</span>(CompanySearchList$company.number),mkey,<span class="ot">FALSE</span>,<span class="dt">NodeSize =</span> <span class="dv">6</span>)</code></pre></div>
-<p><img src="README_files/figure-markdown_github/ploti-1.png"></p>
+<p><img src="reference/figures/ploti-1.png"></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#Directors Plot</span>
 <span class="kw"><a href="reference/DirectorNetworkPLOT.html">DirectorNetworkPLOT</a></span>(<span class="kw">as.character</span>(CompanySearchList$company.number),mkey,<span class="ot">FALSE</span>,<span class="dt">NodeSize =</span> <span class="dv">6</span>)</code></pre></div>
-<p><img src="README_files/figure-markdown_github/plotd-1.png"></p>
+<p><img src="reference/figures/plotd-1.png"></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#Company Plot</span>
 <span class="kw"><a href="reference/CompanyNetworkPLOT.html">CompanyNetworkPLOT</a></span>(<span class="kw">as.character</span>(CompanySearchList$company.number),mkey,<span class="ot">FALSE</span>,<span class="dt">NodeSize =</span> <span class="dv">6</span>)</code></pre></div>
-<p><img src="README_files/figure-markdown_github/plotc-1.png"></p>
+<p><img src="reference/figures/plotc-1.png"></p>
 <p>You can also create grid plots - showing a plot of all three networks on a single grid using the <code>cowplot</code> library. In the example below we plot the networks in a grid, setting node size to degree centrality.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">##Load cowplot library
 <span class="kw">library</span>(cowplot)
@@ -995,13 +995,13 @@ interlock.plot&lt;-<span class="kw"><a href="reference/InterlockNetworkPLOT.html
                                      mkey,<span class="ot">FALSE</span>,<span class="dt">NodeSize =</span> <span class="st">"CENTRALITY"</span>)
 director.plot&lt;-<span class="kw"><a href="reference/DirectorNetworkPLOT.html">DirectorNetworkPLOT</a></span>(<span class="kw">as.character</span>(CompanySearchList$company.number),
                                    mkey,<span class="ot">FALSE</span>,<span class="dt">NodeSize =</span> <span class="st">"CENTRALITY"</span>)
-company.plot&lt;-<span class="kw"><a href="reference/CompanyNetworkPLOT.html">CompanyNetworkPLOT</a></span>(<span class="kw">as.character</span>(CompanySearchList$company.number),
+company.plot&lt;-<span class="kw"><a href="reference/CompanyNetworkPLOT.html">CompanyNetworkPLOT</a></span>(<span class="kw">as.character</span>(CompanySearchList$company.number), 
                                  mkey,<span class="ot">FALSE</span>,<span class="dt">NodeSize =</span> <span class="st">"CENTRALITY"</span>)
 
 ##Plot as a grid
 <span class="kw">plot_grid</span>(interlock.plot,director.plot,company.plot,
           <span class="dt">labels=</span><span class="kw">c</span>(<span class="st">"Interlocks"</span>,<span class="st">"Directors"</span>,<span class="st">"Companies"</span>))</code></pre></div>
-<p><img src="README_files/figure-markdown_github/COWplot-1.png"></p>
+<p><img src="reference/figures/COWplot-1.png"></p>
 </div>
 </div>
 </div>
@@ -1035,7 +1035,7 @@ name.first &lt;-<span class="st"> </span><span class="kw">sapply</span>(names.sp
                                  <span class="st">"Dr"</span>, <span class="st">" Dr"</span>, <span class="st">" Baron"</span>,<span class="st">"Dr."</span>, <span class="st">" Dr."</span>,
                                  <span class="st">"Professor"</span>, <span class="st">" Professor"</span>)) {
     <span class="kw">gsub</span>(<span class="st">"[[:punct:]]"</span>, <span class="st">""</span>, x[<span class="kw">length</span>(x) -<span class="st"> </span><span class="dv">1</span>])
-
+    
   } else {
     x[<span class="kw">length</span>(x)]
   })
@@ -1054,7 +1054,7 @@ nameDF$name.last&lt;-<span class="kw">as.character</span>(nameDF$name.last)
 name1&lt;-<span class="kw">gsub</span>(<span class="st">" .*"</span>, <span class="st">''</span>, nameDF$name.first)
 nameDF&lt;-<span class="kw">cbind</span>(nameDF,name1)
 nameDF$name1&lt;-<span class="kw">as.character</span>(nameDF$name1)%&gt;%<span class="kw">tolower</span>()
-
+  
 ##Implement genderizeR
 xPrepared =<span class="st"> </span><span class="kw">textPrepare</span>(nameDF$name.first)
 givenNames =<span class="st"> </span><span class="kw">findGivenNames</span>(xPrepared, <span class="dt">progress =</span> <span class="ot">FALSE</span>) %&gt;%<span class="st"> </span><span class="kw">as.data.frame</span>(.,<span class="dt">stringsAsFactors=</span><span class="ot">FALSE</span>)
@@ -1066,7 +1066,7 @@ nameKEY$count&lt;-<span class="ot">NULL</span>
 <span class="kw">colnames</span>(nameKEY)&lt;-<span class="kw">c</span>(<span class="st">"name1"</span>,<span class="st">"gender"</span>)
 
 ##Merge this will the director name dataframe
-nameDF &lt;-<span class="st"> </span><span class="kw">merge</span>(nameDF, nameKEY, <span class="dt">by =</span> <span class="st">"name1"</span>,<span class="dt">all.x =</span> <span class="ot">TRUE</span>)
+nameDF &lt;-<span class="st"> </span><span class="kw">merge</span>(nameDF, nameKEY, <span class="dt">by =</span> <span class="st">"name1"</span>,<span class="dt">all.x =</span> <span class="ot">TRUE</span>) 
 nameDF$name1&lt;-<span class="ot">NULL</span>
 nameDF[<span class="kw">is.na</span>(nameDF)]&lt;-<span class="st">"na"</span>
 
@@ -1084,11 +1084,11 @@ DIRnetwork&lt;-<span class="kw">asNetwork</span>(DirNET)
        <span class="dt">label =</span> <span class="ot">FALSE</span>,<span class="dt">edge.color =</span>  <span class="st">"grey50"</span>,<span class="dt">arrow.size=</span><span class="dv">0</span>)
 
 ####NOTE
-##This can implemented for other languages (not just english names),
+##This can implemented for other languages (not just english names), 
 ##if the following is implemented.
 <span class="kw">Sys.setlocale</span>(<span class="st">"LC_ALL"</span>, <span class="st">"Polish"</span>) <span class="co">#polish example</span>
 ##see the genderizeR documentation for further details</code></pre></div>
-<p><img src="man/figures/gender2-1.png"></p>
+<p><img src="reference/figures/gender2-1.png"></p>
 </div>
 </div>
 
@@ -1098,7 +1098,7 @@ DIRnetwork&lt;-<span class="kw">asNetwork</span>(DirNET)
     <div class="links">
 <h2>Links</h2>
 <ul class="list-unstyled">
-<li>Report a bug at <br><a href="https://github.com/MatthewSmith430/CompaniesHouse">GITHUB</a>
+<li>Report a bug at <br><a href="https://github.com/MatthewSmith430/CompaniesHouse/issues">https://​github.com/​MatthewSmith430/​CompaniesHouse/​issues</a>
 </li>
 </ul>
 </div>
@@ -1130,7 +1130,7 @@ DIRnetwork&lt;-<span class="kw">asNetwork</span>(DirNET)
       </footer>
 </div>
 
-
+  
 
   </body>
 </html>
