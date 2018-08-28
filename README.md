@@ -990,21 +990,21 @@ The following function create plots of various networks. The TRUE/FALSE option i
 #Interlocking Directorates Plot
 InterlockNetworkPLOT(as.character(CompanySearchList$company.number),mkey,FALSE,NodeSize = 6)
 ```
-![](man/figures/ploti-1.png)
+![](README_files/figure-markdown_github/ploti-1.png)
 
 ``` r
 #Directors Plot
 DirectorNetworkPLOT(as.character(CompanySearchList$company.number),mkey,FALSE,NodeSize = 6)
 ```
 
-![](man/figures/plotd-1.png)
+![](README_files/figure-markdown_github/plotd-1.png)
 
 ``` r
 #Company Plot
 CompanyNetworkPLOT(as.character(CompanySearchList$company.number),mkey,FALSE,NodeSize = 6)
 ```
 
-![](man/figures/plotc-1.png)
+![](README_files/figure-markdown_github/plotc-1.png)
 
 You can also create grid plots - showing a plot of all three networks on a single grid using the `cowplot` library. In the example below we plot the networks in a grid, setting node size to degree centrality.
 
@@ -1025,7 +1025,7 @@ plot_grid(interlock.plot,director.plot,company.plot,
           labels=c("Interlocks","Directors","Companies"))
 ```
 
-![](man/figures/COWplot-1.png)
+![](README_files/figure-markdown_github/COWplot-1.png)
 
 Additional useful functions
 ===========================
@@ -1114,4 +1114,4 @@ ggnet2(DIRnetwork,color.palette="Set1",
 Sys.setlocale("LC_ALL", "Polish") #polish example
 ##see the genderizeR documentation for further details
 ```
-![](man/figures/gender2-1.png)
+![](README_files/figure-markdown_github/gender2-1.png)
