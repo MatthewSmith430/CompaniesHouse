@@ -2,6 +2,7 @@
 
 export(CheckNulls)
 export(CompanyCentrality)
+export(CompanyDataExtract)
 export(CompanyNetwork)
 export(CompanyNetworkPLOT)
 export(CompanyNetworkProperties)
@@ -15,4 +16,5 @@ export(ExtractDirectorsData)
 export(InterlockCentrality)
 export(InterlockNetwork)
 export(InterlockNetworkPLOT)
+export(empty2na)
 export(make_interlock)
