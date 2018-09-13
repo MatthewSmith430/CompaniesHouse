@@ -8,8 +8,8 @@
 <title>Extract &amp; Process Companies House Data in R • CompaniesHouse</title>
 <!-- jquery --><script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script><!-- Bootstrap --><link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script><!-- Font Awesome icons --><link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
-<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script><!-- pkgdown --><link href="pkgdown.css" rel="stylesheet">
-<script src="jquery.sticky-kit.min.js"></script><script src="pkgdown.js"></script><meta property="og:title" content="Extract &amp; Process Companies House Data in R">
+<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script><!-- sticky kit --><script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script><!-- pkgdown --><link href="pkgdown.css" rel="stylesheet">
+<script src="pkgdown.js"></script><meta property="og:title" content="Extract &amp; Process Companies House Data in R">
 <meta property="og:description" content="This package extracts firm information from Companies House (using the API). The package also provides tools to analyse this data, with a focus on creating interlocking directorates networks from the data.">
 <meta name="twitter:card" content="summary">
 <!-- mathjax --><script src="https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!--[if lt IE 9]>
@@ -374,7 +374,7 @@ EC4Y 0DY
 </table>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#To extract director data for a list of company numbers - say all </span>
 <span class="co">#firms associated with the Unilever search term we use:</span>
-MultilpleDirectorInfo&lt;-<span class="kw">mapply</span>(ExtractDirectorsData,<span class="kw">as.character</span>(CompanySearchList$company.number),mkey)
+MultilpleDirectorInfo&lt;-<span class="kw">mapply</span>(ExtractDirectorsData,<span class="kw">as.character</span>(CompanySearchList<span class="op">$</span>company.number),mkey)
 
 <span class="co">#Where CompanySearchList$company.number is the list of company numbers from</span>
 <span class="co">#our company search dataframe. </span></code></pre></div>
@@ -391,7 +391,7 @@ CompanySIC</code></pre></div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#To extract director data for a list of company numbers </span>
 <span class="co">#(using again the example of all company numbers associated with </span>
 <span class="co">#the Unilever search term):</span>
-MultilpleSIC&lt;-<span class="kw">mapply</span>(CompanySIC,<span class="kw">as.character</span>(CompanySearchList$company.number),mkey)</code></pre></div>
+MultilpleSIC&lt;-<span class="kw">mapply</span>(CompanySIC,<span class="kw">as.character</span>(CompanySearchList<span class="op">$</span>company.number),mkey)</code></pre></div>
 </div>
 <div id="networks" class="section level2">
 <h2 class="hasAnchor">
@@ -415,7 +415,7 @@ MultilpleSIC&lt;-<span class="kw">mapply</span>(CompanySIC,<span class="kw">as.c
 
 ##Example for all company numbers associated with the 
 ##Unilever search term:
-INTERLOCKS1&lt;-<span class="kw"><a href="reference/InterlockNetwork.html">InterlockNetwork</a></span>(<span class="kw">as.character</span>(CompanySearchList$company.number),mkey)</code></pre></div>
+INTERLOCKS1&lt;-<span class="kw"><a href="reference/InterlockNetwork.html">InterlockNetwork</a></span>(<span class="kw">as.character</span>(CompanySearchList<span class="op">$</span>company.number),mkey)</code></pre></div>
 <p>2.) From a data frame produced using the ExtractDirectorsData function. This dataframe can be edited manually to use company names (or perhaps another id system) in the network.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">INTERLOCKS2&lt;-<span class="kw"><a href="reference/make_interlock.html">make_interlock</a></span>(DataFrame)
 
@@ -430,7 +430,7 @@ INTERLOCKS2&lt;-<span class="kw"><a href="reference/make_interlock.html">make_in
 
 ##Example for all company numbers associated with the 
 ##Unilever search term:
-CompanyNET&lt;-<span class="kw"><a href="reference/CompanyNetwork.html">CompanyNetwork</a></span>(<span class="kw">as.character</span>(CompanySearchList$company.number),mkey)</code></pre></div>
+CompanyNET&lt;-<span class="kw"><a href="reference/CompanyNetwork.html">CompanyNetwork</a></span>(<span class="kw">as.character</span>(CompanySearchList<span class="op">$</span>company.number),mkey)</code></pre></div>
 </div>
 <div id="director-network" class="section level4">
 <h4 class="hasAnchor">
@@ -439,7 +439,7 @@ CompanyNET&lt;-<span class="kw"><a href="reference/CompanyNetwork.html">CompanyN
 
 ##Example for all company numbers associated with the 
 ##Unilever search term:
-DirNET&lt;-<span class="kw"><a href="reference/DirectorNetwork.html">DirectorNetwork</a></span>(<span class="kw">as.character</span>(CompanySearchList$company.number),mkey)</code></pre></div>
+DirNET&lt;-<span class="kw"><a href="reference/DirectorNetwork.html">DirectorNetwork</a></span>(<span class="kw">as.character</span>(CompanySearchList<span class="op">$</span>company.number),mkey)</code></pre></div>
 </div>
 </div>
 <div id="network-analysis" class="section level3">
@@ -978,30 +978,30 @@ Clustering.Weighted
 <a href="#plot-networks" class="anchor"></a>Plot Networks</h3>
 <p>The following function create plots of various networks. The TRUE/FALSE option indicates whether node labels should be included in the plots or not. The network plots are created from a list of company numbers for a quick inspection of the networks. There are a number of other commands and packages that can be used to create high quality network visualsiations from the network objects in R. You can also specify the node size - in the following examples we use size 6.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#Interlocking Directorates Plot</span>
-<span class="kw"><a href="reference/InterlockNetworkPLOT.html">InterlockNetworkPLOT</a></span>(<span class="kw">as.character</span>(CompanySearchList$company.number),mkey,<span class="ot">FALSE</span>,<span class="dt">NodeSize =</span> <span class="dv">6</span>)</code></pre></div>
-<p><img src="reference/figures/ploti-1.png"></p>
+<span class="kw"><a href="reference/InterlockNetworkPLOT.html">InterlockNetworkPLOT</a></span>(<span class="kw">as.character</span>(CompanySearchList<span class="op">$</span>company.number),mkey,<span class="ot">FALSE</span>,<span class="dt">NodeSize =</span> <span class="dv">6</span>)</code></pre></div>
+<p><img src="README_files/figure-markdown_github/ploti-1.png"></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#Directors Plot</span>
-<span class="kw"><a href="reference/DirectorNetworkPLOT.html">DirectorNetworkPLOT</a></span>(<span class="kw">as.character</span>(CompanySearchList$company.number),mkey,<span class="ot">FALSE</span>,<span class="dt">NodeSize =</span> <span class="dv">6</span>)</code></pre></div>
-<p><img src="reference/figures/plotd-1.png"></p>
+<span class="kw"><a href="reference/DirectorNetworkPLOT.html">DirectorNetworkPLOT</a></span>(<span class="kw">as.character</span>(CompanySearchList<span class="op">$</span>company.number),mkey,<span class="ot">FALSE</span>,<span class="dt">NodeSize =</span> <span class="dv">6</span>)</code></pre></div>
+<p><img src="README_files/figure-markdown_github/plotd-1.png"></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#Company Plot</span>
-<span class="kw"><a href="reference/CompanyNetworkPLOT.html">CompanyNetworkPLOT</a></span>(<span class="kw">as.character</span>(CompanySearchList$company.number),mkey,<span class="ot">FALSE</span>,<span class="dt">NodeSize =</span> <span class="dv">6</span>)</code></pre></div>
-<p><img src="reference/figures/plotc-1.png"></p>
+<span class="kw"><a href="reference/CompanyNetworkPLOT.html">CompanyNetworkPLOT</a></span>(<span class="kw">as.character</span>(CompanySearchList<span class="op">$</span>company.number),mkey,<span class="ot">FALSE</span>,<span class="dt">NodeSize =</span> <span class="dv">6</span>)</code></pre></div>
+<p><img src="README_files/figure-markdown_github/plotc-1.png"></p>
 <p>You can also create grid plots - showing a plot of all three networks on a single grid using the <code>cowplot</code> library. In the example below we plot the networks in a grid, setting node size to degree centrality.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">##Load cowplot library
 <span class="kw">library</span>(cowplot)
 
 ##Create plot objects with node size based on centrality
-interlock.plot&lt;-<span class="kw"><a href="reference/InterlockNetworkPLOT.html">InterlockNetworkPLOT</a></span>(<span class="kw">as.character</span>(CompanySearchList$company.number),
+interlock.plot&lt;-<span class="kw"><a href="reference/InterlockNetworkPLOT.html">InterlockNetworkPLOT</a></span>(<span class="kw">as.character</span>(CompanySearchList<span class="op">$</span>company.number),
                                      mkey,<span class="ot">FALSE</span>,<span class="dt">NodeSize =</span> <span class="st">"CENTRALITY"</span>)
-director.plot&lt;-<span class="kw"><a href="reference/DirectorNetworkPLOT.html">DirectorNetworkPLOT</a></span>(<span class="kw">as.character</span>(CompanySearchList$company.number),
+director.plot&lt;-<span class="kw"><a href="reference/DirectorNetworkPLOT.html">DirectorNetworkPLOT</a></span>(<span class="kw">as.character</span>(CompanySearchList<span class="op">$</span>company.number),
                                    mkey,<span class="ot">FALSE</span>,<span class="dt">NodeSize =</span> <span class="st">"CENTRALITY"</span>)
-company.plot&lt;-<span class="kw"><a href="reference/CompanyNetworkPLOT.html">CompanyNetworkPLOT</a></span>(<span class="kw">as.character</span>(CompanySearchList$company.number), 
+company.plot&lt;-<span class="kw"><a href="reference/CompanyNetworkPLOT.html">CompanyNetworkPLOT</a></span>(<span class="kw">as.character</span>(CompanySearchList<span class="op">$</span>company.number), 
                                  mkey,<span class="ot">FALSE</span>,<span class="dt">NodeSize =</span> <span class="st">"CENTRALITY"</span>)
 
 ##Plot as a grid
 <span class="kw">plot_grid</span>(interlock.plot,director.plot,company.plot,
           <span class="dt">labels=</span><span class="kw">c</span>(<span class="st">"Interlocks"</span>,<span class="st">"Directors"</span>,<span class="st">"Companies"</span>))</code></pre></div>
-<p><img src="reference/figures/COWplot-1.png"></p>
+<p><img src="README_files/figure-markdown_github/COWplot-1.png"></p>
 </div>
 </div>
 </div>
@@ -1021,59 +1021,59 @@ company.plot&lt;-<span class="kw"><a href="reference/CompanyNetworkPLOT.html">Co
 <span class="kw">library</span>(genderizeR)
 
 ##Create name dataframe from director network
-directornames&lt;-<span class="kw">V</span>(DirNET)$name%&gt;%<span class="kw">as.data.frame</span>(.,<span class="dt">stringsAsFactors=</span><span class="ot">FALSE</span>)
+directornames&lt;-<span class="kw">V</span>(DirNET)<span class="op">$</span>name<span class="op">%&gt;%</span><span class="kw">as.data.frame</span>(.,<span class="dt">stringsAsFactors=</span><span class="ot">FALSE</span>)
 <span class="kw">colnames</span>(directornames)&lt;-<span class="st">"Names"</span>
 
 ##Split the names into first and last names
-names.split &lt;-<span class="st"> </span><span class="kw">strsplit</span>(<span class="kw">unlist</span>(directornames$Names), <span class="st">","</span>)
-name.last &lt;-<span class="st"> </span><span class="kw">sapply</span>(names.split, function(x) x[<span class="dv">1</span>])
-name.first &lt;-<span class="st"> </span><span class="kw">sapply</span>(names.split, function(x)
+names.split &lt;-<span class="st"> </span><span class="kw">strsplit</span>(<span class="kw">unlist</span>(directornames<span class="op">$</span>Names), <span class="st">","</span>)
+name.last &lt;-<span class="st"> </span><span class="kw">sapply</span>(names.split, <span class="cf">function</span>(x) x[<span class="dv">1</span>])
+name.first &lt;-<span class="st"> </span><span class="kw">sapply</span>(names.split, <span class="cf">function</span>(x)
   <span class="co"># this deals with empty name slots in your original list, returning NA</span>
-  if(<span class="kw">length</span>(x) ==<span class="st"> </span><span class="dv">0</span>) {
+  <span class="cf">if</span>(<span class="kw">length</span>(x) <span class="op">==</span><span class="st"> </span><span class="dv">0</span>) {
     <span class="ot">NA</span>
-    } else if (x[<span class="kw">length</span>(x)] %in%<span class="st"> </span><span class="kw">c</span>(<span class="st">"Jr."</span>, <span class="st">"Jr"</span>, <span class="st">"Sr."</span>, <span class="st">"Sr"</span>,
+    } <span class="cf">else</span> <span class="cf">if</span> (x[<span class="kw">length</span>(x)] <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">"Jr."</span>, <span class="st">"Jr"</span>, <span class="st">"Sr."</span>, <span class="st">"Sr"</span>,
                                  <span class="st">"Dr"</span>, <span class="st">" Dr"</span>, <span class="st">" Baron"</span>,<span class="st">"Dr."</span>, <span class="st">" Dr."</span>,
                                  <span class="st">"Professor"</span>, <span class="st">" Professor"</span>)) {
-    <span class="kw">gsub</span>(<span class="st">"[[:punct:]]"</span>, <span class="st">""</span>, x[<span class="kw">length</span>(x) -<span class="st"> </span><span class="dv">1</span>])
+    <span class="kw">gsub</span>(<span class="st">"[[:punct:]]"</span>, <span class="st">""</span>, x[<span class="kw">length</span>(x) <span class="op">-</span><span class="st"> </span><span class="dv">1</span>])
     
-  } else {
+  } <span class="cf">else</span> {
     x[<span class="kw">length</span>(x)]
   })
 
 ##Create new names dataframe
-nameDF&lt;-<span class="kw">data.frame</span>(<span class="dt">id=</span><span class="dv">1</span>:<span class="kw">length</span>(name.first),
+nameDF&lt;-<span class="kw">data.frame</span>(<span class="dt">id=</span><span class="dv">1</span><span class="op">:</span><span class="kw">length</span>(name.first),
                    <span class="dt">name.first=</span>name.first,
                    <span class="dt">name.last=</span>name.last)
 
-nameDF$name.first&lt;-<span class="kw">as.character</span>(nameDF$name.first)
-nameDF$name.first&lt;-<span class="kw">trimws</span>(nameDF$name.first)
-nameDF$name.last&lt;-<span class="kw">as.character</span>(nameDF$name.last)
+nameDF<span class="op">$</span>name.first&lt;-<span class="kw">as.character</span>(nameDF<span class="op">$</span>name.first)
+nameDF<span class="op">$</span>name.first&lt;-<span class="kw">trimws</span>(nameDF<span class="op">$</span>name.first)
+nameDF<span class="op">$</span>name.last&lt;-<span class="kw">as.character</span>(nameDF<span class="op">$</span>name.last)
 
 ##Extract first word of first name vectors (as this can also include middle/multiple names etc)
 ##This will be used as matching key later.
-name1&lt;-<span class="kw">gsub</span>(<span class="st">" .*"</span>, <span class="st">''</span>, nameDF$name.first)
+name1&lt;-<span class="kw">gsub</span>(<span class="st">" .*"</span>, <span class="st">''</span>, nameDF<span class="op">$</span>name.first)
 nameDF&lt;-<span class="kw">cbind</span>(nameDF,name1)
-nameDF$name1&lt;-<span class="kw">as.character</span>(nameDF$name1)%&gt;%<span class="kw">tolower</span>()
+nameDF<span class="op">$</span>name1&lt;-<span class="kw">as.character</span>(nameDF<span class="op">$</span>name1)<span class="op">%&gt;%</span><span class="kw">tolower</span>()
   
 ##Implement genderizeR
-xPrepared =<span class="st"> </span><span class="kw">textPrepare</span>(nameDF$name.first)
-givenNames =<span class="st"> </span><span class="kw">findGivenNames</span>(xPrepared, <span class="dt">progress =</span> <span class="ot">FALSE</span>) %&gt;%<span class="st"> </span><span class="kw">as.data.frame</span>(.,<span class="dt">stringsAsFactors=</span><span class="ot">FALSE</span>)
+xPrepared =<span class="st"> </span><span class="kw">textPrepare</span>(nameDF<span class="op">$</span>name.first)
+givenNames =<span class="st"> </span><span class="kw">findGivenNames</span>(xPrepared, <span class="dt">progress =</span> <span class="ot">FALSE</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">as.data.frame</span>(.,<span class="dt">stringsAsFactors=</span><span class="ot">FALSE</span>)
 
 ##From this create a gender-name key
 nameKEY&lt;-givenNames
-nameKEY$probability&lt;-<span class="ot">NULL</span>
-nameKEY$count&lt;-<span class="ot">NULL</span>
+nameKEY<span class="op">$</span>probability&lt;-<span class="ot">NULL</span>
+nameKEY<span class="op">$</span>count&lt;-<span class="ot">NULL</span>
 <span class="kw">colnames</span>(nameKEY)&lt;-<span class="kw">c</span>(<span class="st">"name1"</span>,<span class="st">"gender"</span>)
 
 ##Merge this will the director name dataframe
 nameDF &lt;-<span class="st"> </span><span class="kw">merge</span>(nameDF, nameKEY, <span class="dt">by =</span> <span class="st">"name1"</span>,<span class="dt">all.x =</span> <span class="ot">TRUE</span>) 
-nameDF$name1&lt;-<span class="ot">NULL</span>
+nameDF<span class="op">$</span>name1&lt;-<span class="ot">NULL</span>
 nameDF[<span class="kw">is.na</span>(nameDF)]&lt;-<span class="st">"na"</span>
 
 ##Add these as igraph network atributes
-<span class="kw">V</span>(DirNET)$gender&lt;-nameDF$gender
-numericgender&lt;-<span class="kw">as.factor</span>(nameDF$gender)%&gt;%<span class="kw">as.numeric</span>() <span class="co">#Add numeric attribute</span>
-<span class="kw">V</span>(DirNET)$gendernumeric&lt;-numericgender
+<span class="kw">V</span>(DirNET)<span class="op">$</span>gender&lt;-nameDF<span class="op">$</span>gender
+numericgender&lt;-<span class="kw">as.factor</span>(nameDF<span class="op">$</span>gender)<span class="op">%&gt;%</span><span class="kw">as.numeric</span>() <span class="co">#Add numeric attribute</span>
+<span class="kw">V</span>(DirNET)<span class="op">$</span>gendernumeric&lt;-numericgender
 
 ##plot director network with gender information
 DIRnetwork&lt;-<span class="kw">asNetwork</span>(DirNET)
@@ -1088,7 +1088,7 @@ DIRnetwork&lt;-<span class="kw">asNetwork</span>(DirNET)
 ##if the following is implemented.
 <span class="kw">Sys.setlocale</span>(<span class="st">"LC_ALL"</span>, <span class="st">"Polish"</span>) <span class="co">#polish example</span>
 ##see the genderizeR documentation for further details</code></pre></div>
-<p><img src="reference/figures/gender2-1.png"></p>
+<p><img src="README_files/figure-markdown_github/gender2-1.png"></p>
 </div>
 </div>
 
@@ -1098,7 +1098,7 @@ DIRnetwork&lt;-<span class="kw">asNetwork</span>(DirNET)
     <div class="links">
 <h2>Links</h2>
 <ul class="list-unstyled">
-<li>Report a bug at <br><a href="https://github.com/MatthewSmith430/CompaniesHouse/issues">https://​github.com/​MatthewSmith430/​CompaniesHouse/​issues</a>
+<li>Report a bug at <br><a href="NA">NA</a>
 </li>
 </ul>
 </div>
