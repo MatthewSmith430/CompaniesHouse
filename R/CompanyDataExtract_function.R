@@ -12,7 +12,7 @@ CompanyDataExtract <- function(company_number,mkey) {
   firmTEXT<-httr::content(firmTEST, as="text")
   JLfirm<-jsonlite::fromJSON(firmTEXT, flatten=TRUE)
 
-  if (length(JLfirm)<15){
+  if (length(JLfirm)<16){
     DFfirm<-plyr::ldply(JLfirm,data.frame)
 
     DFfirm2<-t(DFfirm)

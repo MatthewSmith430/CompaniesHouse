@@ -1,4 +1,9 @@
+^/docs$
+^docs/_pkgdown\.yml$
+^docs$
+^_pkgdown\.yml$
 ^.*\.Rproj$
 ^\.Rproj\.user$
 ^README_files$
 ^rsconnect$
+
