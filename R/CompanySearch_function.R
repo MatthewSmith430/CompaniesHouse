@@ -19,7 +19,8 @@ CompanySearch <- function(company,mkey) {
   DFfirmTYPE<-DFfirm$items.company_type
   DFfirmSTATUS<-DFfirm$items.company_status
   DFfirmADDRESS<-DFfirm$items.address_snippet
-  DFfirmCOUNTRY<-DFfirm$items.address.country
+  #DFfirmCOUNTRY<-DFfirm$items.address.country
+  DFfirmLOCAL<-DFfirm$items.address.locality
   DFfirmPOSTCODE<-DFfirm$items.address.postal_code
 
   myDf <- data.frame(
@@ -30,7 +31,7 @@ CompanySearch <- function(company,mkey) {
     company.type = DFfirmTYPE,
     company.status = DFfirmSTATUS,
     address = DFfirmADDRESS,
-    country = DFfirmCOUNTRY,
+    Locality = DFfirmLOCAL,
     postcode = DFfirmPOSTCODE)
 
   return(myDf)

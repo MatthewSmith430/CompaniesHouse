@@ -28,6 +28,12 @@ ExtractDirectorsData <- function(coyno,mkey) {
   DFdirOCCUPATION<-DFdir$items.occupation
   DFdirRESIDENCE<-DFdir$items.country_of_residence
   DFdirPOSTCODE<-DFdir$items.address.postal_code
+  DFdirNATIONALITY<-DFdir$items.nationality
+  #FN<-DFdir$items.former_names
+  #FN2<-plyr::ldply(FN,data.frame)
+  DFdirFORMER_NAME<-as.character(DFdir$items.former_names)
+  DFdirBIRTH_YEAR<-DFdir$items.date_of_birth.year
+  DFdirBIRTH_MONTH<-DFdir$items.date_of_birth.month
   DFdirdownload<-format(Sys.time(), "%d/%m/%Y  %X")
   DFdirDOWNLOADDATE<-DFdirdownload
 
@@ -40,8 +46,13 @@ ExtractDirectorsData <- function(coyno,mkey) {
     role = CheckNulls(DFdirROLE),
     residence = CheckNulls(DFdirRESIDENCE),
     postcode = CheckNulls(DFdirPOSTCODE),
+    nationality=CheckNulls(DFdirNATIONALITY),
+    birth_year=CheckNulls(DFdirBIRTH_YEAR),
+    birth_month=CheckNulls(DFdirBIRTH_MONTH),
+    former_name=CheckNulls(DFdirFORMER_NAME),
     download.date=CheckNulls(DFdirDOWNLOADDATE)
-    )
+  )
 
   return(myDf)
 }
+

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Make an interlocking directorates network — make_interlock • CompaniesHouse</title>
+<title>Company Data Extraction — CompanyDataExtract • CompaniesHouse</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -30,9 +30,9 @@
 
 
 
-<meta property="og:title" content="Make an interlocking directorates network — make_interlock" />
+<meta property="og:title" content="Company Data Extraction — CompanyDataExtract" />
 
-<meta property="og:description" content="This function creates an interlocking directorates network from a dataframe" />
+<meta property="og:description" content="This function extracts company information based on a company number" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -92,31 +92,35 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Make an interlocking directorates network</h1>
+    <h1>Company Data Extraction</h1>
     
-    <div class="hidden name"><code>make_interlock.Rd</code></div>
+    <div class="hidden name"><code>CompanyDataExtract.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>This function creates an interlocking directorates network from a dataframe</p>
+    <p>This function extracts company information based on a company number</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>make_interlock</span>(<span class='no'>DF</span>)</pre>
+    <pre class="usage"><span class='fu'>CompanyDataExtract</span>(<span class='no'>company_number</span>, <span class='no'>mkey</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>DF</th>
-      <td><p>Dataframe - column 1 Companies, Column 2 - Directors</p></td>
+      <th>company_number</th>
+      <td><p>Company number</p></td>
+    </tr>
+    <tr>
+      <th>mkey</th>
+      <td><p>Authorisation key</p></td>
     </tr>
     </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>Two-Mode Interlocking Directorates Network - igraph object</p>
+    <p>Dataframe listing company name, company number, postcode, SIC code for the company number</p>
     
 
   </div>

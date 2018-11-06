@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Make an interlocking directorates network — make_interlock • CompaniesHouse</title>
+<title>One-Mode Company Network — CompanyNetworkPLOT • CompaniesHouse</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -30,9 +30,9 @@
 
 
 
-<meta property="og:title" content="Make an interlocking directorates network — make_interlock" />
+<meta property="og:title" content="One-Mode Company Network — CompanyNetworkPLOT" />
 
-<meta property="og:description" content="This function creates an interlocking directorates network from a dataframe" />
+<meta property="og:description" content="This function creates an company to company network from a list of company numbers, the one-mode projection of the interlocking directorates network" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -92,31 +92,43 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Make an interlocking directorates network</h1>
+    <h1>One-Mode Company Network</h1>
     
-    <div class="hidden name"><code>make_interlock.Rd</code></div>
+    <div class="hidden name"><code>CompanyNetworkPLOT.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>This function creates an interlocking directorates network from a dataframe</p>
+    <p>This function creates an company to company network from a list of company numbers, the one-mode projection of the interlocking directorates network</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>make_interlock</span>(<span class='no'>DF</span>)</pre>
+    <pre class="usage"><span class='fu'>CompanyNetworkPLOT</span>(<span class='no'>coynoLIST</span>, <span class='no'>mkey</span>, <span class='no'>LABEL</span>, <span class='no'>NodeSize</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>DF</th>
-      <td><p>Dataframe - column 1 Companies, Column 2 - Directors</p></td>
+      <th>coynoLIST</th>
+      <td><p>list of company numbers</p></td>
+    </tr>
+    <tr>
+      <th>mkey</th>
+      <td><p>Authorisation key</p></td>
+    </tr>
+    <tr>
+      <th>LABEL</th>
+      <td><p>Node Label - TRUE/FALSE</p></td>
+    </tr>
+    <tr>
+      <th>NodeSize</th>
+      <td><p>Node Size - default is 6, place number or CENTRALITY (weighted centrality)</p></td>
     </tr>
     </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>Two-Mode Interlocking Directorates Network - igraph object</p>
+    <p>One-Mode Company Network - igraph object</p>
     
 
   </div>
