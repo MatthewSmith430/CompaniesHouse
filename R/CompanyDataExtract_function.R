@@ -71,7 +71,6 @@ CompanyDataExtract <- function(company_number,mkey) {
       region = DFfirmREGION,
       postcode = DFfirmPOSTCODE)
   }
-  #plyr::
 
 
 

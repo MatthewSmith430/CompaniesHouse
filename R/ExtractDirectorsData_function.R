@@ -11,10 +11,23 @@ ExtractDirectorsData <- function(coyno,mkey) {
   dirlist <- httr::GET(murl, httr::authenticate(mkey, "")) #returns an R list object
   dirtext<-httr::content(dirlist, as="text")
   dirtextPARSED<-httr::content(dirlist, as="parsed")
+  TR<-dirtextPARSED$total_results
+  RPP<-dirtextPARSED$items_per_page
   A<-length(dirtextPARSED$items)
   if (A>0){
-    JLdir<-jsonlite::fromJSON(dirtext,flatten=TRUE)
-    DFdir<-data.frame(JLdir)
+    H1<-ceiling(TR/RPP)
+    DFdir_LIST2<-list()
+    for (k in 1:H1){
+      murl2 <- paste0("https://api.companieshouse.gov.uk/company/", coyno, "/officers","?page=",k)
+      dirlist2 <- httr::GET(murl2, httr::authenticate(mkey, "")) #returns an R list object
+      dirtext2<-httr::content(dirlist2, as="text")
+      #dirtextPARSED2<-httr::content(dirlist2, as="parsed")
+      JLdir2<-jsonlite::fromJSON(dirtext2,flatten=TRUE)
+      DFdirB<-data.frame(JLdir2)
+      DFdir_LIST2[[k]]<-DFdirB
+    }
+
+    DFdir<-plyr::ldply(DFdir_LIST2,data.frame)
   } else {
     JLdir<-jsonlite::fromJSON(dirtext, flatten=TRUE)
     json_data = sapply(JLdir,rbind)
