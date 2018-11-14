@@ -3,12 +3,13 @@
 #' @description This function creates an interlocking directorates network from a list of company number
 #' @param coynoLIST list of company numbers
 #' @param mkey Authorisation key
+#' @param YEAR Year - put CURRENT for current realisation of the network
 #' @export
 #' @return Two-Mode Interlocking Directorates Network - igraph object
 InterlockNetwork<-function(coynoLIST,mkey){
   DATA<-list()
   for (i in 1:length(coynoLIST)){
-    DATA[[i]]<-ExtractDirectorsData(coynoLIST[i],mkey)
+    DATA[[i]]<-company_ExtractDirectorsData(coynoLIST[i],mkey)
   }
   Rdata<-plyr::ldply(DATA, data.frame)
 

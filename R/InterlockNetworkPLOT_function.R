@@ -5,12 +5,13 @@
 #' @param mkey Authorisation key
 #' @param LABEL Node Label - TRUE/FALSE
 #' @param NodeSize Node Size - default is 6, place number or CENTRALITY (degree centrality)
+#' @param YEAR Year - put CURRENT for current realisation of the network
 #' @export
 #' @return Two-Mode Interlocking Directorates Network - igraph object
 InterlockNetworkPLOT<-function(coynoLIST,mkey,LABEL,NodeSize){
   DATA<-list()
   for (i in 1:length(coynoLIST)){
-    DATA[[i]]<-ExtractDirectorsData(coynoLIST[i],mkey)
+    DATA[[i]]<-company_ExtractDirectorsData(coynoLIST[i],mkey)
   }
   Rdata<-plyr::ldply(DATA, data.frame)
 

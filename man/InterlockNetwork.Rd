@@ -10,6 +10,8 @@ InterlockNetwork(coynoLIST, mkey)
 \item{coynoLIST}{list of company numbers}
 
 \item{mkey}{Authorisation key}
+
+\item{YEAR}{Year - put CURRENT for current realisation of the network}
 }
 \value{
 Two-Mode Interlocking Directorates Network - igraph object

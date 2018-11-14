@@ -14,6 +14,8 @@ DirectorNetworkPLOT(coynoLIST, mkey, LABEL, NodeSize = 6)
 \item{LABEL}{Node Label - TRUE/FALSE}
 
 \item{NodeSize}{Node Size - default is 6, place number or CENTRALITY (weighted centrality)}
+
+\item{YEAR}{Year - year of the networtk. List current for current realisation}
 }
 \value{
 One-Mode Director Network - igraph object

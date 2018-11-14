@@ -10,7 +10,7 @@
 CompanyNetworkPLOT<-function(coynoLIST,mkey,LABEL,NodeSize){
   DATA<-list()
   for (i in 1:length(coynoLIST)){
-    DATA[[i]]<-ExtractDirectorsData(coynoLIST[i],mkey)
+    DATA[[i]]<-company_ExtractDirectorsData(coynoLIST[i],mkey)
   }
   Rdata<-plyr::ldply(DATA, data.frame)
 

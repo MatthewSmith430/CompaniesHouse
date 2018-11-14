@@ -4,12 +4,14 @@
 \alias{DirectorNetwork}
 \title{One-Mode Directors Network}
 \usage{
-DirectorNetwork(coynoLIST, mkey)
+DirectorNetwork(coynoLIST, mkey, YEAR)
 }
 \arguments{
 \item{coynoLIST}{list of company numbers}
 
 \item{mkey}{Authorisation key}
+
+\item{YEAR}{Year - put CURRENT for current realisation of the network}
 }
 \value{
 One-Mode Director Network - igraph object

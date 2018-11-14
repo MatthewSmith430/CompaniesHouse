@@ -14,6 +14,8 @@ InterlockNetworkPLOT(coynoLIST, mkey, LABEL, NodeSize)
 \item{LABEL}{Node Label - TRUE/FALSE}
 
 \item{NodeSize}{Node Size - default is 6, place number or CENTRALITY (degree centrality)}
+
+\item{YEAR}{Year - put CURRENT for current realisation of the network}
 }
 \value{
 Two-Mode Interlocking Directorates Network - igraph object

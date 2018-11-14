@@ -5,12 +5,13 @@
 #' @param mkey Authorisation key
 #' @param LABEL Node Label - TRUE/FALSE
 #' @param NodeSize Node Size - default is 6, place number or CENTRALITY (weighted centrality)
+#' @param YEAR Year - year of the networtk. List current for current realisation
 #' @export
 #' @return One-Mode Director Network - igraph object
 DirectorNetworkPLOT<-function(coynoLIST,mkey,LABEL,NodeSize=6){
   DATA<-list()
   for (i in 1:length(coynoLIST)){
-    DATA[[i]]<-ExtractDirectorsData(coynoLIST[i],mkey)
+    DATA[[i]]<-company_ExtractDirectorsData(coynoLIST[i],mkey)
   }
   Rdata<-plyr::ldply(DATA, data.frame)
 

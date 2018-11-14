@@ -6,7 +6,7 @@
 #' @export
 #' @return Dataframe director information
 
-ExtractDirectorsData <- function(coyno,mkey) {
+company_ExtractDirectorsData <- function(coyno,mkey) {
   murl <- paste0("https://api.companieshouse.gov.uk/company/", coyno, "/officers")
   dirlist <- httr::GET(murl, httr::authenticate(mkey, "")) #returns an R list object
   dirtext<-httr::content(dirlist, as="text")
@@ -49,9 +49,13 @@ ExtractDirectorsData <- function(coyno,mkey) {
   DFdirBIRTH_MONTH<-DFdir$items.date_of_birth.month
   DFdirdownload<-format(Sys.time(), "%d/%m/%Y  %X")
   DFdirDOWNLOADDATE<-DFdirdownload
+  off_app<-DFdir$items.links.officer.appointments
+  off_app1<-gsub("\\/officers/*","",off_app)
+  off_app2<-gsub("/appointments.*","",off_app1)
 
   myDf <- data.frame(
-    id = CheckNulls(coyno),
+    company.id = CheckNulls(coyno),
+    director.id = CheckNulls(off_app2),
     directors = CheckNulls(DFdirNAMES),
     start.date = CheckNulls(DFdirSTART),
     end.date = CheckNulls(DFdirEND),
@@ -60,9 +64,9 @@ ExtractDirectorsData <- function(coyno,mkey) {
     residence = CheckNulls(DFdirRESIDENCE),
     postcode = CheckNulls(DFdirPOSTCODE),
     nationality=CheckNulls(DFdirNATIONALITY),
-    birth_year=CheckNulls(DFdirBIRTH_YEAR),
-    birth_month=CheckNulls(DFdirBIRTH_MONTH),
-    former_name=CheckNulls(DFdirFORMER_NAME),
+    birth.year=CheckNulls(DFdirBIRTH_YEAR),
+    birth.month=CheckNulls(DFdirBIRTH_MONTH),
+    former.name=CheckNulls(DFdirFORMER_NAME),
     download.date=CheckNulls(DFdirDOWNLOADDATE)
   )
 
