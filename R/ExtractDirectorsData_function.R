@@ -53,7 +53,15 @@ company_ExtractDirectorsData <- function(coyno,mkey) {
   off_app1<-gsub("\\/officers/*","",off_app)
   off_app2<-gsub("/appointments.*","",off_app1)
 
-  myDf <- data.frame(
+  if (length(DFdirFORMER_NAME)==0){
+    DFdirFORMER_NAME<-NA
+  }else{DFdirFORMER_NAME<-DFdirFORMER_NAME}
+
+  if (length(off_app2)==0){
+    off_app2<-NA
+  }else{off_app2<-off_app2}
+
+ myDf <- data.frame(
     company.id = CheckNulls(coyno),
     director.id = CheckNulls(off_app2),
     directors = CheckNulls(DFdirNAMES),
