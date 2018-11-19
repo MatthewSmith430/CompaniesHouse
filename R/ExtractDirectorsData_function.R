@@ -78,6 +78,21 @@ company_ExtractDirectorsData <- function(coyno,mkey) {
     download.date=CheckNulls(DFdirDOWNLOADDATE)
   )
 
-  return(myDf)
+ myDf$company.id<-as.character(myDf$company.id)
+ myDf$director.id<-as.character(myDf$director.id)
+ myDf$directors<-as.character(myDf$directors)
+ myDf$start.date<-as.Date(myDf$start.date, format = "%Y-%m-%d")
+ myDf$end.date<-as.Date(myDf$end.date, format = "%Y-%m-%d")
+ myDf$occupation<-as.character(myDf$occupation)
+ myDf$role<-as.character(myDf$role)
+ myDf$residence<-as.character(myDf$residence)
+ myDf$postcode<-as.character(myDf$postcode)
+ myDf$nationality<-as.character(myDf$nationality)
+ myDf$birth.year<-as.numeric(myDf$birth.year)
+ myDf$birth.month<-as.numeric(myDf$birth.month)
+ myDf$former.name<-as.character(myDf$former.name)
+ myDf$download.date<-as.Date(myDf$download.date,format = "%d/%m/%Y %H:%M:%S")
+
+ return(myDf)
 }
 
