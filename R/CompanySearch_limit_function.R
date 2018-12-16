@@ -7,6 +7,7 @@
 #' @return Dataframe listing company name, company number, postcode of all companies matching the search term
 CompanySearch_limit <- function(company,mkey) {
   firmNAME<-gsub(" ", "+",company)
+  firmNAME<-gsub("&","%26",firmNAME)
   FIRMurl<-paste0("https://api.companieshouse.gov.uk/search/companies?q=",firmNAME)
 
   firmTEST<-httr::GET(FIRMurl, httr::authenticate(mkey, ""))
