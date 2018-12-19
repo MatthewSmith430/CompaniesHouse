@@ -46,18 +46,21 @@ CompanyDataExtract <- function(company_number,mkey) {
       region = DFfirmREGION,
       postcode = DFfirmPOSTCODE)
   }else{
-    DFfirm<-data.frame(JLfirm)
+    DFfirm<-data.frame(t(sapply(JLfirm,c)))
+
+    ADDRESS_DATA<-DFfirm$registered_office_address
+    ADDRESS_DATA<-plyr::ldply(ADDRESS_DATA,data.frame)
 
     DFfirmNAMES<-as.character(DFfirm$company_name)
-    DFfirmSIC<-empty2na(as.character(DFfirm$sic_codes))
+    DFfirmSIC<-empty2na(as.character(DFfirm$sic_codes[[1]][[1]]))
     DFfirmNUMBER<-empty2na(as.character(DFfirm$company_number))
     DFfirmDateofCreation<-empty2na(as.character(DFfirm$date_of_creation))
     DFfirmTYPE<-empty2na(as.character(DFfirm$type))
     DFfirmSTATUS<-empty2na(as.character(DFfirm$company_status))
-    DFfirmADDRESS<-empty2na(as.character(DFfirm$registered_office_address.address_line_1))
-    DFfirmLOCAL<-empty2na(as.character(DFfirm$registered_office_address.locality))
-    DFfirmREGION<-empty2na(as.character(DFfirm$registered_office_address.region))
-    DFfirmPOSTCODE<-empty2na(as.character(DFfirm$registered_office_address.postal_code))
+    DFfirmADDRESS<-empty2na(as.character(ADDRESS_DATA$address_line_1))
+    DFfirmLOCAL<-empty2na(as.character(ADDRESS_DATA$locality))
+    DFfirmREGION<-empty2na(as.character(ADDRESS_DATA$region))
+    DFfirmPOSTCODE<-empty2na(as.character(ADDRESS_DATA$postal_code))
 
     myDf <- data.frame(
       company.number = DFfirmNUMBER,
