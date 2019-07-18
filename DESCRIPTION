@@ -9,7 +9,7 @@ Description: This package extracts firm information from Companies House (using 
 License: GPL-3
 Encoding: UTF-8
 Imports: igraph,dplyr,plyr,ggplot2,ITNr,
-         GGally,httr,jsonlite,intergraph,network,tnet,rapport
+         GGally,httr,jsonlite,intergraph,network,tnet,rapport,rapportools
 LazyData: true
 RoxygenNote: 6.1.0
 Suggests: knitr,
