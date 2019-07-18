@@ -6,7 +6,7 @@
 #' @return NA if empty, data otherwise
 #'
 empty2na<-function(x){
-  CHECKres<-installr::is.empty(x)
+  CHECKres<-rapport::is.empty(x)
   if (CHECKres==TRUE){
     d<-"NA"
   }else{d<-x}
