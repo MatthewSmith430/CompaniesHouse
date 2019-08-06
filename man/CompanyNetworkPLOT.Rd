@@ -4,16 +4,20 @@
 \alias{CompanyNetworkPLOT}
 \title{One-Mode Company Network}
 \usage{
-CompanyNetworkPLOT(coynoLIST, mkey, LABEL, NodeSize)
+CompanyNetworkPLOT(coynoLIST, mkey, start, end, LABEL, NodeSize = 6)
 }
 \arguments{
 \item{coynoLIST}{list of company numbers}
 
 \item{mkey}{Authorisation key}
 
+\item{start}{Start Year}
+
+\item{end}{End Year}
+
 \item{LABEL}{Node Label - TRUE/FALSE}
 
-\item{NodeSize}{Node Size - default is 6, place number or CENTRALITY (weighted centrality)}
+\item{NodeSize}{Node Size - default is 6, state number or CENTRALITY (weighted centrality)}
 }
 \value{
 One-Mode Company Network - igraph object

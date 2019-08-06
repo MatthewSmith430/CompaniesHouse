@@ -30,6 +30,7 @@ CompanySearch <- function(company,mkey) {
   }
 
   DFfirm<-plyr::ldply(DFfirmL,data.frame)
+    #suppressWarnings(purrr::map_df(DFfirmL,data.frame))
 
   DFfirmNAMES<-DFfirm$items.title
   DFfirmNUMBER<-as.character(DFfirm$items.company_number)

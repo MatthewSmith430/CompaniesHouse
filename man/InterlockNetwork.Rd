@@ -4,14 +4,16 @@
 \alias{InterlockNetwork}
 \title{Interlocking Directorates Network}
 \usage{
-InterlockNetwork(coynoLIST, mkey)
+InterlockNetwork(coynoLIST, mkey, start, end)
 }
 \arguments{
 \item{coynoLIST}{list of company numbers}
 
 \item{mkey}{Authorisation key}
 
-\item{YEAR}{Year - put CURRENT for current realisation of the network}
+\item{start}{Start Year}
+
+\item{end}{End Year}
 }
 \value{
 Two-Mode Interlocking Directorates Network - igraph object

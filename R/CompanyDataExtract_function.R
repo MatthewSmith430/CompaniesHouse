@@ -14,7 +14,7 @@ CompanyDataExtract <- function(company_number,mkey) {
   CPF<-JLfirm[[1]][[1]]=="company-profile-not-found"
   if (CPF==TRUE){
     myDf <- data.frame(
-      company.number = company.number,
+      company.number = company_number,
       company.name="company-profile-not-found",
       sic.code="NA",
       Date.of.Creation = "NA",
@@ -26,6 +26,7 @@ CompanyDataExtract <- function(company_number,mkey) {
       postcode = "NA")
   }else{
     if (length(JLfirm)<16){
+      #DFfirm<-suppressWarnings(purrr::map_df(JLfirm,data.frame))
       DFfirm<-plyr::ldply(JLfirm,data.frame)
 
       DFfirm2<-t(DFfirm)
@@ -63,6 +64,7 @@ CompanyDataExtract <- function(company_number,mkey) {
 
       ADDRESS_DATA<-DFfirm$registered_office_address
       ADDRESS_DATA<-plyr::ldply(ADDRESS_DATA,data.frame)
+        #suppressWarnings(purrr::map_df(ADDRESS_DATA,data.frame))
 
       DFfirmNAMES<-as.character(DFfirm$company_name)
       DFfirmSIC<-empty2na(as.character(DFfirm$sic_codes[[1]][[1]]))

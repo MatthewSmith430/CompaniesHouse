@@ -4,7 +4,7 @@
 \alias{DirectorNetworkPLOT}
 \title{One-Mode Directors Network}
 \usage{
-DirectorNetworkPLOT(coynoLIST, mkey, LABEL, NodeSize = 6)
+DirectorNetworkPLOT(coynoLIST, mkey, LABEL, NodeSize = 6, start, end)
 }
 \arguments{
 \item{coynoLIST}{list of company numbers}
@@ -15,7 +15,9 @@ DirectorNetworkPLOT(coynoLIST, mkey, LABEL, NodeSize = 6)
 
 \item{NodeSize}{Node Size - default is 6, place number or CENTRALITY (weighted centrality)}
 
-\item{YEAR}{Year - year of the networtk. List current for current realisation}
+\item{start}{Start Year}
+
+\item{end}{End Year}
 }
 \value{
 One-Mode Director Network - igraph object

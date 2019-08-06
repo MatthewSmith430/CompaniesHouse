@@ -13,5 +13,5 @@ make_interlock(DF)
 Two-Mode Interlocking Directorates Network - igraph object
 }
 \description{
-This function creates an interlocking directorates network from a dataframe
+This function creates an interlocking directorates network from a dataframe with company and director data
 }

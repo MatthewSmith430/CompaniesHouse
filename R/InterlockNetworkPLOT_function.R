@@ -5,26 +5,14 @@
 #' @param mkey Authorisation key
 #' @param LABEL Node Label - TRUE/FALSE
 #' @param NodeSize Node Size - default is 6, place number or CENTRALITY (degree centrality)
-#' @param YEAR Year - put CURRENT for current realisation of the network
+#' @param start Start Year
+#' @param end End Year
 #' @export
 #' @return Two-Mode Interlocking Directorates Network - igraph object
-InterlockNetworkPLOT<-function(coynoLIST,mkey,LABEL,NodeSize){
-  DATA<-list()
-  for (i in 1:length(coynoLIST)){
-    DATA[[i]]<-company_ExtractDirectorsData(coynoLIST[i],mkey)
-  }
-  Rdata<-plyr::ldply(DATA, data.frame)
+InterlockNetworkPLOT<-function(coynoLIST,mkey,LABEL,NodeSize,start,end){
 
-  HH<-cbind(as.character(Rdata$id),as.character(Rdata$directors))
-  colnames(HH)<-c("CompanyID","Director")
-  HH2<-unique(HH)
-  HH2[is.na(HH2)] <- "na"
-  HH2<-as.data.frame(HH2)
-  HH3<-dplyr::filter(HH2,HH2$Director!="na")
+  INTERLOCK<-InterlockNetwork(coynoLIST,mkey,start,end)
 
-  INTERLOCK<- igraph::graph.data.frame(HH3)
-
-  igraph::V(INTERLOCK)$type <- igraph::V(INTERLOCK)$name %in% HH3$Director
   D1<-igraph::V(INTERLOCK)$type
   DC<-as.character(D1)
   DC<-gsub("TRUE", "Director", DC)

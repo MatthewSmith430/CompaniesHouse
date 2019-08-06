@@ -4,7 +4,7 @@
 #' @param company Company name search term
 #' @param mkey Authorisation key
 #' @export
-#' @return Dataframe listing company name, company number, postcode of all companies matching the search term
+#' @return Dataframe listing company name, company number, postcode of limited number companies matching the search term (according to best match)
 CompanySearch_limit <- function(company,mkey) {
   firmNAME<-gsub(" ", "+",company)
   firmNAME<-gsub("&","%26",firmNAME)

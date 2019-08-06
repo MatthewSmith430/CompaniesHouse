@@ -1,6 +1,6 @@
 #' @title Make an interlocking directorates network
 #'
-#' @description This function creates an interlocking directorates network from a dataframe
+#' @description This function creates an interlocking directorates network from a dataframe with company and director data
 #' @param DF Dataframe - column 1 Companies, Column 2 - Directors
 #' @export
 #' @return Two-Mode Interlocking Directorates Network - igraph object

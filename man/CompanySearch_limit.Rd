@@ -12,7 +12,7 @@ CompanySearch_limit(company, mkey)
 \item{mkey}{Authorisation key}
 }
 \value{
-Dataframe listing company name, company number, postcode of all companies matching the search term
+Dataframe listing company name, company number, postcode of limited number companies matching the search term (according to best match)
 }
 \description{
 This function gives a list of companies, their company numbers and other information that match the company search term - but only for the first page

@@ -4,14 +4,16 @@
 \alias{CompanyNetwork}
 \title{One-Mode Company Network}
 \usage{
-CompanyNetwork(coynoLIST, mkey, YEAR)
+CompanyNetwork(coynoLIST, mkey, start, end)
 }
 \arguments{
 \item{coynoLIST}{list of company numbers}
 
 \item{mkey}{Authorisation key}
 
-\item{YEAR}{YEAR for network. List current for current realisation}
+\item{start}{Start Year}
+
+\item{end}{End Year}
 }
 \value{
 One-Mode Company Network - igraph object

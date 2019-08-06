@@ -3,36 +3,15 @@
 #' @description This function creates an company to company network from a list of company numbers, the one-mode projection of the interlocking directorates network
 #' @param coynoLIST list of company numbers
 #' @param mkey Authorisation key
+#' @param start Start Year
+#' @param end End Year
 #' @param LABEL Node Label - TRUE/FALSE
-#' @param NodeSize Node Size - default is 6, place number or CENTRALITY (weighted centrality)
+#' @param NodeSize Node Size - default is 6, state number or CENTRALITY (weighted centrality)
 #' @export
 #' @return One-Mode Company Network - igraph object
-CompanyNetworkPLOT<-function(coynoLIST,mkey,LABEL,NodeSize){
-  DATA<-list()
-  for (i in 1:length(coynoLIST)){
-    DATA[[i]]<-company_ExtractDirectorsData(coynoLIST[i],mkey)
-  }
-  Rdata<-plyr::ldply(DATA, data.frame)
+CompanyNetworkPLOT<-function(coynoLIST,mkey,start,end,LABEL,NodeSize=6){
 
-  HH<-cbind(as.character(Rdata$id),as.character(Rdata$directors))
-  colnames(HH)<-c("CompanyID","Director")
-  HH2<-unique(HH)
-  HH2[is.na(HH2)] <- "na"
-  HH2<-as.data.frame(HH2)
-  HH3<-dplyr::filter(HH2,HH2$Director!="na")
-  INTERLOCK<-igraph::graph.data.frame(HH3)
-
-  igraph::V(INTERLOCK)$type <- igraph::V(INTERLOCK)$name %in% HH3$Director
-
-  PROJECTION<-igraph::bipartite.projection(INTERLOCK)
-  COMPANYnet<-PROJECTION[[1]]
-
-  igraph::V(COMPANYnet)$type <- igraph::V(COMPANYnet)$name %in% HH3$Director
-  D1<-igraph::V(COMPANYnet)$type
-  DC<-as.character(D1)
-  DC<-gsub("TRUE", "Director", DC)
-  DC<-gsub("FALSE", "Company", DC)
-  igraph::V(COMPANYnet)$DC<-as.vector(DC)
+  COMPANYnet<-CompanyNetwork(coynoLIST,mkey,start,end)
 
   COMPnetwork<-intergraph::asNetwork(COMPANYnet)
 
@@ -40,7 +19,7 @@ CompanyNetworkPLOT<-function(coynoLIST,mkey,LABEL,NodeSize){
     NAMElist<-network::get.vertex.attribute(COMPnetwork,"vertex.names")
     NAMElist<-as.data.frame(NAMElist,stringAsFactors=FALSE)
     colnames(NAMElist)<-"NAME"
-    COMPANYcent<-CompanyCentrality(COMPANYnet)
+    COMPANYcent<-one_mode_centrality(COMPANYnet)
     CC<-COMPANYcent
     NS<-CC[ order(match(CC$NAMES, NAMElist$NAME)), ]
     NodeSize<-NS$Weighted.Degree
