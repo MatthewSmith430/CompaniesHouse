@@ -1,6 +1,8 @@
 Companies House
 ================
 
+NOTE: README TO BE UPDATED SOON - THERE HAVE BEEN CHANGES TO THE FUNCTION NAMES ETC. 
+
 This is an R package aimed at helping in extracting data from companies house: <https://www.gov.uk/government/organisations/companies-house>
 
 It particular, it provides a way to search for companies and extract a set of company numbers. These company numbers can then be used to identify company directors.
