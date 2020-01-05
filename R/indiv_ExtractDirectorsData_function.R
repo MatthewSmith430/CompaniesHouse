@@ -15,6 +15,9 @@ indiv_ExtractDirectorsData<-function(director_id,mkey){
   RPP<-dirtextPARSED$items_per_page
   A<-length(dirtextPARSED$items)
   H1<-ceiling(TR/RPP)
+  if (rapportools::is.empty(H1)==TRUE){
+    H1<-1
+  }else{H1<-H1}
   DFdir_LIST2<-list()
 
   for (k in 1:H1){

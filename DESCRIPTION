@@ -1,7 +1,7 @@
 Package: CompaniesHouse
 Type: Package
 Title: Extract & Process Companies House Data in R
-Version: 0.3.0
+Version: 0.4.0
 Author: Matthew Smith
 Authors@R: person("Matthew", "Smith", role = c("aut", "cre"), email = "m.smith@greenwich.ac.uk")
 Maintainer: Matthew Smith <m.smith@greenwich.ac.uk>
@@ -12,7 +12,7 @@ Imports: igraph,dplyr,purrr,ggplot2,ITNr,
          GGally,httr,jsonlite,intergraph,
          network,tnet,rapportools,plyr,installr
 LazyData: true
-RoxygenNote: 6.1.0
+RoxygenNote: 7.0.2
 Suggests: knitr,
     rmarkdown
 VignetteBuilder: knitr

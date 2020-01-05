@@ -4,10 +4,14 @@
 \alias{make_interlock}
 \title{Make an interlocking directorates network}
 \usage{
-make_interlock(DF)
+make_interlock(DF, start, end)
 }
 \arguments{
-\item{DF}{Dataframe - column 1 Companies, Column 2 - Directors}
+\item{DF}{Dataframe in the companies house format}
+
+\item{start}{Start Year}
+
+\item{end}{End Year}
 }
 \value{
 Two-Mode Interlocking Directorates Network - igraph object

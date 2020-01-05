@@ -3,7 +3,6 @@
 \docType{package}
 \name{CompaniesHouse}
 \alias{CompaniesHouse}
-\alias{CompaniesHouse-package}
 \title{CompaniesHouse.}
 \description{
 CompaniesHouse.
