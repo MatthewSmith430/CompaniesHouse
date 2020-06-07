@@ -10,7 +10,7 @@ License: GPL-3
 Encoding: UTF-8
 Imports: igraph,dplyr,purrr,ggplot2,ITNr,
          GGally,httr,jsonlite,intergraph,
-         network,tnet,rapportools,plyr,installr
+         network,tnet,rapportools,plyr
 LazyData: true
 RoxygenNote: 7.0.2
 Suggests: knitr,
