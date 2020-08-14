@@ -4,7 +4,7 @@
 #' @param company_number Company number
 #' @param mkey Authorisation key
 #' @export
-#' @return Dataframe listing company number, date, docuemnt type, link and meta link
+#' @return Dataframe listing company number, date, docuemnt type, link. meta link and meta ID
 #'
 
 doc_link_extract<-function(company_number, mkey){
@@ -24,12 +24,14 @@ doc_link_extract<-function(company_number, mkey){
                        doc_type=ITNr::isEmpty(DFfirm$description_values.description),
                        links=ITNr::isEmpty(DFfirm$links.self),
                        meta_link=ITNr::isEmpty(DFfirm$links.self))
+    DF_DOC$meta_id <- sub("^(.*[\\/])", "", DF_DOC$meta_link, perl = TRUE)
   }else if (R1==0){
     DF_DOC<-data.frame(id=company_number,
                        date=Sys.time(),
                        doc_type="NA",
                        links="NA",
-                       meta_link="NA")
+                       meta_link="NA",
+                       meta_id="NA")
   }else{
     DFfirm<-data.frame(JLfirm)
     doc_links<-ITNr::isEmpty(DFfirm$items.links.self)
@@ -38,8 +40,8 @@ doc_link_extract<-function(company_number, mkey){
                        date=ITNr::isEmpty(DFfirm$items.date),
                        doc_type=ITNr::isEmpty(DFfirm$items.description),
                        links=ITNr::isEmpty(doc_links),
-                       meta_link=ITNr::isEmpty(doc_met)
-    )
+                       meta_link=ITNr::isEmpty(doc_met))
+    DF_DOC$meta_id <- sub("^(.*[\\/])", "", DF_DOC$meta_link, perl = TRUE)
   }
   return(DF_DOC)
 }
