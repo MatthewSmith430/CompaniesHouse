@@ -12,7 +12,7 @@ Imports: igraph,dplyr,purrr,ggplot2,ITNr,
          GGally,httr,jsonlite,intergraph,
          network,tnet,rapportools,plyr
 LazyData: true
-RoxygenNote: 7.0.2
+RoxygenNote: 7.1.1
 Suggests: knitr,
     rmarkdown
 VignetteBuilder: knitr

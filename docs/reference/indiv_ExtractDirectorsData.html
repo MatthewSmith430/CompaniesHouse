@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Company Data Extraction — CompanyDataExtract • CompaniesHouse</title>
+<title>Individual Directors — indiv_ExtractDirectorsData • CompaniesHouse</title>
 
 
 <!-- jquery -->
@@ -39,8 +39,8 @@
 
 
 
-<meta property="og:title" content="Company Data Extraction — CompanyDataExtract" />
-<meta property="og:description" content="This function extracts company information based on a company number" />
+<meta property="og:title" content="Individual Directors — indiv_ExtractDirectorsData" />
+<meta property="og:description" content="This function gives director information for an individuals.Includes what boards they sit on etc." />
 
 
 
@@ -108,23 +108,23 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Company Data Extraction</h1>
-    <small class="dont-index">Source: <a href='https://github.com/MatthewSmith430/CompaniesHouse/blob/master/R/CompanyDataExtract_function.R'><code>R/CompanyDataExtract_function.R</code></a></small>
-    <div class="hidden name"><code>CompanyDataExtract.Rd</code></div>
+    <h1>Individual Directors</h1>
+    <small class="dont-index">Source: <a href='https://github.com/MatthewSmith430/CompaniesHouse/blob/master/R/indiv_ExtractDirectorsData_function.R'><code>R/indiv_ExtractDirectorsData_function.R</code></a></small>
+    <div class="hidden name"><code>indiv_ExtractDirectorsData.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>This function extracts company information based on a company number</p>
+    <p>This function gives director information for an individuals.Includes what boards they sit on etc.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>CompanyDataExtract</span>(<span class='no'>company_number</span>, <span class='no'>mkey</span>)</pre>
+    <pre class="usage"><span class='fu'>indiv_ExtractDirectorsData</span>(<span class='no'>director_id</span>, <span class='no'>mkey</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>company_number</th>
-      <td><p>Company number</p></td>
+      <th>director_id</th>
+      <td><p>director id</p></td>
     </tr>
     <tr>
       <th>mkey</th>
@@ -134,7 +134,7 @@
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>Dataframe listing company name, company number, postcode, SIC code for the company number</p>
+    <p>Dataframe director information</p>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

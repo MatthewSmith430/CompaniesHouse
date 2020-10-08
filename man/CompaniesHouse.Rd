@@ -4,6 +4,3 @@
 \name{CompaniesHouse}
 \alias{CompaniesHouse}
 \title{CompaniesHouse.}
-\description{
-CompaniesHouse.
-}
