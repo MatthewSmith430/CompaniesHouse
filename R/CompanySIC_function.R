@@ -10,6 +10,8 @@ CompanySIC <- function(coyno,mkey) {
   firmTEST<-httr::GET(FIRMurl, httr::authenticate(mkey, ""))
   firmTEXT<-httr::content(firmTEST, as="text")
   JLfirm<-jsonlite::fromJSON(firmTEXT, flatten=TRUE)
+  DFfirm<-data.frame(JLfirm)
 
-  return(JLfirm$sic_codes)
+  DFfirmSIC<-DFfirm$sic_codes
+  return(DFfirmSIC)
 }
