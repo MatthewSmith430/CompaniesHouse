@@ -12,7 +12,7 @@ doc_link_extract(company_number, mkey)
 \item{mkey}{Authorisation key}
 }
 \value{
-Dataframe listing company number, date, docuemnt type, link and meta link
+Dataframe listing company number, date, docuemnt type, link, meta link  and meta ID
 }
 \description{
 This function provides a list of document numbers & links a company number

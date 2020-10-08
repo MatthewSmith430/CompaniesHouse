@@ -4,7 +4,7 @@
 #' @param company_number Company number
 #' @param mkey Authorisation key
 #' @export
-#' @return Dataframe listing company number, date, docuemnt type, link and meta link
+#' @return Dataframe listing company number, date, docuemnt type, link, meta link  and meta ID
 #'
 
 doc_link_extract<-function(company_number, mkey){
@@ -15,6 +15,7 @@ doc_link_extract<-function(company_number, mkey){
   firmTEXT<-httr::content(firmTEST, as="text")
   JLfirm<-jsonlite::fromJSON(firmTEXT, flatten=TRUE)
   DFfirm<-JLfirm$items
+
   R<-colnames(DFfirm)
   R1a<-length(R)
   R1<-as.numeric(R1a)
