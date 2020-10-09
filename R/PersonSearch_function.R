@@ -16,7 +16,7 @@ PersonSearch <- function(person, mkey, perpage = 100) {
 
   name <- gsub(' ', '+', person)
   name <- gsub('&', '%26', name)
-  url <- paste0('https://api.companieshouse.gov.uk/search/officers?q=',
+  url <- paste0('https://api.company-information.service.gov.uk/search/officers?q=', #'https://api.companieshouse.gov.uk/search/officers?q=',
                 name,
                 '&items_per_page=',
                 as.character(perpage))

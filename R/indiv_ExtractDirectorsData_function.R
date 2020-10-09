@@ -7,7 +7,8 @@
 #' @return Dataframe director information
 #
 indiv_ExtractDirectorsData<-function(director_id,mkey){
-  murl<-paste0("https://api.companieshouse.gov.uk/officers/",director_id,"/appointments")
+  #murl<-paste0("https://api.companieshouse.gov.uk/officers/",director_id,"/appointments")
+  murl<-paste0("https://api.company-information.service.gov.uk/officers/",director_id,"/appointments")
   dirlist <- httr::GET(murl, httr::authenticate(mkey, "")) #returns an R list object
   dirtext<-httr::content(dirlist, as="text")
   dirtextPARSED<-httr::content(dirlist, as="parsed")
@@ -21,7 +22,8 @@ indiv_ExtractDirectorsData<-function(director_id,mkey){
   DFdir_LIST2<-list()
 
   for (k in 1:H1){
-    murl2 <- paste0("https://api.companieshouse.gov.uk/officers/",director_id,"/appointments","?page=",k)
+    #murl2 <- paste0("https://api.companieshouse.gov.uk/officers/",director_id,"/appointments","?page=",k)
+    murl2 <- paste0("https://api.company-information.service.gov.uk/officers/",director_id,"/appointments","?page=",k)
     dirlist2 <- httr::GET(murl2, httr::authenticate(mkey, "")) #returns an R list object
     dirtext2<-httr::content(dirlist2, as="text")
     #dirtextPARSED2<-httr::content(dirlist2, as="parsed")

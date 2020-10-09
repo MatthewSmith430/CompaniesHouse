@@ -7,7 +7,8 @@
 #' @return Dataframe listing company name, company number, postcode, SIC code for the company number
 CompanyDataExtract <- function(company_number,mkey) {
   company_number<-as.character(company_number)
-  FIRMurl<-paste0("https://api.companieshouse.gov.uk/company/",company_number)
+  #FIRMurl<-paste0("https://api.companieshouse.gov.uk/company/",company_number)
+  FIRMurl<-paste0("https://api.company-information.service.gov.uk/company/",company_number)
   firmTEST<-httr::GET(FIRMurl, httr::authenticate(mkey, ""))
   firmTEXT<-httr::content(firmTEST, as="text")
   JLfirm<-jsonlite::fromJSON(firmTEXT, flatten=TRUE)

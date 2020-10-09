@@ -43,7 +43,7 @@ doc_download <- function(doc_id, mkey, dl_loc, filename, doc_type){
 
   # Download file to directory
 
-  download.file(doc_getlink(doc_id, mkey, doc_type),
+  utils::download.file(doc_getlink(doc_id, mkey, doc_type),
                 paste0(dl_loc, filename, '.', file_ext),
                 mode = 'wb',
                 headers = c(Accept = doc_type))

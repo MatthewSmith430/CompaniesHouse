@@ -17,7 +17,11 @@ doc_getlink <- function(doc_id, mkey, doc_type){
 
   # Request document location
 
-  rq.url <- paste0('http://document-api.companieshouse.gov.uk/document/',
+  #rq.url <- paste0('http://document-api.companieshouse.gov.uk/document/',
+  #                 doc_id,
+  #                 '/content')
+
+  rq.url <- paste0('http://document-api.company-information.service.gov.uk/document/',
                    doc_id,
                    '/content')
   rq.get <- httr::GET(rq.url,

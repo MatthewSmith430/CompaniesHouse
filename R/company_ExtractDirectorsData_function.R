@@ -7,7 +7,8 @@
 #' @return Dataframe director information
 
 company_ExtractDirectorsData <- function(coyno,mkey) {
-  murl <- paste0("https://api.companieshouse.gov.uk/company/", coyno, "/officers")
+  #murl <- paste0("https://api.companieshouse.gov.uk/company/", coyno, "/officers")
+  murl <- paste0("https://api.company-information.service.gov.uk/company/", coyno, "/officers")
   dirlist <- httr::GET(murl, httr::authenticate(mkey, "")) #returns an R list object
   dirtext<-httr::content(dirlist, as="text")
   dirtextPARSED<-httr::content(dirlist, as="parsed")
@@ -18,7 +19,8 @@ company_ExtractDirectorsData <- function(coyno,mkey) {
     H1<-ceiling(TR/RPP)
     DFdir_LIST2<-list()
     for (k in 1:H1){
-      murl2 <- paste0("https://api.companieshouse.gov.uk/company/", coyno, "/officers","?page=",k)
+      #murl2 <- paste0("https://api.companieshouse.gov.uk/company/", coyno, "/officers","?page=",k)
+      murl2 <- paste0("https://api.company-information.service.gov.uk/", coyno, "/officers","?page=",k)
       dirlist2 <- httr::GET(murl2, httr::authenticate(mkey, "")) #returns an R list object
       dirtext2<-httr::content(dirlist2, as="text")
       #dirtextPARSED2<-httr::content(dirlist2, as="parsed")

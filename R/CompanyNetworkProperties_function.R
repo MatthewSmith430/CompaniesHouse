@@ -6,15 +6,12 @@
 #' @return One-Mode Company Network Properties Table Data frame
 
 CompanyNetworkProperties<-function(gs){
-  net <- cbind(igraph::get.edgelist(gs, names=FALSE), igraph::E(gs)$weight)
-  net <- suppressWarnings(tnet::symmetrise_w(net))
-  net <- tnet::as.tnet(net, type="weighted one-mode tnet")
+  WeightDegAll<-wo_igraph2tnet(gs,alpha = 0.5)
+  WeightedClustering<-clustering_global_igraph2tnet(gs,alpha = 0.5)
+  WeightedClustering<-WeightedClustering$am_arithmetic_mean
 
-  WeightDegAll<-tnet::degree_w(net,measure=c("degree","output"), type="all")
-  WeightedClustering<-tnet::clustering_w(net)
-
-  Wall<-WeightDegAll[,3]
-  Dall<-WeightDegAll[,2]
+  Wall<-WeightDegAll$weighted_outdegree
+  Dall<-WeightDegAll$outdegree
 
   BetCen<-igraph::centr_betw(gs)
   closenesscen<-igraph::centr_clo(gs,mode="total")

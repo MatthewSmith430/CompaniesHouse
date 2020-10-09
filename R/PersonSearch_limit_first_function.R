@@ -8,7 +8,8 @@
 PersonSearch_limit_first <- function(person,mkey) {
   firmNAME<-gsub(" ", "+",person)
   firmNAME<-gsub("&","%26",firmNAME)
-  FIRMurl<-paste0("https://api.companieshouse.gov.uk/search/officers?q=",firmNAME)
+  #FIRMurl<-paste0("https://api.companieshouse.gov.uk/search/officers?q=",firmNAME)
+  FIRMurl<-paste0("https://api.company-information.service.gov.uk/search/officers?q=",firmNAME)
 
   firmTEST<-httr::GET(FIRMurl, httr::authenticate(mkey, ""))
   firmTEXT<-httr::content(firmTEST, as="text")

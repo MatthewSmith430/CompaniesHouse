@@ -8,7 +8,7 @@
 #'
 
 doc_link_extract<-function(company_number, mkey){
-  FIRMurl<-paste0("https://api.companieshouse.gov.uk/company/",
+  FIRMurl<-paste0("https://api.company-information.service.gov.uk/company/",#"https://api.companieshouse.gov.uk/company/",
                   company_number,
                   "/filing-history")
   firmTEST<-httr::GET(FIRMurl, httr::authenticate(mkey, ""))

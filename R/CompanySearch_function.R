@@ -8,7 +8,8 @@
 CompanySearch <- function(company,mkey) {
   firmNAME<-gsub(" ", "+",company)
   firmNAME<-gsub("&","%26",firmNAME)
-  FIRMurl<-paste0("https://api.companieshouse.gov.uk/search/companies?q=",firmNAME)
+  #FIRMurl<-paste0("https://api.companieshouse.gov.uk/search/companies?q=",firmNAME)
+  FIRMurl<-paste0("https://api.company-information.service.gov.uk/search/companies?q=",firmNAME)
 
   firmTEST<-httr::GET(FIRMurl, httr::authenticate(mkey, ""))
   firmTEXT<-httr::content(firmTEST, as="text")
@@ -21,7 +22,8 @@ CompanySearch <- function(company,mkey) {
   DFfirmL<-list()
 
   for (j in 1:MM2b){
-    FIRMurl2<-paste0("https://api.companieshouse.gov.uk/search/companies?q=",firmNAME,"&page_number=",j)
+    #FIRMurl2<-paste0("https://api.companieshouse.gov.uk/search/companies?q=",firmNAME,"&page_number=",j)
+    FIRMurl2<-paste0("https://api.company-information.service.gov.uk/search/companies?q=",firmNAME,"&page_number=",j)
 
     firmTEST2<-httr::GET(FIRMurl2, httr::authenticate(mkey, ""))
     firmTEXT2<-httr::content(firmTEST2, as="text")

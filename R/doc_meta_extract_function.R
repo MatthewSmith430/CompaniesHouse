@@ -11,7 +11,7 @@
 doc_meta_extract <- function(doc_id, mkey){
   stopifnot(is.character(doc_id), is.character(mkey))
 
-  rq.url <- paste0('http://document-api.companieshouse.gov.uk/document/',
+  rq.url <- paste0('http://document-api.company-information.service.gov.uk/document', #'http://document-api.companieshouse.gov.uk/document/',
                    doc_id)
   rq.get <- httr::GET(rq.url, httr::authenticate(mkey, ''))
 
