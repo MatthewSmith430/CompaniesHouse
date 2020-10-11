@@ -12,29 +12,15 @@ company_ExtractDirectorsData <- function(coyno,mkey) {
   dirlist <- httr::GET(murl, httr::authenticate(mkey, "")) #returns an R list object
   dirtext<-httr::content(dirlist, as="text")
   dirtextPARSED<-httr::content(dirlist, as="parsed")
-  TR<-dirtextPARSED$total_results
-  RPP<-dirtextPARSED$items_per_page
-  A<-length(dirtextPARSED$items)
-  if (A>0){
-    H1<-ceiling(TR/RPP)
-    DFdir_LIST2<-list()
-    for (k in 1:H1){
-      #murl2 <- paste0("https://api.companieshouse.gov.uk/company/", coyno, "/officers","?page=",k)
-      murl2 <- paste0("https://api.company-information.service.gov.uk/", coyno, "/officers","?page=",k)
-      dirlist2 <- httr::GET(murl2, httr::authenticate(mkey, "")) #returns an R list object
-      dirtext2<-httr::content(dirlist2, as="text")
-      #dirtextPARSED2<-httr::content(dirlist2, as="parsed")
-      JLdir2<-jsonlite::fromJSON(dirtext2,flatten=TRUE)
-      DFdirB<-data.frame(JLdir2)
-      DFdir_LIST2[[k]]<-DFdirB
-    }
 
-    DFdir<-plyr::ldply(DFdir_LIST2,data.frame)
-  } else {
-    JLdir<-jsonlite::fromJSON(dirtext, flatten=TRUE)
-    json_data = sapply(JLdir,rbind)
-    DFdir<-data.frame(json_data)
-  }
+  TR<-dirtextPARSED$total_results
+
+  murl2 <- paste0("https://api.company-information.service.gov.uk/company/", coyno, "/officers","?items_per_page=",TR)
+  dirlist2 <- httr::GET(murl2, httr::authenticate(mkey, "")) #returns an R list object
+  dirtext2<-httr::content(dirlist2, as="text")
+  #dirtextPARSED2<-httr::content(dirlist2, as="parsed")
+  JLdir2<-jsonlite::fromJSON(dirtext2,flatten=TRUE)
+  DFdir<-data.frame(JLdir2)
 
   DFdirNAMES<-DFdir$items.name
   DFdirSTART<-DFdir$items.appointed_on
