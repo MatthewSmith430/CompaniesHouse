@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Document List Extraction — doc_link_extract • CompaniesHouse</title>
+<title>Document Download — doc_download • CompaniesHouse</title>
 
 
 <!-- jquery -->
@@ -39,8 +39,10 @@
 
 
 
-<meta property="og:title" content="Document List Extraction — doc_link_extract" />
-<meta property="og:description" content="This function provides a list of document numbers &amp;amp; links a company number" />
+<meta property="og:title" content="Document Download — doc_download" />
+<meta property="og:description" content="This function downloads a file to the specified location. It's a wrapper for
+download.file and helps extract lots of files into ordered directory trees.
+Use with doc_meta_extract and doc_getlink for best results." />
 
 
 
@@ -108,33 +110,49 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Document List Extraction</h1>
-    <small class="dont-index">Source: <a href='https://github.com/MatthewSmith430/CompaniesHouse/blob/master/R/doc_link_extract_function.R'><code>R/doc_link_extract_function.R</code></a></small>
-    <div class="hidden name"><code>doc_link_extract.Rd</code></div>
+    <h1>Document Download</h1>
+    <small class="dont-index">Source: <a href='https://github.com/MatthewSmith430/CompaniesHouse/blob/master/R/doc_download_function.R'><code>R/doc_download_function.R</code></a></small>
+    <div class="hidden name"><code>doc_download.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>This function provides a list of document numbers &amp; links a company number</p>
+    <p>This function downloads a file to the specified location. It's a wrapper for
+<code>download.file</code> and helps extract lots of files into ordered directory trees.
+Use with <code>doc_meta_extract</code> and <code>doc_getlink</code> for best results.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>doc_link_extract</span>(<span class='no'>company_number</span>, <span class='no'>mkey</span>)</pre>
+    <pre class="usage"><span class='fu'>doc_download</span>(<span class='no'>doc_id</span>, <span class='no'>mkey</span>, <span class='no'>dl_loc</span>, <span class='no'>filename</span>, <span class='no'>doc_type</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>company_number</th>
-      <td><p>Company number</p></td>
+      <th>doc_id</th>
+      <td><p>Document number</p></td>
     </tr>
     <tr>
       <th>mkey</th>
       <td><p>Authorisation key</p></td>
     </tr>
+    <tr>
+      <th>dl_loc</th>
+      <td><p>The location you want to download the file to, ending in a <code><a href='https://rdrr.io/r/base/Arithmetic.html'>'/'</a></code>. Directories will
+be created recursively if they don't exist</p></td>
+    </tr>
+    <tr>
+      <th>filename</th>
+      <td><p>The name you want to give the file</p></td>
+    </tr>
+    <tr>
+      <th>doc_type</th>
+      <td><p>The filetype of the document. Should be one of <code>'application/pdf'</code>,
+<code>'application/json'</code>, <code>'application/xml'</code>, <code>'application/xhtml+xml'</code> or <code>'text/csv'</code></p></td>
+    </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>Dataframe listing company number, date, docuemnt type, link, meta link  and meta ID</p>
+    <p>Downloads the file to the location specified in the specified format. Expect warning messages for directories that exist</p>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

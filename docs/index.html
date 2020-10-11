@@ -66,33 +66,17 @@
 
       </header><div class="row">
   <div class="contents col-md-9">
-
 <div id="companies-house" class="section level1">
 <div class="page-header"><h1 class="hasAnchor">
 <a href="#companies-house" class="anchor"></a>Companies House</h1></div>
-<p>NOTE: README TO BE UPDATED SOON - THERE HAVE BEEN CHANGES TO THE FUNCTION NAMES ETC.</p>
 <p>This is an R package aimed at helping in extracting data from companies house: <a href="https://www.gov.uk/government/organisations/companies-house" class="uri">https://www.gov.uk/government/organisations/companies-house</a></p>
 <p>It particular, it provides a way to search for companies and extract a set of company numbers. These company numbers can then be used to identify company directors.</p>
 <p>This package also provides functions which allow you to build a network of interlocking directors, that is a network of individuals and the companies, linked by board membership. Other networks are also created - such as director networks, this is a set of individuals linked by sitting on (at least one of) the same company board of directors. Company networks - a set of companies linked by having (at least one of) the same directors sitting on the board.</p>
-<div id="packages" class="section level2">
-<h2 class="hasAnchor">
-<a href="#packages" class="anchor"></a>Packages</h2>
-<p>This package requires a number of other packages, more specifically:</p>
-<div class="sourceCode" id="cb1"><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">igraph</span>)
-<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">tnet</span>)
-<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">intergraph</span>)
-<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">sna</span>)
-<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">ggplot2</span>)
-<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">GGally</span>)
-<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">httr</span>)
-<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">jsonlite</span>)
-<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">ITNr</span>)
-
-<span class="co">#Install CompaniesHouse:</span>
-<span class="co">#library(devtools)</span>
-<span class="co">#devtools::install_github("MatthewSmith430/CompaniesHouse")</span>
+<p>To install follow these steps</p>
+<div class="sourceCode" id="cb1"><pre class="r"><span class="co">#Install CompaniesHouse:</span>
+<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">devtools</span>)
+<span class="kw pkg">devtools</span><span class="kw ns">::</span><span class="fu"><a href="https://devtools.r-lib.org//reference/remote-reexports.html">install_github</a></span>(<span class="st">"MatthewSmith430/CompaniesHouse"</span>)
 <span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">CompaniesHouse</span>)</pre></div>
-</div>
 <div id="authorisation-key" class="section level2">
 <h2 class="hasAnchor">
 <a href="#authorisation-key" class="anchor"></a>Authorisation Key</h2>
@@ -104,1005 +88,352 @@
 <div id="company-search" class="section level2">
 <h2 class="hasAnchor">
 <a href="#company-search" class="anchor"></a>Company Search</h2>
-<p>The following function allows you to search for companies in Companies House (using the API). You use the search term with your authorisation key, and it returns a list of companies that match the search term. It also give the Companies House Company number, the company address and various other information. The company number is important, as it is used to identify the firm, and is used in many of the other package functions.</p>
+<p>The following function allows you to search for companies in Companies House (using the API). You use the search term with your authorisation key, and it returns a list of companies that match the search term. It also give the Companies House Company number, the company address and various other information. The company number is important, as it is used to identify the firm, and is used in many of the other package functions. There are three versions for this command:<br>
+1. <code>CompanySearch_limit_first</code> This returns the first company from the search results<br>
+2. <code>CompanySearch_limit</code> This return the first page of search results<br>
+3. <code>CompanySearch</code> This returns all search results</p>
+<p>In the following example I will use <code>CompanySearch_limit</code> (yet I will only display the first three results to save space)</p>
 <div class="sourceCode" id="cb3"><pre class="r"><span class="co">#Search for a "COMPANY SEARCH TERM"</span>
 <span class="co">#In this example we use "unilever"</span>
-<span class="no">CompanySearchList</span><span class="kw">&lt;-</span><span class="fu"><a href="reference/CompanySearch.html">CompanySearch</a></span>(<span class="st">"unilever"</span>,<span class="no">mkey</span>)</pre></div>
-<table class="table table table-striped table-hover table-condensed table-responsive">
+
+<span class="no">CompanySearchList</span><span class="kw">&lt;-</span><span class="fu"><a href="reference/CompanySearch_limit.html">CompanySearch_limit</a></span>(<span class="st">"unilever"</span>,<span class="no">mkey</span>)</pre></div>
+<table class="table">
 <thead><tr>
 <th style="text-align:left;">
-id.search.term
+<p>id.search.term</p>
 </th>
 <th style="text-align:left;">
-company.name
+<p>company.name</p>
 </th>
 <th style="text-align:left;">
-company.number
+<p>company.number</p>
 </th>
 <th style="text-align:left;">
-Date.of.Creation
+<p>Date.of.Creation</p>
 </th>
 <th style="text-align:left;">
-company.type
+<p>company.type</p>
 </th>
 <th style="text-align:left;">
-company.status
+<p>company.status</p>
 </th>
 <th style="text-align:left;">
-address
+<p>address</p>
 </th>
 <th style="text-align:left;">
-country
+<p>Locality</p>
 </th>
 <th style="text-align:left;">
-postcode
+<p>postcode</p>
 </th>
 </tr></thead>
 <tbody>
 <tr>
 <td style="text-align:left;">
-unilever
+<p>unilever</p>
 </td>
 <td style="text-align:left;">
-UNILEVER PLC
+<p>UNILEVER PLC</p>
 </td>
 <td style="text-align:left;">
-00041424
+<p>00041424</p>
 </td>
 <td style="text-align:left;">
-1894-06-21
+<p>1894-06-21</p>
 </td>
 <td style="text-align:left;">
-plc
+<p>plc</p>
 </td>
 <td style="text-align:left;">
-active
+<p>active</p>
 </td>
 <td style="text-align:left;">
-Port Sunlight, Wirral, Merseyside, CH62 4ZD
+<p>Port Sunlight, Wirral, Merseyside, CH62 4ZD</p>
 </td>
 <td style="text-align:left;">
-NA
+<p>Merseyside</p>
 </td>
 <td style="text-align:left;">
-CH62 4ZD
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-unilever
-</td>
-<td style="text-align:left;">
-UNILEVER BCS UK LIMITED
-</td>
-<td style="text-align:left;">
-09521994
-</td>
-<td style="text-align:left;">
-2015-04-01
-</td>
-<td style="text-align:left;">
-ltd
-</td>
-<td style="text-align:left;">
-active
-</td>
-<td style="text-align:left;">
-Unilever House, 100 Victoria Embankment, London, United Kingdom, EC4Y 0DY
-</td>
-<td style="text-align:left;">
-United Kingdom
-</td>
-<td style="text-align:left;">
-EC4Y 0DY
+<p>CH62 4ZD</p>
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-unilever
+<p>unilever</p>
 </td>
 <td style="text-align:left;">
-UNILEVER BESTFOODS UK LIMITED
+<p>UNILEVER AUSTRALIA INVESTMENTS LIMITED</p>
 </td>
 <td style="text-align:left;">
-BR014135
+<p>00137659</p>
 </td>
 <td style="text-align:left;">
-2009-10-01
+<p>1914-09-12</p>
 </td>
 <td style="text-align:left;">
-uk-establishment
+<p>ltd</p>
 </td>
 <td style="text-align:left;">
-closed
+<p>active</p>
 </td>
 <td style="text-align:left;">
-Unit 12 Mckinney Industrial Estate Co Antrim, Mallusk
+<p>Unilever House, 100 Victoria Embankment, London, EC4Y 0DY</p>
 </td>
 <td style="text-align:left;">
-NA
+<p>London</p>
 </td>
 <td style="text-align:left;">
-NA
+<p>EC4Y 0DY</p>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<p>unilever</p>
+</td>
+<td style="text-align:left;">
+<p>UNILEVER AUSTRALIA PARTNERSHIP LIMITED</p>
+</td>
+<td style="text-align:left;">
+<p>00315312</p>
+</td>
+<td style="text-align:left;">
+<p>1936-06-17</p>
+</td>
+<td style="text-align:left;">
+<p>ltd</p>
+</td>
+<td style="text-align:left;">
+<p>active</p>
+</td>
+<td style="text-align:left;">
+<p>Unilever House, 100 Victoria Embankment, London, EC4Y 0DY</p>
+</td>
+<td style="text-align:left;">
+<p>London</p>
+</td>
+<td style="text-align:left;">
+<p>EC4Y 0DY</p>
 </td>
 </tr>
 </tbody>
-<tfoot>
-<tr>
-<td style="padding: 0; border: 0;" colspan="100%">
-<strong>Note: </strong>
-</td>
-</tr>
-<tr>
-<td style="padding: 0; border: 0;" colspan="100%">
-<sup></sup> Company search results (first three results )
-</td>
-</tr>
-</tfoot>
 </table>
 </div>
 <div id="extract-directors-data" class="section level2">
 <h2 class="hasAnchor">
 <a href="#extract-directors-data" class="anchor"></a>Extract Directors Data</h2>
-<p>This function extract director information for a company numbers. Where it gives a dataframe containing a list of directors and director information for the company number.</p>
+<p>This function extracts director information for a company numbers. Where it gives a dataframe containing a list of directors and director information for the company number. In this example, I will ouput a small selection of the directors from Unilever Plc.</p>
 <div class="sourceCode" id="cb4"><pre class="r"><span class="co">#We conintue to use Uniever as a example, we know that the company</span>
 <span class="co">#number for Unilever Plc is "00041424".</span>
 
 <span class="co">#Therefore we can extract the director information</span>
 <span class="co">#for Unilvever Plc</span>
-<span class="no">DirectorInformation</span><span class="kw">&lt;-</span><span class="fu">ExtractDirectorsData</span>(<span class="st">"00041424"</span>, <span class="no">mkey</span>)</pre></div>
-<table class="table table table-striped table-hover table-condensed table-responsive">
+<span class="no">DirectorInformation</span><span class="kw">&lt;-</span><span class="fu"><a href="reference/company_ExtractDirectorsData.html">company_ExtractDirectorsData</a></span>(<span class="st">"00041424"</span>, <span class="no">mkey</span>)</pre></div>
+<table class="table">
 <thead><tr>
 <th style="text-align:left;">
-id
+<p>company.id</p>
 </th>
 <th style="text-align:left;">
-directors
+<p>director.id</p>
 </th>
 <th style="text-align:left;">
-start.date
+<p>directors</p>
 </th>
 <th style="text-align:left;">
-end.date
+<p>start.date</p>
 </th>
 <th style="text-align:left;">
-occupation
+<p>end.date</p>
 </th>
 <th style="text-align:left;">
-role
+<p>occupation</p>
 </th>
 <th style="text-align:left;">
-residence
+<p>role</p>
 </th>
 <th style="text-align:left;">
-postcode
+<p>residence</p>
 </th>
 <th style="text-align:left;">
-download.date
+<p>postcode</p>
+</th>
+<th style="text-align:left;">
+<p>nationality</p>
+</th>
+<th style="text-align:right;">
+<p>birth.year</p>
+</th>
+<th style="text-align:right;">
+<p>birth.month</p>
+</th>
+<th style="text-align:left;">
+<p>former.name</p>
+</th>
+<th style="text-align:left;">
+<p>download.date</p>
 </th>
 </tr></thead>
 <tbody>
 <tr>
 <td style="text-align:left;">
-00041424
+<p>00041424</p>
 </td>
 <td style="text-align:left;">
-SOTAMAA, Ritva
+<p>i-a1nTc06VZikEBTLGW9DYwuANM</p>
 </td>
 <td style="text-align:left;">
-2018-01-01
+<p>SOTAMAA, Ritva</p>
 </td>
 <td style="text-align:left;">
-NA
+<p>2018-01-01</p>
 </td>
 <td style="text-align:left;">
-NA
+<p>NA</p>
 </td>
 <td style="text-align:left;">
-secretary
+<p>NA</p>
 </td>
 <td style="text-align:left;">
-NA
+<p>secretary</p>
 </td>
 <td style="text-align:left;">
-EC4Y 0DY
+<p>NA</p>
 </td>
 <td style="text-align:left;">
-15/04/2018 18:12:08
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-00041424
+<p>EC4Y 0DY</p>
 </td>
 <td style="text-align:left;">
-ANDERSEN, Nils Smedegaard
+<p>NA</p>
+</td>
+<td style="text-align:right;">
+<p>NA</p>
+</td>
+<td style="text-align:right;">
+<p>NA</p>
 </td>
 <td style="text-align:left;">
-2015-04-30
+<p>NULL</p>
 </td>
 <td style="text-align:left;">
-NA
-</td>
-<td style="text-align:left;">
-None
-</td>
-<td style="text-align:left;">
-director
-</td>
-<td style="text-align:left;">
-Denmark
-</td>
-<td style="text-align:left;">
-EC4 0DY
-</td>
-<td style="text-align:left;">
-15/04/2018 18:12:08
+<p>2020-10-11</p>
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-00041424
+<p>00041424</p>
 </td>
 <td style="text-align:left;">
-CHA, Laura May Lung
+<p>ZI4TtLjPrlcnIckJGNlqCLV2s_Y</p>
 </td>
 <td style="text-align:left;">
-2013-05-15
+<p>ANDERSEN, Nils Smedegaard</p>
 </td>
 <td style="text-align:left;">
-NA
+<p>2015-04-30</p>
 </td>
 <td style="text-align:left;">
-Deputy Chairman Hsbc Asia Pacific
+<p>NA</p>
 </td>
 <td style="text-align:left;">
-director
+<p>None</p>
 </td>
 <td style="text-align:left;">
-Hong Kong
+<p>director</p>
 </td>
 <td style="text-align:left;">
-EC4Y 0DY
+<p>Denmark</p>
 </td>
 <td style="text-align:left;">
-15/04/2018 18:12:08
+<p>EC4 0DY</p>
+</td>
+<td style="text-align:left;">
+<p>Danish</p>
+</td>
+<td style="text-align:right;">
+<p>1958</p>
+</td>
+<td style="text-align:right;">
+<p>7</p>
+</td>
+<td style="text-align:left;">
+<p>NULL</p>
+</td>
+<td style="text-align:left;">
+<p>2020-10-11</p>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<p>00041424</p>
+</td>
+<td style="text-align:left;">
+<p>E3FTMwTYyFn9_AXshohmRCws23c</p>
+</td>
+<td style="text-align:left;">
+<p>CHA, Laura May Lung</p>
+</td>
+<td style="text-align:left;">
+<p>2013-05-15</p>
+</td>
+<td style="text-align:left;">
+<p>NA</p>
+</td>
+<td style="text-align:left;">
+<p>Deputy Chairman Hsbc Asia Pacific</p>
+</td>
+<td style="text-align:left;">
+<p>director</p>
+</td>
+<td style="text-align:left;">
+<p>Hong Kong</p>
+</td>
+<td style="text-align:left;">
+<p>EC4Y 0DY</p>
+</td>
+<td style="text-align:left;">
+<p>Chinese</p>
+</td>
+<td style="text-align:right;">
+<p>1949</p>
+</td>
+<td style="text-align:right;">
+<p>12</p>
+</td>
+<td style="text-align:left;">
+<p>NULL</p>
+</td>
+<td style="text-align:left;">
+<p>2020-10-11</p>
 </td>
 </tr>
 </tbody>
-<tfoot>
-<tr>
-<td style="padding: 0; border: 0;" colspan="100%">
-<strong>Note: </strong>
-</td>
-</tr>
-<tr>
-<td style="padding: 0; border: 0;" colspan="100%">
-<sup></sup> Director information results (first three results )
-</td>
-</tr>
-</tfoot>
 </table>
-<div class="sourceCode" id="cb5"><pre class="r"><span class="co">#To extract director data for a list of company numbers - say all </span>
-<span class="co">#firms associated with the Unilever search term we use:</span>
-<span class="no">MultilpleDirectorInfo</span><span class="kw">&lt;-</span><span class="fu"><a href="https://rdrr.io/r/base/mapply.html">mapply</a></span>(<span class="no">ExtractDirectorsData</span>,<span class="fu"><a href="https://rdrr.io/r/base/character.html">as.character</a></span>(<span class="no">CompanySearchList</span>$<span class="no">company.number</span>),<span class="no">mkey</span>)
-
-<span class="co">#Where CompanySearchList$company.number is the list of company numbers from</span>
-<span class="co">#our company search dataframe. </span></pre></div>
-</div>
-<div id="company-sector-code" class="section level2">
-<h2 class="hasAnchor">
-<a href="#company-sector-code" class="anchor"></a>Company Sector Code</h2>
-<p>This function finds the sector a company operates in - where it gives its SIC code. The function requires the company number.</p>
-<div class="sourceCode" id="cb6"><pre class="r"><span class="co">#Again we use Unilever Plc as an example - using their company number</span>
+<p>##Company Sector Code<br>
+This function finds the sector a company operates in - where it gives its SIC code. The function requires the company number.</p>
+<div class="sourceCode" id="cb5"><pre class="r"><span class="co">#Again we use Unilever Plc as an example - using their company number</span>
 <span class="no">CompanySIC</span><span class="kw">&lt;-</span><span class="fu"><a href="reference/CompanySIC.html">CompanySIC</a></span>(<span class="st">"00041424"</span>, <span class="no">mkey</span>)
 
 <span class="no">CompanySIC</span></pre></div>
-<div class="sourceCode" id="cb7"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a><span class="co">## 70100</span></span></code></pre></div>
-<div class="sourceCode" id="cb8"><pre class="r"><span class="co">#To extract director data for a list of company numbers </span>
-<span class="co">#(using again the example of all company numbers associated with </span>
-<span class="co">#the Unilever search term):</span>
-<span class="no">MultilpleSIC</span><span class="kw">&lt;-</span><span class="fu"><a href="https://rdrr.io/r/base/mapply.html">mapply</a></span>(<span class="no">CompanySIC</span>,<span class="fu"><a href="https://rdrr.io/r/base/character.html">as.character</a></span>(<span class="no">CompanySearchList</span>$<span class="no">company.number</span>),<span class="no">mkey</span>)</pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a><span class="co">## No encoding supplied: defaulting to UTF-8.</span></span></code></pre></div>
+<table class="table">
+<thead><tr>
+<th style="text-align:left;">
+<p>x</p>
+</th>
+</tr></thead>
+<tbody><tr>
+<td style="text-align:left;">
+<p>70100</p>
+</td>
+</tr></tbody>
+</table>
 </div>
-<div id="networks" class="section level2">
+<div id="director-information" class="section level2">
 <h2 class="hasAnchor">
-<a href="#networks" class="anchor"></a>Networks</h2>
-<p>The package can be used to create a set of networks.</p>
-<ul>
-<li>Interlocking directorates network: a set of companies and individuals, where individuals are tied to companies where they sit on the board of directors.</li>
-<li>Director network: a set of directors, where they are linked if they sit on the same company board.</li>
-<li>Company network: a set of companies, where they are linked if they share a director.</li>
-</ul>
-<div id="create-networks" class="section level3">
-<h3 class="hasAnchor">
-<a href="#create-networks" class="anchor"></a>Create Networks</h3>
-<p>The following functions create the various networks. Where a list of company numbers is required to create these networks.</p>
-<div id="interlocking-directorates-network" class="section level4">
-<h4 class="hasAnchor">
-<a href="#interlocking-directorates-network" class="anchor"></a>Interlocking Directorates Network</h4>
-<p>There are two ways to create the interlocking directorates network:</p>
-<p>1.) From a list of company numbers</p>
-<div class="sourceCode" id="cb9"><pre class="r"><span class="no">INTERLOCKS1</span><span class="kw">&lt;-</span><span class="fu"><a href="reference/InterlockNetwork.html">InterlockNetwork</a></span>(<span class="no">List.of.company.numbers</span>,<span class="no">mkey</span>)
-
-<span class="co">##Example for all company numbers associated with the </span>
-<span class="co">##Unilever search term:</span>
-<span class="no">INTERLOCKS1</span><span class="kw">&lt;-</span><span class="fu"><a href="reference/InterlockNetwork.html">InterlockNetwork</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/character.html">as.character</a></span>(<span class="no">CompanySearchList</span>$<span class="no">company.number</span>),<span class="no">mkey</span>)</pre></div>
-<p>2.) From a data frame produced using the ExtractDirectorsData function. This dataframe can be edited manually to use company names (or perhaps another id system) in the network.</p>
-<div class="sourceCode" id="cb10"><pre class="r"><span class="no">INTERLOCKS2</span><span class="kw">&lt;-</span><span class="fu"><a href="reference/make_interlock.html">make_interlock</a></span>(<span class="no">DataFrame</span>)
-
-<span class="co">##Example for all company numbers associated with the </span>
-<span class="co">##Unilever search term - the dataframe created with ExtractDirectorsData</span>
-<span class="no">INTERLOCKS2</span><span class="kw">&lt;-</span><span class="fu"><a href="reference/make_interlock.html">make_interlock</a></span>(<span class="no">MultilpleDirectorInfo</span>)</pre></div>
-</div>
-<div id="company-network" class="section level4">
-<h4 class="hasAnchor">
-<a href="#company-network" class="anchor"></a>Company Network</h4>
-<div class="sourceCode" id="cb11"><pre class="r"><span class="no">CompanyNET</span><span class="kw">&lt;-</span><span class="fu"><a href="reference/CompanyNetwork.html">CompanyNetwork</a></span>(<span class="no">List.of.company.numbers</span>,<span class="no">mkey</span>)
-
-<span class="co">##Example for all company numbers associated with the </span>
-<span class="co">##Unilever search term:</span>
-<span class="no">CompanyNET</span><span class="kw">&lt;-</span><span class="fu"><a href="reference/CompanyNetwork.html">CompanyNetwork</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/character.html">as.character</a></span>(<span class="no">CompanySearchList</span>$<span class="no">company.number</span>),<span class="no">mkey</span>)</pre></div>
-</div>
-<div id="director-network" class="section level4">
-<h4 class="hasAnchor">
-<a href="#director-network" class="anchor"></a>Director Network</h4>
-<div class="sourceCode" id="cb12"><pre class="r"><span class="no">DirNET</span><span class="kw">&lt;-</span><span class="fu"><a href="reference/DirectorNetwork.html">DirectorNetwork</a></span>(<span class="no">List.of.company.numbers</span>,<span class="no">mkey</span>)
-
-<span class="co">##Example for all company numbers associated with the </span>
-<span class="co">##Unilever search term:</span>
-<span class="no">DirNET</span><span class="kw">&lt;-</span><span class="fu"><a href="reference/DirectorNetwork.html">DirectorNetwork</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/character.html">as.character</a></span>(<span class="no">CompanySearchList</span>$<span class="no">company.number</span>),<span class="no">mkey</span>)</pre></div>
+<a href="#director-information" class="anchor"></a>Director Information</h2>
+<p>In <code>CompaniesHouse</code> you can also examine the boards that a director sits on, if you have the director id.</p>
 </div>
 </div>
-<div id="network-analysis" class="section level3">
-<h3 class="hasAnchor">
-<a href="#network-analysis" class="anchor"></a>Network Analysis</h3>
-<p>The network (<code>igraph</code> object) is required for these functions. These are calculated using the commands from the “Create Networks” section.</p>
-<div id="centrality" class="section level4">
-<h4 class="hasAnchor">
-<a href="#centrality" class="anchor"></a>Centrality</h4>
-<p>For each network we can calculate a range of centrality measures. The director and company networks are one-mode networks, so a wider range of centrality measures can be calculated.</p>
-<div class="sourceCode" id="cb13"><pre class="r"><span class="no">INTERLOCKcent</span><span class="kw">&lt;-</span><span class="fu"><a href="reference/InterlockCentrality.html">InterlockCentrality</a></span>(<span class="no">INTERLOCKS1</span>)</pre></div>
-<table class="table table table-striped table-hover table-condensed table-responsive">
-<thead><tr>
-<th style="text-align:left;">
-</th>
-<th style="text-align:left;">
-NAMES
-</th>
-<th style="text-align:right;">
-Degree.Centrality
-</th>
-</tr></thead>
-<tbody>
-<tr>
-<td style="text-align:left;">
-00041424
-</td>
-<td style="text-align:left;">
-00041424
-</td>
-<td style="text-align:right;">
-34
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-09521994
-</td>
-<td style="text-align:left;">
-09521994
-</td>
-<td style="text-align:right;">
-12
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-FC024822
-</td>
-<td style="text-align:left;">
-FC024822
-</td>
-<td style="text-align:right;">
-21
-</td>
-</tr>
-</tbody>
-<tfoot>
-<tr>
-<td style="padding: 0; border: 0;" colspan="100%">
-<strong>Note: </strong>
-</td>
-</tr>
-<tr>
-<td style="padding: 0; border: 0;" colspan="100%">
-<sup></sup> Interlocking directorates centrality results (first three results)
-</td>
-</tr>
-</tfoot>
-</table>
-<div class="sourceCode" id="cb14"><pre class="r"><span class="no">COMPANYcent</span><span class="kw">&lt;-</span><span class="fu">CompanyCentrality</span>(<span class="no">CompanyNET</span>)</pre></div>
-<table class="table table table-striped table-hover table-condensed table-responsive">
-<thead><tr>
-<th style="text-align:left;">
-</th>
-<th style="text-align:left;">
-NAMES
-</th>
-<th style="text-align:right;">
-Weighted.Degree
-</th>
-<th style="text-align:right;">
-Binary.Degree
-</th>
-<th style="text-align:right;">
-Betweenness
-</th>
-<th style="text-align:right;">
-Closeness
-</th>
-<th style="text-align:right;">
-Eigenvector
-</th>
-</tr></thead>
-<tbody>
-<tr>
-<td style="text-align:left;">
-00041424
-</td>
-<td style="text-align:left;">
-00041424
-</td>
-<td style="text-align:right;">
-3
-</td>
-<td style="text-align:right;">
-2
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-0.0204
-</td>
-<td style="text-align:right;">
-0.0298
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-09521994
-</td>
-<td style="text-align:left;">
-09521994
-</td>
-<td style="text-align:right;">
-25
-</td>
-<td style="text-align:right;">
-9
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-0.0303
-</td>
-<td style="text-align:right;">
-0.2903
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-FC024822
-</td>
-<td style="text-align:left;">
-FC024822
-</td>
-<td style="text-align:right;">
-52
-</td>
-<td style="text-align:right;">
-10
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-0.0233
-</td>
-<td style="text-align:right;">
-0.6925
-</td>
-</tr>
-</tbody>
-<tfoot>
-<tr>
-<td style="padding: 0; border: 0;" colspan="100%">
-<strong>Note: </strong>
-</td>
-</tr>
-<tr>
-<td style="padding: 0; border: 0;" colspan="100%">
-<sup></sup> Company-Company network centrality results (first three results)
-</td>
-</tr>
-</tfoot>
-</table>
-<div class="sourceCode" id="cb15"><pre class="r"><span class="no">DIRcent</span><span class="kw">&lt;-</span><span class="fu">DirectorCentrality</span>(<span class="no">DirNET</span>)</pre></div>
-<table class="table table table-striped table-hover table-condensed table-responsive">
-<thead><tr>
-<th style="text-align:left;">
-</th>
-<th style="text-align:left;">
-NAMES
-</th>
-<th style="text-align:right;">
-Weighted.Degree
-</th>
-<th style="text-align:right;">
-Binary.Degree
-</th>
-<th style="text-align:right;">
-Betweenness
-</th>
-<th style="text-align:right;">
-Closeness
-</th>
-<th style="text-align:right;">
-Eigenvector
-</th>
-</tr></thead>
-<tbody>
-<tr>
-<td style="text-align:left;">
-SOTAMAA, Ritva
-</td>
-<td style="text-align:left;">
-SOTAMAA, Ritva
-</td>
-<td style="text-align:right;">
-33
-</td>
-<td style="text-align:right;">
-33
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-0.0026
-</td>
-<td style="text-align:right;">
-0.0104
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-ANDERSEN, Nils Smedegaard
-</td>
-<td style="text-align:left;">
-ANDERSEN, Nils Smedegaard
-</td>
-<td style="text-align:right;">
-33
-</td>
-<td style="text-align:right;">
-33
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-0.0026
-</td>
-<td style="text-align:right;">
-0.0104
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-CHA, Laura May Lung
-</td>
-<td style="text-align:left;">
-CHA, Laura May Lung
-</td>
-<td style="text-align:right;">
-33
-</td>
-<td style="text-align:right;">
-33
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-0.0026
-</td>
-<td style="text-align:right;">
-0.0104
-</td>
-</tr>
-</tbody>
-<tfoot>
-<tr>
-<td style="padding: 0; border: 0;" colspan="100%">
-<strong>Note: </strong>
-</td>
-</tr>
-<tr>
-<td style="padding: 0; border: 0;" colspan="100%">
-<sup></sup> Director-Director network centrality results (first three results)
-</td>
-</tr>
-</tfoot>
-</table>
-</div>
-<div id="network-properties" class="section level4">
-<h4 class="hasAnchor">
-<a href="#network-properties" class="anchor"></a>Network properties</h4>
-<p>We can calculate the properties of the director and company networks.</p>
-<div class="sourceCode" id="cb16"><pre class="r"><span class="no">COMPANYprop</span><span class="kw">&lt;-</span><span class="fu"><a href="reference/CompanyNetworkProperties.html">CompanyNetworkProperties</a></span>(<span class="no">CompanyNET</span>)</pre></div>
-<table class="table table table-striped table-hover table-condensed table-responsive">
-<thead><tr>
-<th style="text-align:left;">
-</th>
-<th style="text-align:right;">
-One-Mode Company Network
-</th>
-</tr></thead>
-<tbody>
-<tr>
-<td style="text-align:left;">
-Size
-</td>
-<td style="text-align:right;">
-14.0000
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Density
-</td>
-<td style="text-align:right;">
-0.6484
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Diameter
-</td>
-<td style="text-align:right;">
-8.0000
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Average.path.lenth
-</td>
-<td style="text-align:right;">
-1.3846
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Average.node.stregnth
-</td>
-<td style="text-align:right;">
-37.1429
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Average.Degree
-</td>
-<td style="text-align:right;">
-8.4286
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Betweenness.Centralisation
-</td>
-<td style="text-align:right;">
-0.1312
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Closeness.Centralisation
-</td>
-<td style="text-align:right;">
-0.2560
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Eigenvector.Centralisation
-</td>
-<td style="text-align:right;">
-0.2413
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Degree.Centralisation
-</td>
-<td style="text-align:right;">
-0.1978
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Clustering.coefficent.transitivity
-</td>
-<td style="text-align:right;">
-0.9058
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Clustering.Weighted
-</td>
-<td style="text-align:right;">
-0.9417
-</td>
-</tr>
-</tbody>
-<tfoot>
-<tr>
-<td style="padding: 0; border: 0;" colspan="100%">
-<strong>Note: </strong>
-</td>
-</tr>
-<tr>
-<td style="padding: 0; border: 0;" colspan="100%">
-<sup></sup> Company-Company network properties
-</td>
-</tr>
-</tfoot>
-</table>
-<div class="sourceCode" id="cb17"><pre class="r"><span class="no">DIRprop</span><span class="kw">&lt;-</span><span class="fu"><a href="reference/DirectorNetworkProperties.html">DirectorNetworkProperties</a></span>(<span class="no">DirNET</span>)</pre></div>
-<table class="table table table-striped table-hover table-condensed table-responsive">
-<thead><tr>
-<th style="text-align:left;">
-</th>
-<th style="text-align:right;">
-One-Mode Director Network
-</th>
-</tr></thead>
-<tbody>
-<tr>
-<td style="text-align:left;">
-Size
-</td>
-<td style="text-align:right;">
-172.0000
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Density
-</td>
-<td style="text-align:right;">
-0.1858
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Diameter
-</td>
-<td style="text-align:right;">
-4.0000
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Average.path.lenth
-</td>
-<td style="text-align:right;">
-2.1098
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Average.node.stregnth
-</td>
-<td style="text-align:right;">
-37.8372
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Average.Degree
-</td>
-<td style="text-align:right;">
-31.7791
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Betweenness.Centralisation
-</td>
-<td style="text-align:right;">
-0.1162
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Closeness.Centralisation
-</td>
-<td style="text-align:right;">
-0.3209
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Eigenvector.Centralisation
-</td>
-<td style="text-align:right;">
-0.6792
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Degree.Centralisation
-</td>
-<td style="text-align:right;">
-0.3580
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Clustering.coefficent.transitivity
-</td>
-<td style="text-align:right;">
-0.7512
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Clustering.Weighted
-</td>
-<td style="text-align:right;">
-0.7511
-</td>
-</tr>
-</tbody>
-<tfoot>
-<tr>
-<td style="padding: 0; border: 0;" colspan="100%">
-<strong>Note: </strong>
-</td>
-</tr>
-<tr>
-<td style="padding: 0; border: 0;" colspan="100%">
-<sup></sup> Director-Director network properties
-</td>
-</tr>
-</tfoot>
-</table>
-</div>
-</div>
-<div id="plot-networks" class="section level3">
-<h3 class="hasAnchor">
-<a href="#plot-networks" class="anchor"></a>Plot Networks</h3>
-<p>The following function create plots of various networks. The TRUE/FALSE option indicates whether node labels should be included in the plots or not. The network plots are created from a list of company numbers for a quick inspection of the networks. There are a number of other commands and packages that can be used to create high quality network visualsiations from the network objects in R. You can also specify the node size - in the following examples we use size 6.</p>
-<div class="sourceCode" id="cb18"><pre class="r"><span class="co">#Interlocking Directorates Plot</span>
-<span class="fu"><a href="reference/InterlockNetworkPLOT.html">InterlockNetworkPLOT</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/character.html">as.character</a></span>(<span class="no">CompanySearchList</span>$<span class="no">company.number</span>),<span class="no">mkey</span>,<span class="fl">FALSE</span>,<span class="kw">NodeSize</span> <span class="kw">=</span> <span class="fl">6</span>)</pre></div>
-<p><img src="README_files/figure-markdown_github/ploti-1.png"></p>
-<div class="sourceCode" id="cb19"><pre class="r"><span class="co">#Directors Plot</span>
-<span class="fu"><a href="reference/DirectorNetworkPLOT.html">DirectorNetworkPLOT</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/character.html">as.character</a></span>(<span class="no">CompanySearchList</span>$<span class="no">company.number</span>),<span class="no">mkey</span>,<span class="fl">FALSE</span>,<span class="kw">NodeSize</span> <span class="kw">=</span> <span class="fl">6</span>)</pre></div>
-<p><img src="README_files/figure-markdown_github/plotd-1.png"></p>
-<div class="sourceCode" id="cb20"><pre class="r"><span class="co">#Company Plot</span>
-<span class="fu"><a href="reference/CompanyNetworkPLOT.html">CompanyNetworkPLOT</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/character.html">as.character</a></span>(<span class="no">CompanySearchList</span>$<span class="no">company.number</span>),<span class="no">mkey</span>,<span class="fl">FALSE</span>,<span class="kw">NodeSize</span> <span class="kw">=</span> <span class="fl">6</span>)</pre></div>
-<p><img src="README_files/figure-markdown_github/plotc-1.png"></p>
-<p>You can also create grid plots - showing a plot of all three networks on a single grid using the <code>cowplot</code> library. In the example below we plot the networks in a grid, setting node size to degree centrality.</p>
-<div class="sourceCode" id="cb21"><pre class="r"><span class="co">##Load cowplot library</span>
-<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">cowplot</span>)
-
-<span class="co">##Create plot objects with node size based on centrality</span>
-<span class="no">interlock.plot</span><span class="kw">&lt;-</span><span class="fu"><a href="reference/InterlockNetworkPLOT.html">InterlockNetworkPLOT</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/character.html">as.character</a></span>(<span class="no">CompanySearchList</span>$<span class="no">company.number</span>),
-                                     <span class="no">mkey</span>,<span class="fl">FALSE</span>,<span class="kw">NodeSize</span> <span class="kw">=</span> <span class="st">"CENTRALITY"</span>)
-<span class="no">director.plot</span><span class="kw">&lt;-</span><span class="fu"><a href="reference/DirectorNetworkPLOT.html">DirectorNetworkPLOT</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/character.html">as.character</a></span>(<span class="no">CompanySearchList</span>$<span class="no">company.number</span>),
-                                   <span class="no">mkey</span>,<span class="fl">FALSE</span>,<span class="kw">NodeSize</span> <span class="kw">=</span> <span class="st">"CENTRALITY"</span>)
-<span class="no">company.plot</span><span class="kw">&lt;-</span><span class="fu"><a href="reference/CompanyNetworkPLOT.html">CompanyNetworkPLOT</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/character.html">as.character</a></span>(<span class="no">CompanySearchList</span>$<span class="no">company.number</span>),
-                                 <span class="no">mkey</span>,<span class="fl">FALSE</span>,<span class="kw">NodeSize</span> <span class="kw">=</span> <span class="st">"CENTRALITY"</span>)
-
-<span class="co">##Plot as a grid</span>
-<span class="fu"><a href="https://rdrr.io/pkg/cowplot/man/plot_grid.html">plot_grid</a></span>(<span class="no">interlock.plot</span>,<span class="no">director.plot</span>,<span class="no">company.plot</span>,
-          <span class="kw">labels</span><span class="kw">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"Interlocks"</span>,<span class="st">"Directors"</span>,<span class="st">"Companies"</span>))</pre></div>
-<p><img src="README_files/figure-markdown_github/COWplot-1.png"></p>
-</div>
-</div>
-</div>
-<div id="additional-useful-functions" class="section level1">
-<h1 class="hasAnchor">
-<a href="#additional-useful-functions" class="anchor"></a>Additional useful functions</h1>
-<div id="gender-information" class="section level2">
-<h2 class="hasAnchor">
-<a href="#gender-information" class="anchor"></a>Gender Information</h2>
-<p>If your research require to examine the gender of directors, and how patterns of interlocking directorates differ for males and female, you will need additional information, as companies house does not provide gender information. However, there are a number of R packages that estimate the likelihood that a individual is male or female based on their first names. Although this is restricted to English first names, it still remains a useful tool to proxy gender information. The available packages include <code>gender</code> and <code>genderize</code>. In the following example, we make use of the <code>genderize</code> package. We extract the gender information for all actors in the example Unilever director network, and then plot this network with the gender information.</p>
-<div class="sourceCode" id="cb22"><pre class="r"><span class="co">##Load the relevant packages</span>
-<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">igraph</span>)
-<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">magrittr</span>)
-<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">intergraph</span>)
-<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">network</span>)
-<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">GGally</span>)
-<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">genderizeR</span>)
-
-<span class="co">##Create name dataframe from director network</span>
-<span class="no">directornames</span><span class="kw">&lt;-</span><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/V.html">V</a></span>(<span class="no">DirNET</span>)$<span class="no">name</span><span class="kw">%&gt;%</span><span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html">as.data.frame</a></span>(<span class="no">.</span>,<span class="kw">stringsAsFactors</span><span class="kw">=</span><span class="fl">FALSE</span>)
-<span class="fu"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span>(<span class="no">directornames</span>)<span class="kw">&lt;-</span><span class="st">"Names"</span>
-
-<span class="co">##Split the names into first and last names</span>
-<span class="no">names.split</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/strsplit.html">strsplit</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/unlist.html">unlist</a></span>(<span class="no">directornames</span>$<span class="no">Names</span>), <span class="st">","</span>)
-<span class="no">name.last</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html">sapply</a></span>(<span class="no">names.split</span>, <span class="kw">function</span>(<span class="no">x</span>) <span class="no">x</span>[<span class="fl">1</span>])
-<span class="no">name.first</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html">sapply</a></span>(<span class="no">names.split</span>, <span class="kw">function</span>(<span class="no">x</span>)
-  <span class="co"># this deals with empty name slots in your original list, returning NA</span>
-  <span class="kw">if</span>(<span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span>(<span class="no">x</span>) <span class="kw">==</span> <span class="fl">0</span>) {
-    <span class="fl">NA</span>
-    } <span class="kw">else</span> <span class="kw">if</span> (<span class="no">x</span>[<span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span>(<span class="no">x</span>)] <span class="kw">%in%</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"Jr."</span>, <span class="st">"Jr"</span>, <span class="st">"Sr."</span>, <span class="st">"Sr"</span>,
-                                 <span class="st">"Dr"</span>, <span class="st">" Dr"</span>, <span class="st">" Baron"</span>,<span class="st">"Dr."</span>, <span class="st">" Dr."</span>,
-                                 <span class="st">"Professor"</span>, <span class="st">" Professor"</span>)) {
-    <span class="fu"><a href="https://rdrr.io/r/base/grep.html">gsub</a></span>(<span class="st">"[[:punct:]]"</span>, <span class="st">""</span>, <span class="no">x</span>[<span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span>(<span class="no">x</span>) - <span class="fl">1</span>])
-
-  } <span class="kw">else</span> {
-    <span class="no">x</span>[<span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span>(<span class="no">x</span>)]
-  })
-
-<span class="co">##Create new names dataframe</span>
-<span class="no">nameDF</span><span class="kw">&lt;-</span><span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span>(<span class="kw">id</span><span class="kw">=</span><span class="fl">1</span>:<span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span>(<span class="no">name.first</span>),
-                   <span class="kw">name.first</span><span class="kw">=</span><span class="no">name.first</span>,
-                   <span class="kw">name.last</span><span class="kw">=</span><span class="no">name.last</span>)
-
-<span class="no">nameDF</span>$<span class="no">name.first</span><span class="kw">&lt;-</span><span class="fu"><a href="https://rdrr.io/r/base/character.html">as.character</a></span>(<span class="no">nameDF</span>$<span class="no">name.first</span>)
-<span class="no">nameDF</span>$<span class="no">name.first</span><span class="kw">&lt;-</span><span class="fu"><a href="https://rdrr.io/r/base/trimws.html">trimws</a></span>(<span class="no">nameDF</span>$<span class="no">name.first</span>)
-<span class="no">nameDF</span>$<span class="no">name.last</span><span class="kw">&lt;-</span><span class="fu"><a href="https://rdrr.io/r/base/character.html">as.character</a></span>(<span class="no">nameDF</span>$<span class="no">name.last</span>)
-
-<span class="co">##Extract first word of first name vectors (as this can also include middle/multiple names etc)</span>
-<span class="co">##This will be used as matching key later.</span>
-<span class="no">name1</span><span class="kw">&lt;-</span><span class="fu"><a href="https://rdrr.io/r/base/grep.html">gsub</a></span>(<span class="st">" .*"</span>, <span class="st">''</span>, <span class="no">nameDF</span>$<span class="no">name.first</span>)
-<span class="no">nameDF</span><span class="kw">&lt;-</span><span class="fu"><a href="https://rdrr.io/r/base/cbind.html">cbind</a></span>(<span class="no">nameDF</span>,<span class="no">name1</span>)
-<span class="no">nameDF</span>$<span class="no">name1</span><span class="kw">&lt;-</span><span class="fu"><a href="https://rdrr.io/r/base/character.html">as.character</a></span>(<span class="no">nameDF</span>$<span class="no">name1</span>)<span class="kw">%&gt;%</span><span class="fu"><a href="https://rdrr.io/r/base/chartr.html">tolower</a></span>()
-
-<span class="co">##Implement genderizeR</span>
-<span class="no">xPrepared</span> <span class="kw">=</span> <span class="fu">textPrepare</span>(<span class="no">nameDF</span>$<span class="no">name.first</span>)
-<span class="no">givenNames</span> <span class="kw">=</span> <span class="fu">findGivenNames</span>(<span class="no">xPrepared</span>, <span class="kw">progress</span> <span class="kw">=</span> <span class="fl">FALSE</span>) <span class="kw">%&gt;%</span> <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html">as.data.frame</a></span>(<span class="no">.</span>,<span class="kw">stringsAsFactors</span><span class="kw">=</span><span class="fl">FALSE</span>)
-
-<span class="co">##From this create a gender-name key</span>
-<span class="no">nameKEY</span><span class="kw">&lt;-</span><span class="no">givenNames</span>
-<span class="no">nameKEY</span>$<span class="no">probability</span><span class="kw">&lt;-</span><span class="kw">NULL</span>
-<span class="no">nameKEY</span>$<span class="no">count</span><span class="kw">&lt;-</span><span class="kw">NULL</span>
-<span class="fu"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span>(<span class="no">nameKEY</span>)<span class="kw">&lt;-</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"name1"</span>,<span class="st">"gender"</span>)
-
-<span class="co">##Merge this will the director name dataframe</span>
-<span class="no">nameDF</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/merge.html">merge</a></span>(<span class="no">nameDF</span>, <span class="no">nameKEY</span>, <span class="kw">by</span> <span class="kw">=</span> <span class="st">"name1"</span>,<span class="kw">all.x</span> <span class="kw">=</span> <span class="fl">TRUE</span>)
-<span class="no">nameDF</span>$<span class="no">name1</span><span class="kw">&lt;-</span><span class="kw">NULL</span>
-<span class="no">nameDF</span>[<span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span>(<span class="no">nameDF</span>)]<span class="kw">&lt;-</span><span class="st">"na"</span>
-
-<span class="co">##Add these as igraph network atributes</span>
-<span class="fu"><a href="https://rdrr.io/pkg/igraph/man/V.html">V</a></span>(<span class="no">DirNET</span>)$<span class="no">gender</span><span class="kw">&lt;-</span><span class="no">nameDF</span>$<span class="no">gender</span>
-<span class="no">numericgender</span><span class="kw">&lt;-</span><span class="fu"><a href="https://rdrr.io/r/base/factor.html">as.factor</a></span>(<span class="no">nameDF</span>$<span class="no">gender</span>)<span class="kw">%&gt;%</span><span class="fu"><a href="https://rdrr.io/r/base/numeric.html">as.numeric</a></span>() <span class="co">#Add numeric attribute</span>
-<span class="fu"><a href="https://rdrr.io/pkg/igraph/man/V.html">V</a></span>(<span class="no">DirNET</span>)$<span class="no">gendernumeric</span><span class="kw">&lt;-</span><span class="no">numericgender</span>
-
-<span class="co">##plot director network with gender information</span>
-<span class="no">DIRnetwork</span><span class="kw">&lt;-</span><span class="fu"><a href="https://rdrr.io/pkg/intergraph/man/asNetwork.html">asNetwork</a></span>(<span class="no">DirNET</span>)
-
-<span class="fu"><a href="https://ggobi.github.io/ggally/reference/ggnet2.html">ggnet2</a></span>(<span class="no">DIRnetwork</span>,<span class="kw">color.palette</span><span class="kw">=</span><span class="st">"Set1"</span>,
-       <span class="kw">node.size</span><span class="kw">=</span><span class="fl">4</span>,<span class="kw">color.legend</span> <span class="kw">=</span> <span class="st">"Gender"</span>,
-       <span class="kw">node.color</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/pkg/igraph/man/vertex_attr.html">get.vertex.attribute</a></span>(<span class="no">DIRnetwork</span>,<span class="st">"gender"</span>),
-       <span class="kw">label</span> <span class="kw">=</span> <span class="fl">FALSE</span>,<span class="kw">edge.color</span> <span class="kw">=</span>  <span class="st">"grey50"</span>,<span class="kw">arrow.size</span><span class="kw">=</span><span class="fl">0</span>)
-
-<span class="co">####NOTE</span>
-<span class="co">##This can implemented for other languages (not just english names), </span>
-<span class="co">##if the following is implemented.</span>
-<span class="fu"><a href="https://rdrr.io/r/base/locales.html">Sys.setlocale</a></span>(<span class="st">"LC_ALL"</span>, <span class="st">"Polish"</span>) <span class="co">#polish example</span>
-<span class="co">##see the genderizeR documentation for further details</span></pre></div>
-<p><img src="README_files/figure-markdown_github/gender2-1.png"></p>
-</div>
-</div>
-
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

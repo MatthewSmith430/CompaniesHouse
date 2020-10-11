@@ -11,7 +11,7 @@ wi_igraph2tnet<-function(gs,alpha){
   DF<-dplyr::select(DF,"to","from","weight")
   DFV<-igraph::get.data.frame(gs,what="vertices")
   DFV<-dplyr::mutate(DFV,id_num=1:igraph::vcount(gs))
-  DFV<-dplyr::select(DFV,name,id_num)
+  DFV<-dplyr::select(DFV,"name","id_num")
   DF[["from"]] <- DFV[ match(DF[['from']], DFV[['name']] ) , 'id_num']
   DF[["to"]] <- DFV[ match(DF[['to']], DFV[['name']] ) , 'id_num']
 
@@ -25,7 +25,7 @@ wi_igraph2tnet<-function(gs,alpha){
   colnames(DEGI_DF)<-c("id_num","indegree","weighted_indegree",
                        "WI_scaled")
   DEGI_DF<-merge(DFV,DEGI_DF,by="id_num",all.x=TRUE)
-  DEGI_DF<-dplyr::select(DEGI_DF,-id_num)
+  DEGI_DF<-dplyr::select(DEGI_DF,-c("id_num"))
   DEGI_DF[is.na(DEGI_DF)]<-0
   return(DEGI_DF)
 

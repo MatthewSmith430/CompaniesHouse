@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Document List Extraction — doc_link_extract • CompaniesHouse</title>
+<title>Rate Limiting Wrapper — RateLimitWrap • CompaniesHouse</title>
 
 
 <!-- jquery -->
@@ -39,8 +39,10 @@
 
 
 
-<meta property="og:title" content="Document List Extraction — doc_link_extract" />
-<meta property="og:description" content="This function provides a list of document numbers &amp;amp; links a company number" />
+<meta property="og:title" content="Rate Limiting Wrapper — RateLimitWrap" />
+<meta property="og:description" content="Takes any other function in the Companies House documentation and returns the same function with rate limiting.
+Uses trace to listen in on the headers of each HTTP request. As it's quite noisy, consider running with
+suppressMessages()." />
 
 
 
@@ -108,34 +110,44 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Document List Extraction</h1>
-    <small class="dont-index">Source: <a href='https://github.com/MatthewSmith430/CompaniesHouse/blob/master/R/doc_link_extract_function.R'><code>R/doc_link_extract_function.R</code></a></small>
-    <div class="hidden name"><code>doc_link_extract.Rd</code></div>
+    <h1>Rate Limiting Wrapper</h1>
+    <small class="dont-index">Source: <a href='https://github.com/MatthewSmith430/CompaniesHouse/blob/master/R/RateLimitWrap_function.R'><code>R/RateLimitWrap_function.R</code></a></small>
+    <div class="hidden name"><code>RateLimitWrap.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>This function provides a list of document numbers &amp; links a company number</p>
+    <p>Takes any other function in the Companies House documentation and returns the same function with rate limiting.
+Uses <code>trace</code> to listen in on the headers of each HTTP request. As it's quite noisy, consider running with
+<code><a href='https://rdrr.io/r/base/message.html'>suppressMessages()</a></code>.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>doc_link_extract</span>(<span class='no'>company_number</span>, <span class='no'>mkey</span>)</pre>
+    <pre class="usage"><span class='fu'>RateLimitWrap</span>(<span class='no'>func</span>, <span class='no'>...</span>, <span class='kw'>buffer</span> <span class='kw'>=</span> <span class='fl'>5</span>, <span class='kw'>silent</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>company_number</th>
-      <td><p>Company number</p></td>
+      <th>func</th>
+      <td><p>The function you want to add rate limiting to</p></td>
     </tr>
     <tr>
-      <th>mkey</th>
-      <td><p>Authorisation key</p></td>
+      <th>buffer</th>
+      <td><p>Optional. The amount of requests left before the wrapper will pause. Default is 5</p></td>
+    </tr>
+    <tr>
+      <th>silent</th>
+      <td><p>Optional. Suppresses printed messages</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>Dataframe listing company number, date, docuemnt type, link, meta link  and meta ID</p>
+    <p>A function with rate limiting added</p>
 
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='no'>PersonSearch.Rated</span> <span class='kw'>&lt;-</span> <span class='fu'>RateLimitWrap</span>(<span class='no'>PersonSearch_limit_first</span>)
+
+<span class='fu'>PersonSearch.Rated</span>(<span class='no'>person</span>, <span class='no'>mkey</span>)</div><div class='output co'>#&gt; <span class='message'>Loading required package: httr</span></div><div class='output co'>#&gt; <span class='message'>Tracing function "GET" as seen from package "CompaniesHouse"</span></div><div class='output co'>#&gt; <span class='error'>Error in PersonSearch.Rated(person, mkey): object '.value' not found</span></div><div class='input'><span class='fu'>PersonSearch.Rated</span>(<span class='no'>person</span>, <span class='no'>mkey</span>, <span class='kw'>silent</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; <span class='message'>Tracing function "GET" as seen from package "CompaniesHouse"</span></div><div class='output co'>#&gt; <span class='error'>Error in PersonSearch.Rated(person, mkey, silent = TRUE): object '.value' not found</span></div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/message.html'>suppressMessages</a></span>(<span class='fu'>PersonSearch.Rated</span>(<span class='no'>person</span>, <span class='no'>mkey</span>))</div><div class='output co'>#&gt; <span class='error'>Error in PersonSearch.Rated(person, mkey): object '.value' not found</span></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

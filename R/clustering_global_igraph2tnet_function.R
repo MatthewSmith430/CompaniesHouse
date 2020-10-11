@@ -11,7 +11,7 @@ clustering_global_igraph2tnet<-function(gs,alpha){
   DF<-dplyr::select(DF,"to","from","weight")
   DFV<-igraph::get.data.frame(gs,what="vertices")
   DFV<-dplyr::mutate(DFV,id_num=1:igraph::vcount(gs))
-  DFV<-dplyr::select(DFV,name,id_num)
+  DFV<-dplyr::select(DFV,"name","id_num")
   DF[["from"]] <- DFV[ match(DF[['from']], DFV[['name']] ) , 'id_num']
   DF[["to"]] <- DFV[ match(DF[['to']], DFV[['name']] ) , 'id_num']
 
