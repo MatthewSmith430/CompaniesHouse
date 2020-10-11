@@ -15,5 +15,5 @@ CompanySearch_limit_first(company, mkey)
 Dataframe listing company name, company number, postcode of the first company matching the search term
 }
 \description{
-This function gives a list of companies, their company numbers and other information that match the company search term - but only for the first page
+This function gives a list of companies, their company numbers and other information that match the company search term - but only for the first item
 }

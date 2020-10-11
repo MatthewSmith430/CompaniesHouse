@@ -1,6 +1,6 @@
 #' @title Company Search Limit First
 #'
-#' @description This function gives a list of companies, their company numbers and other information that match the company search term - but only for the first page
+#' @description This function gives a list of companies, their company numbers and other information that match the company search term - but only for the first item
 #' @param company Company name search term
 #' @param mkey Authorisation key
 #' @export

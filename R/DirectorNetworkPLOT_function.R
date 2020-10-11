@@ -13,12 +13,12 @@ DirectorNetworkPLOT<-function(coynoLIST,mkey,LABEL,NodeSize=6,start,end){
 
   DIRECTORnet<-DirectorNetwork(coynoLIST,mkey,start,end)
 
-  igraph::V(DIRECTORnet)$type <-igraph::V(DIRECTORnet)$name %in% HH3$Director
-  D1<-igraph::V(DIRECTORnet)$type
-  DC<-as.character(D1)
-  DC<-gsub("TRUE", "Director", DC)
-  DC<-gsub("FALSE", "Company", DC)
-  igraph::V(DIRECTORnet)$DC<-as.vector(DC)
+  #igraph::V(DIRECTORnet)$type <-igraph::V(DIRECTORnet)$name %in% HH3$Director
+  #D1<-igraph::V(DIRECTORnet)$type
+  #DC<-as.character(D1)
+  #DC<-gsub("TRUE", "Director", DC)
+  #DC<-gsub("FALSE", "Company", DC)
+  #igraph::V(DIRECTORnet)$DC<-as.vector(DC)
 
   DIRnetwork<-intergraph::asNetwork(DIRECTORnet)
 

@@ -15,7 +15,7 @@ one_mode_centrality<-function(gs){
     igraph::V(gs)$Eigenvector<-igraph::eigen_centrality(gs)$vector
 
     myDF<-igraph::get.data.frame(gs,what="vertices")
-    myDF$NAMES<-as.character(myDF$NAMES)
+    myDF$NAMES<-as.character(myDF$name)
     myDF$Weighted.Degree<-as.numeric(myDF$Weighted.Degree)
     myDF$Binary.Degree<-as.numeric(myDF$Binary.Degree)
     myDF$Betweenness<-as.numeric(myDF$Betweenness)
