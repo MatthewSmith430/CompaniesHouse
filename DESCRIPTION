@@ -1,7 +1,7 @@
 Package: CompaniesHouse
 Type: Package
 Title: Extract & Process Companies House Data in R
-Version: 0.4.0
+Version: 0.5.0
 Author: Matthew Smith
 Authors@R: person("Matthew", "Smith", role = c("aut", "cre"), email = "m.smith3@napier.ac.uk")
 Maintainer: Matthew Smith <m.smith3@napier.ac.uk>
