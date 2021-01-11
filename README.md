@@ -1116,7 +1116,7 @@ company numbers is required to create these networks.
 
 #### Interlocking Directorates Network
 
-WHen creating the interlock network - you need to specify the years that
+When creating the interlock network - you need to specify the years that
 you want to cover - a start year and end year There are two ways to
 create the interlocking directorates network:
 
