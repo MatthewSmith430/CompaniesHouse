@@ -31,7 +31,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">CompaniesHouse</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.4.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.5.0</span>
       </span>
     </div>
 
@@ -39,7 +39,7 @@
       <ul class="nav navbar-nav">
 <li>
   <a href="index.html">
-    <span class="fa fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -50,7 +50,7 @@
 <ul class="nav navbar-nav navbar-right">
 <li>
   <a href="https://github.com/MatthewSmith430/CompaniesHouse/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -414,7 +414,6 @@ This function finds the sector a company operates in - where it gives its SIC co
 <span class="no">CompanySIC</span><span class="kw">&lt;-</span><span class="fu"><a href="reference/CompanySIC.html">CompanySIC</a></span>(<span class="st">"00041424"</span>, <span class="no">mkey</span>)
 
 <span class="no">CompanySIC</span></pre></div>
-<div class="sourceCode" id="cb6"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a><span class="co">## No encoding supplied: defaulting to UTF-8.</span></span></code></pre></div>
 <table class="table">
 <thead><tr>
 <th style="text-align:left;">
@@ -431,7 +430,849 @@ This function finds the sector a company operates in - where it gives its SIC co
 <div id="director-information" class="section level2">
 <h2 class="hasAnchor">
 <a href="#director-information" class="anchor"></a>Director Information</h2>
-<p>In <code>CompaniesHouse</code> you can also examine the boards that a director sits on, if you have the director id.</p>
+<p>In <code>CompaniesHouse</code> you can also examine the boards that a director sits on, if you have the director id. The <code>indiv_ExtractDirectorsData</code> function returns a list of firms where the individual has served as a member of the board.</p>
+<p>You can also search for directors by name - in a similar way to company searches. Where you can search by director name. Similar to the company search there are three options:<br>
+1. <code>DirectorSearch_limit_first</code> This returns the first director from the search results<br>
+2. <code>DirectorSearch_limit</code> This return the first page of search results<br>
+3. <code>DirectorSearch</code> This returns all search results</p>
+<div id="example" class="section level3">
+<h3 class="hasAnchor">
+<a href="#example" class="anchor"></a>Example</h3>
+<p>An example of the director search function can be used for examining Boris Johnson and the firms he has previously acted as a director.</p>
+<p>The first steps is to use the function to identify his director id. His date of birth is June 1964 - this information can be used to identify the correct person and id.</p>
+<div class="sourceCode" id="cb6"><pre class="r"><span class="co">##Use of make use of tidyverse package to process the dataframe</span>
+<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">tidyverse</span>)
+<span class="no">boris_search</span><span class="kw">&lt;-</span><span class="fu"><a href="reference/DirectorSearch_limit.html">DirectorSearch_limit</a></span>(<span class="st">"boris johnson"</span>,<span class="no">mkey</span>) <span class="kw">%&gt;%</span>
+  <span class="fu"><a href="https://rdrr.io/r/stats/filter.html">filter</a></span>(<span class="no">month.of.birth</span><span class="kw">==</span><span class="fl">6</span> <span class="kw">&amp;</span>
+           <span class="no">year.of.birth</span><span class="kw">==</span><span class="fl">1964</span>)</pre></div>
+<table class="table">
+<thead><tr>
+<th style="text-align:left;">
+<p>id.search.term</p>
+</th>
+<th style="text-align:left;">
+<p>director.id</p>
+</th>
+<th style="text-align:left;">
+<p>person.name</p>
+</th>
+<th style="text-align:left;">
+<p>addess.snippet</p>
+</th>
+<th style="text-align:left;">
+<p>locality</p>
+</th>
+<th style="text-align:right;">
+<p>month.of.birth</p>
+</th>
+<th style="text-align:right;">
+<p>year.of.birth</p>
+</th>
+</tr></thead>
+<tbody><tr>
+<td style="text-align:left;">
+<p>boris johnson</p>
+</td>
+<td style="text-align:left;">
+<p>EZWa9WI6ur100VnMhfHT6EP4twA</p>
+</td>
+<td style="text-align:left;">
+<p>Alexander Boris De Pfeffel JOHNSON</p>
+</td>
+<td style="text-align:left;">
+<p>13 Furlong Road, London, N7 8LS</p>
+</td>
+<td style="text-align:left;">
+<p>London</p>
+</td>
+<td style="text-align:right;">
+<p>6</p>
+</td>
+<td style="text-align:right;">
+<p>1964</p>
+</td>
+</tr></tbody>
+</table>
+<p>Now we have his id, we can extract the list of firms where he has been a director.</p>
+<div class="sourceCode" id="cb7"><pre class="r"><span class="no">boris_info</span><span class="kw">&lt;-</span><span class="fu"><a href="reference/indiv_ExtractDirectorsData.html">indiv_ExtractDirectorsData</a></span>(<span class="no">boris_search</span>$<span class="no">director.id</span>,<span class="no">mkey</span>)</pre></div>
+<table class="table">
+<thead><tr>
+<th style="text-align:left;">
+<p>company.id</p>
+</th>
+<th style="text-align:left;">
+<p>comapny.name</p>
+</th>
+<th style="text-align:left;">
+<p>director.id</p>
+</th>
+<th style="text-align:left;">
+<p>directors</p>
+</th>
+<th style="text-align:left;">
+<p>director.forename</p>
+</th>
+<th style="text-align:left;">
+<p>director.surname</p>
+</th>
+<th style="text-align:left;">
+<p>start.date</p>
+</th>
+<th style="text-align:left;">
+<p>end.date</p>
+</th>
+<th style="text-align:left;">
+<p>occupation</p>
+</th>
+<th style="text-align:left;">
+<p>role</p>
+</th>
+<th style="text-align:left;">
+<p>residence</p>
+</th>
+<th style="text-align:left;">
+<p>postcode</p>
+</th>
+<th style="text-align:left;">
+<p>nationality</p>
+</th>
+<th style="text-align:right;">
+<p>birth.year</p>
+</th>
+<th style="text-align:right;">
+<p>birth.month</p>
+</th>
+<th style="text-align:left;">
+<p>appointment.kind</p>
+</th>
+<th style="text-align:left;">
+<p>download.date</p>
+</th>
+</tr></thead>
+<tbody><tr>
+<td style="text-align:left;">
+<p>05774105</p>
+</td>
+<td style="text-align:left;">
+<p>FINLAND STATION LIMITED</p>
+</td>
+<td style="text-align:left;">
+<p>EZWa9WI6ur100VnMhfHT6EP4twA</p>
+</td>
+<td style="text-align:left;">
+<p>Alexander Boris De Pfeffel JOHNSON</p>
+</td>
+<td style="text-align:left;">
+<p>Alexander</p>
+</td>
+<td style="text-align:left;">
+<p>JOHNSON</p>
+</td>
+<td style="text-align:left;">
+<p>2006-04-07</p>
+</td>
+<td style="text-align:left;">
+<p>2008-05-23</p>
+</td>
+<td style="text-align:left;">
+<p>Editor/Politician</p>
+</td>
+<td style="text-align:left;">
+<p>director</p>
+</td>
+<td style="text-align:left;">
+<p>NA</p>
+</td>
+<td style="text-align:left;">
+<p>N7 8LS</p>
+</td>
+<td style="text-align:left;">
+<p>British</p>
+</td>
+<td style="text-align:right;">
+<p>1964</p>
+</td>
+<td style="text-align:right;">
+<p>6</p>
+</td>
+<td style="text-align:left;">
+<p>personal-appointment</p>
+</td>
+<td style="text-align:left;">
+<p>11/10/2020 19:09:53</p>
+</td>
+</tr></tbody>
+</table>
+</div>
+</div>
+<div id="networks" class="section level2">
+<h2 class="hasAnchor">
+<a href="#networks" class="anchor"></a>Networks</h2>
+<p>The package can be used to create a set of networks.<br>
+- Interlocking directorates network: a set of companies and individuals, where individuals are tied to companies where they sit on the board of directors.<br>
+- Director network: a set of directors, where they are linked if they sit on the same company board.<br>
+- Company network: a set of companies, where they are linked if they share a director.</p>
+<div id="create-networks" class="section level3">
+<h3 class="hasAnchor">
+<a href="#create-networks" class="anchor"></a>Create Networks</h3>
+<p>The following functions create the various networks. Where a list of company numbers is required to create these networks.</p>
+<div id="interlocking-directorates-network" class="section level4">
+<h4 class="hasAnchor">
+<a href="#interlocking-directorates-network" class="anchor"></a>Interlocking Directorates Network</h4>
+<p>When creating the interlock network - you need to specify the years that you want to cover - a start year and end year There are two ways to create the interlocking directorates network:</p>
+<p>1.) From a list of company numbers</p>
+<div class="sourceCode" id="cb8"><pre class="r"><span class="no">INTERLOCKS1</span><span class="kw">&lt;-</span><span class="fu"><a href="reference/InterlockNetwork.html">InterlockNetwork</a></span>(<span class="no">List.of.company.numbers</span>,<span class="no">mkey</span>)
+
+<span class="co">##Example for all company numbers associated with the </span>
+<span class="co">##Unilever search term for 2015 -2020 </span>
+<span class="co">##The first steps is to remove companbies that are no longer active from the list, then create the interlock network </span>
+<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">tidyverse</span>)
+<span class="no">COMP_LIST</span><span class="kw">&lt;-</span><span class="no">CompanySearchList</span><span class="kw">%&gt;%</span>
+  <span class="fu"><a href="https://rdrr.io/r/stats/filter.html">filter</a></span>(<span class="no">company.status</span><span class="kw">==</span><span class="st">"active"</span>)
+
+<span class="no">INTERLOCKS1</span><span class="kw">&lt;-</span><span class="fu"><a href="reference/InterlockNetwork.html">InterlockNetwork</a></span>(<span class="no">COMP_LIST</span>$<span class="no">company.number</span>,<span class="no">mkey</span>,<span class="kw">start</span> <span class="kw">=</span> <span class="fl">2015</span>,<span class="kw">end</span> <span class="kw">=</span> <span class="fl">2020</span>)</pre></div>
+<p>2.) From a data frame produced using the <code>indiv_ExtractDirectorsData</code> function. This dataframe can be edited manually to use company names (or perhaps another id system) in the network.</p>
+<div class="sourceCode" id="cb9"><pre class="r"><span class="no">INTERLOCKS2</span><span class="kw">&lt;-</span><span class="fu"><a href="reference/make_interlock.html">make_interlock</a></span>(<span class="no">DataFrame</span>)
+
+<span class="co">##Example for all company numbers associated with the </span>
+<span class="co">##Unilever search term - the dataframe created with indiv_ExtractDirectorsData</span>
+<span class="no">INTERLOCKS2</span><span class="kw">&lt;-</span><span class="fu"><a href="reference/make_interlock.html">make_interlock</a></span>(<span class="no">MultilpleDirectorInfo</span>)</pre></div>
+</div>
+<div id="company-network" class="section level4">
+<h4 class="hasAnchor">
+<a href="#company-network" class="anchor"></a>Company Network</h4>
+<p>The next network that can be created with the <code>CompaniesHouse</code> package is the company network. This is a one-mode projection of th interlocking directorates network. It is a set of companies that are linked when they share a director.</p>
+<div class="sourceCode" id="cb10"><pre class="r"><span class="no">CompanyNET</span><span class="kw">&lt;-</span><span class="fu"><a href="reference/CompanyNetwork.html">CompanyNetwork</a></span>(<span class="no">List.of.company.numbers</span>,<span class="no">mkey</span>,<span class="kw">start</span> <span class="kw">=</span> <span class="fl">2015</span>,<span class="kw">end</span> <span class="kw">=</span> <span class="fl">2020</span>)
+
+<span class="co">##Example for all company numbers associated with the </span>
+<span class="co">##Unilever search term:</span>
+<span class="no">CompanyNET</span><span class="kw">&lt;-</span><span class="fu"><a href="reference/CompanyNetwork.html">CompanyNetwork</a></span>(<span class="no">COMP_LIST</span>$<span class="no">company.number</span>,<span class="no">mkey</span>,<span class="kw">start</span> <span class="kw">=</span> <span class="fl">2015</span>,<span class="kw">end</span> <span class="kw">=</span> <span class="fl">2020</span>)</pre></div>
+</div>
+<div id="director-network" class="section level4">
+<h4 class="hasAnchor">
+<a href="#director-network" class="anchor"></a>Director Network</h4>
+<p>The next network that can be created with the <code>CompaniesHouse</code> package is the director network. This is a one-mode projection of the interlocking directorates network, but for directors instead of companies. It is a set of direcotrs that are linked when they share a sit on the same board.</p>
+<div class="sourceCode" id="cb11"><pre class="r"><span class="no">DirNET</span><span class="kw">&lt;-</span><span class="fu"><a href="reference/DirectorNetwork.html">DirectorNetwork</a></span>(<span class="no">List.of.company.numbers</span>,<span class="no">mkey</span>,<span class="kw">start</span> <span class="kw">=</span> <span class="fl">2015</span>,<span class="kw">end</span> <span class="kw">=</span> <span class="fl">2020</span>)
+
+<span class="co">##Example for all company numbers associated with the </span>
+<span class="co">##Unilever search term:</span>
+<span class="no">DirNET</span><span class="kw">&lt;-</span><span class="fu"><a href="reference/DirectorNetwork.html">DirectorNetwork</a></span>(<span class="no">COMP_LIST</span>$<span class="no">company.number</span>,<span class="no">mkey</span>,<span class="kw">start</span> <span class="kw">=</span> <span class="fl">2015</span>,<span class="kw">end</span> <span class="kw">=</span> <span class="fl">2020</span>)</pre></div>
+</div>
+</div>
+<div id="network-analysis" class="section level3">
+<h3 class="hasAnchor">
+<a href="#network-analysis" class="anchor"></a>Network Analysis</h3>
+<p>The network (<code>igraph</code> object) is required for these functions. These are calculated using the commands from the “Create Networks” section.</p>
+<div id="centrality" class="section level4">
+<h4 class="hasAnchor">
+<a href="#centrality" class="anchor"></a>Centrality</h4>
+<p>For each network we can calculate a range of centrality measures. The director and company networks are one-mode networks, so a wider range of centrality measures can be calculated.</p>
+<div class="sourceCode" id="cb12"><pre class="r"><span class="no">INTERLOCKcent</span><span class="kw">&lt;-</span><span class="fu"><a href="reference/InterlockCentrality.html">InterlockCentrality</a></span>(<span class="no">INTERLOCKS1</span>)</pre></div>
+<table class="table">
+<thead><tr>
+<th style="text-align:left;">
+</th>
+<th style="text-align:left;">
+<p>NAMES</p>
+</th>
+<th style="text-align:right;">
+<p>Degree.Centrality</p>
+</th>
+</tr></thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+<p>00041424</p>
+</td>
+<td style="text-align:left;">
+<p>00041424</p>
+</td>
+<td style="text-align:right;">
+<p>20</p>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<p>00137659</p>
+</td>
+<td style="text-align:left;">
+<p>00137659</p>
+</td>
+<td style="text-align:right;">
+<p>4</p>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<p>00315312</p>
+</td>
+<td style="text-align:left;">
+<p>00315312</p>
+</td>
+<td style="text-align:right;">
+<p>4</p>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="sourceCode" id="cb13"><pre class="r"><span class="no">COMPANYcent</span><span class="kw">&lt;-</span><span class="fu"><a href="reference/one_mode_centrality.html">one_mode_centrality</a></span>(<span class="no">CompanyNET</span>)</pre></div>
+<table class="table">
+<thead><tr>
+<th style="text-align:left;">
+</th>
+<th style="text-align:left;">
+<p>name</p>
+</th>
+<th style="text-align:right;">
+<p>Weighted.Degree</p>
+</th>
+<th style="text-align:right;">
+<p>Binary.Degree</p>
+</th>
+<th style="text-align:right;">
+<p>Betweenness</p>
+</th>
+<th style="text-align:right;">
+<p>Closeness</p>
+</th>
+<th style="text-align:right;">
+<p>Eigenvector</p>
+</th>
+<th style="text-align:left;">
+<p>NAMES</p>
+</th>
+</tr></thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+<p>00041424</p>
+</td>
+<td style="text-align:left;">
+<p>00041424</p>
+</td>
+<td style="text-align:right;">
+<p>2</p>
+</td>
+<td style="text-align:right;">
+<p>2</p>
+</td>
+<td style="text-align:right;">
+<p>0.0000</p>
+</td>
+<td style="text-align:right;">
+<p>0.0110</p>
+</td>
+<td style="text-align:right;">
+<p>0.0018</p>
+</td>
+<td style="text-align:left;">
+<p>00041424</p>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<p>00137659</p>
+</td>
+<td style="text-align:left;">
+<p>00137659</p>
+</td>
+<td style="text-align:right;">
+<p>25</p>
+</td>
+<td style="text-align:right;">
+<p>11</p>
+</td>
+<td style="text-align:right;">
+<p>3.1333</p>
+</td>
+<td style="text-align:right;">
+<p>0.0152</p>
+</td>
+<td style="text-align:right;">
+<p>1.0000</p>
+</td>
+<td style="text-align:left;">
+<p>00137659</p>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<p>00315312</p>
+</td>
+<td style="text-align:left;">
+<p>00315312</p>
+</td>
+<td style="text-align:right;">
+<p>25</p>
+</td>
+<td style="text-align:right;">
+<p>11</p>
+</td>
+<td style="text-align:right;">
+<p>3.1333</p>
+</td>
+<td style="text-align:right;">
+<p>0.0152</p>
+</td>
+<td style="text-align:right;">
+<p>1.0000</p>
+</td>
+<td style="text-align:left;">
+<p>00315312</p>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="sourceCode" id="cb14"><pre class="r"><span class="no">DIRcent</span><span class="kw">&lt;-</span><span class="fu"><a href="reference/one_mode_centrality.html">one_mode_centrality</a></span>(<span class="no">DirNET</span>)</pre></div>
+<table class="table">
+<thead><tr>
+<th style="text-align:left;">
+</th>
+<th style="text-align:left;">
+<p>name</p>
+</th>
+<th style="text-align:right;">
+<p>Weighted.Degree</p>
+</th>
+<th style="text-align:right;">
+<p>Binary.Degree</p>
+</th>
+<th style="text-align:right;">
+<p>Betweenness</p>
+</th>
+<th style="text-align:right;">
+<p>Closeness</p>
+</th>
+<th style="text-align:right;">
+<p>Eigenvector</p>
+</th>
+<th style="text-align:left;">
+<p>NAMES</p>
+</th>
+</tr></thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+<p>p9NWLNpKrF1rsf9hRuxo6j0YbJQ</p>
+</td>
+<td style="text-align:left;">
+<p>p9NWLNpKrF1rsf9hRuxo6j0YbJQ</p>
+</td>
+<td style="text-align:right;">
+<p>19</p>
+</td>
+<td style="text-align:right;">
+<p>19</p>
+</td>
+<td style="text-align:right;">
+<p>0</p>
+</td>
+<td style="text-align:right;">
+<p>0.0012</p>
+</td>
+<td style="text-align:right;">
+<p>0.9103</p>
+</td>
+<td style="text-align:left;">
+<p>p9NWLNpKrF1rsf9hRuxo6j0YbJQ</p>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<p>bJK4sl0SPT-Zxzq88lC1ouqrtl8</p>
+</td>
+<td style="text-align:left;">
+<p>bJK4sl0SPT-Zxzq88lC1ouqrtl8</p>
+</td>
+<td style="text-align:right;">
+<p>19</p>
+</td>
+<td style="text-align:right;">
+<p>19</p>
+</td>
+<td style="text-align:right;">
+<p>0</p>
+</td>
+<td style="text-align:right;">
+<p>0.0012</p>
+</td>
+<td style="text-align:right;">
+<p>0.9103</p>
+</td>
+<td style="text-align:left;">
+<p>bJK4sl0SPT-Zxzq88lC1ouqrtl8</p>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<p>-dJ_v_xnd71ByCzbr1g-uLqafak</p>
+</td>
+<td style="text-align:left;">
+<p>-dJ_v_xnd71ByCzbr1g-uLqafak</p>
+</td>
+<td style="text-align:right;">
+<p>19</p>
+</td>
+<td style="text-align:right;">
+<p>19</p>
+</td>
+<td style="text-align:right;">
+<p>0</p>
+</td>
+<td style="text-align:right;">
+<p>0.0012</p>
+</td>
+<td style="text-align:right;">
+<p>0.9103</p>
+</td>
+<td style="text-align:left;">
+<p>-dJ_v_xnd71ByCzbr1g-uLqafak</p>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="network-properties" class="section level4">
+<h4 class="hasAnchor">
+<a href="#network-properties" class="anchor"></a>Network properties</h4>
+<p>We can calculate the properties of the director and company networks.</p>
+<div class="sourceCode" id="cb15"><pre class="r"><span class="no">COMPANYprop</span><span class="kw">&lt;-</span><span class="fu"><a href="reference/CompanyNetworkProperties.html">CompanyNetworkProperties</a></span>(<span class="no">CompanyNET</span>)</pre></div>
+<table class="table">
+<thead><tr>
+<th style="text-align:left;">
+</th>
+<th style="text-align:right;">
+<p>One-Mode Company Network</p>
+</th>
+</tr></thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+<p>Size</p>
+</td>
+<td style="text-align:right;">
+<p>17.0000</p>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<p>Density</p>
+</td>
+<td style="text-align:right;">
+<p>0.4338</p>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<p>Diameter</p>
+</td>
+<td style="text-align:right;">
+<p>5.0000</p>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<p>Average.path.lenth</p>
+</td>
+<td style="text-align:right;">
+<p>1.7905</p>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<p>Average.node.stregnth</p>
+</td>
+<td style="text-align:right;">
+<p>6.1176</p>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<p>Average.Degree</p>
+</td>
+<td style="text-align:right;">
+<p>3.4706</p>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<p>Betweenness.Centralisation</p>
+</td>
+<td style="text-align:right;">
+<p>0.2502</p>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<p>Closeness.Centralisation</p>
+</td>
+<td style="text-align:right;">
+<p>0.1160</p>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<p>Eigenvector.Centralisation</p>
+</td>
+<td style="text-align:right;">
+<p>0.4333</p>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<p>Degree.Centralisation</p>
+</td>
+<td style="text-align:right;">
+<p>0.2537</p>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<p>Clustering.coefficent.transitivity</p>
+</td>
+<td style="text-align:right;">
+<p>0.8491</p>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<p>Clustering.Weighted</p>
+</td>
+<td style="text-align:right;">
+<p>0.9158</p>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="sourceCode" id="cb16"><pre class="r"><span class="no">DIRprop</span><span class="kw">&lt;-</span><span class="fu"><a href="reference/DirectorNetworkProperties.html">DirectorNetworkProperties</a></span>(<span class="no">DirNET</span>)</pre></div>
+<table class="table">
+<thead><tr>
+<th style="text-align:left;">
+</th>
+<th style="text-align:right;">
+<p>One-Mode Director Network</p>
+</th>
+</tr></thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+<p>Size</p>
+</td>
+<td style="text-align:right;">
+<p>66.0000</p>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<p>Density</p>
+</td>
+<td style="text-align:right;">
+<p>0.1716</p>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<p>Diameter</p>
+</td>
+<td style="text-align:right;">
+<p>6.0000</p>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<p>Average.path.lenth</p>
+</td>
+<td style="text-align:right;">
+<p>2.6284</p>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<p>Average.node.stregnth</p>
+</td>
+<td style="text-align:right;">
+<p>6.0606</p>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<p>Average.Degree</p>
+</td>
+<td style="text-align:right;">
+<p>5.5758</p>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<p>Betweenness.Centralisation</p>
+</td>
+<td style="text-align:right;">
+<p>0.3776</p>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<p>Closeness.Centralisation</p>
+</td>
+<td style="text-align:right;">
+<p>0.0298</p>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<p>Eigenvector.Centralisation</p>
+</td>
+<td style="text-align:right;">
+<p>0.7157</p>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<p>Degree.Centralisation</p>
+</td>
+<td style="text-align:right;">
+<p>0.3669</p>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<p>Clustering.coefficent.transitivity</p>
+</td>
+<td style="text-align:right;">
+<p>0.8848</p>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<p>Clustering.Weighted</p>
+</td>
+<td style="text-align:right;">
+<p>0.8231</p>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div id="plot-networks" class="section level3">
+<h3 class="hasAnchor">
+<a href="#plot-networks" class="anchor"></a>Plot Networks</h3>
+<p>The following function create plots of various networks. The TRUE/FALSE option indicates whether node labels should be included in the plots or not. The network plots are created from a list of company numbers for a quick inspection of the networks. There are a number of other commands and packages that can be used to create high quality network visualisations from the network objects in R. You can also specify the node size - in the following examples we use size 6.</p>
+<div class="sourceCode" id="cb17"><pre class="r"><span class="fu"><a href="reference/InterlockNetworkPLOT.html">InterlockNetworkPLOT</a></span>(<span class="no">COMP_LIST</span>$<span class="no">company.number</span>,<span class="no">mkey</span>,<span class="fl">FALSE</span>,<span class="kw">NodeSize</span> <span class="kw">=</span> <span class="fl">6</span>,<span class="kw">start</span> <span class="kw">=</span> <span class="fl">2015</span>,<span class="kw">end</span> <span class="kw">=</span> <span class="fl">2020</span>)</pre></div>
+<p><img src="README_files/figure-markdown_github/INTERLOCK.png"></p>
+<div class="sourceCode" id="cb18"><pre class="r"><span class="co">#Directors Plot</span>
+<span class="fu"><a href="reference/DirectorNetworkPLOT.html">DirectorNetworkPLOT</a></span>(<span class="no">COMP_LIST</span>$<span class="no">company.number</span>,<span class="no">mkey</span>,<span class="fl">FALSE</span>,<span class="kw">NodeSize</span> <span class="kw">=</span> <span class="fl">6</span>,<span class="kw">start</span> <span class="kw">=</span> <span class="fl">2015</span>,<span class="kw">end</span> <span class="kw">=</span> <span class="fl">2020</span>)</pre></div>
+<p><img src="README_files/figure-markdown_github/DIRECTOR.png"></p>
+<div class="sourceCode" id="cb19"><pre class="r"><span class="co">#Company Plot</span>
+<span class="fu"><a href="reference/CompanyNetworkPLOT.html">CompanyNetworkPLOT</a></span>(<span class="no">COMP_LIST</span>$<span class="no">company.number</span>,<span class="no">mkey</span>,<span class="fl">FALSE</span>,<span class="kw">NodeSize</span> <span class="kw">=</span> <span class="fl">6</span>,<span class="kw">start</span> <span class="kw">=</span> <span class="fl">2015</span>,<span class="kw">end</span> <span class="kw">=</span> <span class="fl">2020</span>)</pre></div>
+<p><img src="README_files/figure-markdown_github/COMPANY.png"></p>
+<p>You can also create grid plots - showing a plot of all three networks on a single grid using the <code>cowplot</code> library. In the example below we plot the networks in a grid, setting node size to degree centrality.</p>
+<div class="sourceCode" id="cb20"><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">cowplot</span>)
+<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">CompaniesHouse</span>)
+<span class="co">##Create plot objects with node size based on centrality</span>
+<span class="no">interlock.plot</span><span class="kw">&lt;-</span><span class="fu"><a href="reference/InterlockNetworkPLOT.html">InterlockNetworkPLOT</a></span>(<span class="no">COMP_LIST</span>$<span class="no">company.number</span>,
+                                     <span class="no">mkey</span>,<span class="fl">FALSE</span>,<span class="kw">NodeSize</span> <span class="kw">=</span> <span class="st">"CENTRALITY"</span>,
+                                     <span class="kw">start</span> <span class="kw">=</span> <span class="fl">2015</span>,<span class="kw">end</span> <span class="kw">=</span> <span class="fl">2020</span>)
+<span class="no">director.plot</span><span class="kw">&lt;-</span><span class="fu"><a href="reference/DirectorNetworkPLOT.html">DirectorNetworkPLOT</a></span>(<span class="no">COMP_LIST</span>$<span class="no">company.number</span>,
+                                   <span class="no">mkey</span>,<span class="fl">FALSE</span>,<span class="kw">NodeSize</span> <span class="kw">=</span> <span class="st">"CENTRALITY"</span>,
+                                   <span class="kw">start</span> <span class="kw">=</span> <span class="fl">2015</span>,<span class="kw">end</span> <span class="kw">=</span> <span class="fl">2020</span>)
+<span class="no">company.plot</span><span class="kw">&lt;-</span><span class="fu"><a href="reference/CompanyNetworkPLOT.html">CompanyNetworkPLOT</a></span>(<span class="no">COMP_LIST</span>$<span class="no">company.number</span>,
+                                 <span class="no">mkey</span>,<span class="fl">FALSE</span>,<span class="kw">NodeSize</span> <span class="kw">=</span> <span class="st">"CENTRALITY"</span>,
+                                 <span class="kw">start</span> <span class="kw">=</span> <span class="fl">2015</span>,<span class="kw">end</span> <span class="kw">=</span> <span class="fl">2020</span>)
+
+<span class="co">##Plot as a grid</span>
+<span class="fu"><a href="https://rdrr.io/pkg/cowplot/man/plot_grid.html">plot_grid</a></span>(<span class="no">interlock.plot</span>,<span class="no">director.plot</span>,<span class="no">company.plot</span>,
+          <span class="kw">labels</span><span class="kw">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"Interlocks"</span>,<span class="st">"Directors"</span>,<span class="st">"Companies"</span>))</pre></div>
+<p><img src="README_files/figure-markdown_github/COWPLOT.png"></p>
+</div>
+</div>
+<div id="additional-useful-functions" class="section level2">
+<h2 class="hasAnchor">
+<a href="#additional-useful-functions" class="anchor"></a>Additional useful functions</h2>
+<div id="gender-information" class="section level3">
+<h3 class="hasAnchor">
+<a href="#gender-information" class="anchor"></a>Gender Information</h3>
+<p>If your research require to examine the gender of directors, and how patterns of interlocking directorates differ for males and female, you will need additional information, as companies house does not provide gender information. However, there are a number of R packages that estimate the likelihood that a individual is male or female based on their first names. Although this is restricted to English first names, it still remains a useful tool to proxy gender information.</p>
+<p>The available packages include <code>gender</code> and <code>genderize</code>. In the following example, we make use of the <code>genderize</code> package. We extract the gender information for all actors in the example Unilever director network, and then plot this network with the gender information.</p>
+<p>This examples shows how you can identify gender for a network of directors where the director name is present. These commands cannot be directly to the object created by the <code>CompaniesHouse</code> package, as the directors are identified by their id only in this network.</p>
+<div class="sourceCode" id="cb21"><pre class="r"><span class="co">##Load the relevant packages</span>
+<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">igraph</span>)
+<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">magrittr</span>)
+<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">intergraph</span>)
+<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">network</span>)
+<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">GGally</span>)
+<span class="co">#devtools::install_github("kalimu/genderizeR")</span>
+<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">genderizeR</span>)
+
+<span class="co">##Create name dataframe from director network</span>
+<span class="no">directornames</span><span class="kw">&lt;-</span><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/V.html">V</a></span>(<span class="no">DirNET</span>)$<span class="no">name</span><span class="kw">%&gt;%</span><span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html">as.data.frame</a></span>(<span class="no">.</span>,<span class="kw">stringsAsFactors</span><span class="kw">=</span><span class="fl">FALSE</span>)
+<span class="fu"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span>(<span class="no">directornames</span>)<span class="kw">&lt;-</span><span class="st">"Names"</span>
+
+<span class="co">##Split the names into first and last names</span>
+<span class="no">names.split</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/strsplit.html">strsplit</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/unlist.html">unlist</a></span>(<span class="no">directornames</span>$<span class="no">Names</span>), <span class="st">","</span>)
+<span class="no">name.last</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html">sapply</a></span>(<span class="no">names.split</span>, <span class="kw">function</span>(<span class="no">x</span>) <span class="no">x</span>[<span class="fl">1</span>])
+<span class="no">name.first</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html">sapply</a></span>(<span class="no">names.split</span>, <span class="kw">function</span>(<span class="no">x</span>)
+  <span class="co"># this deals with empty name slots in your original list, returning NA</span>
+  <span class="kw">if</span>(<span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span>(<span class="no">x</span>) <span class="kw">==</span> <span class="fl">0</span>) {
+    <span class="fl">NA</span>
+    } <span class="kw">else</span> <span class="kw">if</span> (<span class="no">x</span>[<span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span>(<span class="no">x</span>)] <span class="kw">%in%</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"Jr."</span>, <span class="st">"Jr"</span>, <span class="st">"Sr."</span>, <span class="st">"Sr"</span>,
+                                 <span class="st">"Dr"</span>, <span class="st">" Dr"</span>, <span class="st">" Baron"</span>,<span class="st">"Dr."</span>, <span class="st">" Dr."</span>,
+                                 <span class="st">"Professor"</span>, <span class="st">" Professor"</span>)) {
+    <span class="fu"><a href="https://rdrr.io/r/base/grep.html">gsub</a></span>(<span class="st">"[[:punct:]]"</span>, <span class="st">""</span>, <span class="no">x</span>[<span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span>(<span class="no">x</span>) - <span class="fl">1</span>])
+
+  } <span class="kw">else</span> {
+    <span class="no">x</span>[<span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span>(<span class="no">x</span>)]
+  })
+
+<span class="co">##Create new names dataframe</span>
+<span class="no">nameDF</span><span class="kw">&lt;-</span><span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span>(<span class="kw">id</span><span class="kw">=</span><span class="fl">1</span>:<span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span>(<span class="no">name.first</span>),
+                   <span class="kw">name.first</span><span class="kw">=</span><span class="no">name.first</span>,
+                   <span class="kw">name.last</span><span class="kw">=</span><span class="no">name.last</span>)
+
+<span class="no">nameDF</span>$<span class="no">name.first</span><span class="kw">&lt;-</span><span class="fu"><a href="https://rdrr.io/r/base/character.html">as.character</a></span>(<span class="no">nameDF</span>$<span class="no">name.first</span>)
+<span class="no">nameDF</span>$<span class="no">name.first</span><span class="kw">&lt;-</span><span class="fu"><a href="https://rdrr.io/r/base/trimws.html">trimws</a></span>(<span class="no">nameDF</span>$<span class="no">name.first</span>)
+<span class="no">nameDF</span>$<span class="no">name.last</span><span class="kw">&lt;-</span><span class="fu"><a href="https://rdrr.io/r/base/character.html">as.character</a></span>(<span class="no">nameDF</span>$<span class="no">name.last</span>)
+
+<span class="co">##Extract first word of first name vectors (as this can also include middle/multiple names etc)</span>
+<span class="co">##This will be used as matching key later.</span>
+<span class="no">name1</span><span class="kw">&lt;-</span><span class="fu"><a href="https://rdrr.io/r/base/grep.html">gsub</a></span>(<span class="st">" .*"</span>, <span class="st">''</span>, <span class="no">nameDF</span>$<span class="no">name.first</span>)
+<span class="no">nameDF</span><span class="kw">&lt;-</span><span class="fu"><a href="https://rdrr.io/r/base/cbind.html">cbind</a></span>(<span class="no">nameDF</span>,<span class="no">name1</span>)
+<span class="no">nameDF</span>$<span class="no">name1</span><span class="kw">&lt;-</span><span class="fu"><a href="https://rdrr.io/r/base/character.html">as.character</a></span>(<span class="no">nameDF</span>$<span class="no">name1</span>)<span class="kw">%&gt;%</span><span class="fu"><a href="https://rdrr.io/r/base/chartr.html">tolower</a></span>()
+
+<span class="co">##Implement genderizeR</span>
+<span class="no">xPrepared</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/pkg/genderizeR/man/textPrepare.html">textPrepare</a></span>(<span class="no">nameDF</span>$<span class="no">name.first</span>)
+<span class="no">givenNames</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/pkg/genderizeR/man/findGivenNames.html">findGivenNames</a></span>(<span class="no">xPrepared</span>, <span class="kw">progress</span> <span class="kw">=</span> <span class="fl">FALSE</span>) <span class="kw">%&gt;%</span> <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html">as.data.frame</a></span>(<span class="no">.</span>,<span class="kw">stringsAsFactors</span><span class="kw">=</span><span class="fl">FALSE</span>)
+
+<span class="co">##From this create a gender-name key</span>
+<span class="no">nameKEY</span><span class="kw">&lt;-</span><span class="no">givenNames</span>
+<span class="no">nameKEY</span>$<span class="no">probability</span><span class="kw">&lt;-</span><span class="kw">NULL</span>
+<span class="no">nameKEY</span>$<span class="no">count</span><span class="kw">&lt;-</span><span class="kw">NULL</span>
+<span class="fu"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span>(<span class="no">nameKEY</span>)<span class="kw">&lt;-</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"name1"</span>,<span class="st">"gender"</span>)
+
+<span class="co">##Merge this will the director name dataframe</span>
+<span class="no">nameDF</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/merge.html">merge</a></span>(<span class="no">nameDF</span>, <span class="no">nameKEY</span>, <span class="kw">by</span> <span class="kw">=</span> <span class="st">"name1"</span>,<span class="kw">all.x</span> <span class="kw">=</span> <span class="fl">TRUE</span>)
+<span class="no">nameDF</span>$<span class="no">name1</span><span class="kw">&lt;-</span><span class="kw">NULL</span>
+<span class="no">nameDF</span>[<span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span>(<span class="no">nameDF</span>)]<span class="kw">&lt;-</span><span class="st">"na"</span>
+
+<span class="co">##Add these as igraph network attributes</span>
+<span class="fu"><a href="https://rdrr.io/pkg/igraph/man/V.html">V</a></span>(<span class="no">DirNET</span>)$<span class="no">gender</span><span class="kw">&lt;-</span><span class="no">nameDF</span>$<span class="no">gender</span>
+<span class="no">numericgender</span><span class="kw">&lt;-</span><span class="fu"><a href="https://rdrr.io/r/base/factor.html">as.factor</a></span>(<span class="no">nameDF</span>$<span class="no">gender</span>)<span class="kw">%&gt;%</span><span class="fu"><a href="https://rdrr.io/r/base/numeric.html">as.numeric</a></span>() <span class="co">#Add numeric attribute</span>
+<span class="fu"><a href="https://rdrr.io/pkg/igraph/man/V.html">V</a></span>(<span class="no">DirNET</span>)$<span class="no">gendernumeric</span><span class="kw">&lt;-</span><span class="no">numericgender</span>
+
+<span class="co">##plot director network with gender information</span>
+<span class="no">DIRnetwork</span><span class="kw">&lt;-</span><span class="fu"><a href="https://rdrr.io/pkg/intergraph/man/asNetwork.html">asNetwork</a></span>(<span class="no">DirNET</span>)
+
+<span class="fu"><a href="https://ggobi.github.io/ggally/reference/ggnet2.html">ggnet2</a></span>(<span class="no">DIRnetwork</span>,<span class="kw">color.palette</span><span class="kw">=</span><span class="st">"Set1"</span>,
+       <span class="kw">node.size</span><span class="kw">=</span><span class="fl">4</span>,<span class="kw">color.legend</span> <span class="kw">=</span> <span class="st">"Gender"</span>,
+       <span class="kw">node.color</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/pkg/igraph/man/vertex_attr.html">get.vertex.attribute</a></span>(<span class="no">DIRnetwork</span>,<span class="st">"gender"</span>),
+       <span class="kw">label</span> <span class="kw">=</span> <span class="fl">FALSE</span>,<span class="kw">edge.color</span> <span class="kw">=</span>  <span class="st">"grey50"</span>,<span class="kw">arrow.size</span><span class="kw">=</span><span class="fl">0</span>)
+
+<span class="co">####NOTE</span>
+<span class="co">##This can implemented for other languages (not just english names), </span>
+<span class="co">##if the following is implemented.</span>
+<span class="fu"><a href="https://rdrr.io/r/base/locales.html">Sys.setlocale</a></span>(<span class="st">"LC_ALL"</span>, <span class="st">"Polish"</span>) <span class="co">#Polish example</span>
+<span class="co">##see the genderizeR documentation for further details</span></pre></div>
+</div>
 </div>
 </div>
   </div>
