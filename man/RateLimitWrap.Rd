@@ -22,9 +22,11 @@ Uses \code{trace} to listen in on the headers of each HTTP request. As it's quit
 \code{suppressMessages()}.
 }
 \examples{
+\donttest{
 PersonSearch.Rated <- RateLimitWrap(PersonSearch_limit_first)
 
 PersonSearch.Rated(person, mkey)
 PersonSearch.Rated(person, mkey, silent = TRUE)
 suppressMessages(PersonSearch.Rated(person, mkey))
+}
 }

@@ -8,12 +8,13 @@
 #' @param silent Optional. Suppresses printed messages
 #' @export
 #' @return A function with rate limiting added
-#' @examples
+#' @examples \donttest{
 #' PersonSearch.Rated <- RateLimitWrap(PersonSearch_limit_first)
 #'
 #' PersonSearch.Rated(person, mkey)
 #' PersonSearch.Rated(person, mkey, silent = TRUE)
 #' suppressMessages(PersonSearch.Rated(person, mkey))
+#' }
 
 RateLimitWrap <- function(func, ..., buffer = 5, silent = FALSE) {
 
