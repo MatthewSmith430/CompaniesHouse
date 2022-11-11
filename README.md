@@ -31,7 +31,7 @@ To extract data from companies house (with the API), you will need to
 get an authorisation key.
 
 The instructions on how to obtain your key can be found at:
-<https://developer.companieshouse.gov.uk/api/docs/index/gettingStarted/apikey_authorisation.html/>
+<https://developer.company-information.service.gov.uk/>
 
 When using the package, save your key as `mkey`:
 
