@@ -13,6 +13,7 @@ CompanyDataExtract <- function(company_number,mkey) {
   firmTEXT<-httr::content(firmTEST, as="text")
   JLfirm<-jsonlite::fromJSON(firmTEXT, flatten=TRUE)
   CPF<-JLfirm[[1]][[1]]=="company-profile-not-found"
+  CPF<-unique(CPF)
   if (CPF==TRUE){
     myDf <- data.frame(
       company.number = company_number,
