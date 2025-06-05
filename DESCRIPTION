@@ -3,8 +3,8 @@ Type: Package
 Title: Extract & Process Companies House Data in R
 Version: 0.6.0
 Author: Matthew Smith
-Authors@R: person("Matthew", "Smith", role = c("aut", "cre"), email = "m.smith3@napier.ac.uk")
-Maintainer: Matthew Smith <m.smith3@napier.ac.uk>
+Authors@R: person("Matthew", "Smith", role = c("aut", "cre"), email = "m.smith_2@hw.ac.uk")
+Maintainer: Matthew Smith <m.smith_2@hw.ac.uk>
 Description: This package extracts firm information from Companies House (using the API). The package also provides tools to analyse this data, with a focus on creating interlocking directorates networks from the data.
 Depends: R (>= 3.5.0)
 License: GPL-3
