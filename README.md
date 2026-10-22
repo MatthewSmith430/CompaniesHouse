@@ -31,7 +31,10 @@ To extract data from companies house (with the API), you will need to
 get an authorisation key.
 
 The instructions on how to obtain your key can be found at:
-<https://developer.company-information.service.gov.uk/>
+<https://developer.company-information.service.gov.uk/get-started>
+
+Create a **live** application and a key of type **API key**. A step-by-step walkthrough of each
+choice is [here](https://registrum.co.uk/guides/how-to-get-a-companies-house-api-key).
 
 When using the package, save your key as `mkey`:
 
